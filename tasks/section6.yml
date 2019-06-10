@@ -296,7 +296,7 @@
     owner: root
     group: root
     mode: 0700
-  when: amazonlinuxcis_modify_user_homes
+  when: amazonlinux2cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -307,7 +307,7 @@
   args:
     executable: /bin/bash
   register: home_directories_permissions
-  when: amazonlinuxcis_modify_user_homes
+  when: amazonlinux2cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -316,7 +316,7 @@
 - name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
   debug:
     var: home_directories_permissions.stdout_lines
-  when: amazonlinuxcis_modify_user_homes
+  when: amazonlinux2cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -327,7 +327,7 @@
     msg: "PASS | 6.2.8 | Users' home directories permissions are 750 or more restrictive."
   when:
     - home_directories_permissions.stdout == ""
-    - amazonlinuxcis_modify_user_homes
+    - amazonlinux2cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -339,7 +339,7 @@
     owner: root
     group: root
     state: absent
-  when: amazonlinuxcis_modify_user_homes
+  when: amazonlinux2cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1

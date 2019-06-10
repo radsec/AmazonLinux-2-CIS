@@ -21,10 +21,10 @@
 # tasks file for AmazonLinux2CIS
 - name: Check OS version and family
   fail:
-      msg: "This role can only be run agaist Amazon Linux 2017.9. {{ ansible_distribution }} {{ansible_distribution_version }} is not supported."
+      msg: "This role can only be run against Amazon Linux 2. {{ ansible_distribution }} {{ansible_distribution_version }} is not supported."
   when:
       - ansible_distribution == 'Amazon'
-      - ansible_distribution_version is version('2017.09', '!=')
+      - ansible_distribution_version is version('2', '!=')
   tags:
       - always
 
@@ -33,14 +33,14 @@
       msg: "PASS | {{ ansible_distribution }} {{ansible_distribution_version }} is supported."
   when:
       - ansible_distribution == 'Amazon'
-      - ansible_distribution_version is version('2017.09', '>=')
+      - ansible_distribution_version is version('2', '>=')
   tags:
       - always
 
 - name: Check ansible version
   fail:
-      msg: You must use ansible 2.2 or greater
-  when: not ansible_version.full is version('2.2', '>=')
+      msg: You must use ansible 2.4 or greater
+  when: not ansible_version.full is version('2.4', '>=')
   tags:
       - always
 
@@ -52,27 +52,27 @@
 
 - import_tasks: section1.yml
   become: yes
-  when: amazonlinuxcis_section1
+  when: amazonlinux2cis_section1
 
 - import_tasks: section2.yml
   become: yes
-  when: amazonlinuxcis_section2
+  when: amazonlinux2cis_section2
 
 - import_tasks: section3.yml
   become: yes
-  when: amazonlinuxcis_section3
+  when: amazonlinux2cis_section3
 
 - import_tasks: section4.yml
   become: yes
-  when: amazonlinuxcis_section4
+  when: amazonlinux2cis_section4
 
 - import_tasks: section5.yml
   become: yes
-  when: amazonlinuxcis_section5
+  when: amazonlinux2cis_section5
 
 - import_tasks: section6.yml
   become: yes
-  when: amazonlinuxcis_section6
+  when: amazonlinux2cis_section6
 
 - import_tasks: post.yml
   become: yes

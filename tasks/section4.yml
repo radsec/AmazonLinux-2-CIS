@@ -1,19 +1,19 @@
 ## COPYRIGHT NOTICE - LICENSED UNDER GNU GPLV3 ##
 ## START COPYRIGHT NOTICE ##
-# AmazonLinux-CIS Ansible Script - Under Join Copyright
-# Copyright (C) 2018  RADSec
-# Copyright (C) 2018  Glownew Group
-#
+# AmazonLinux2-CIS Ansible Script - Under Joint Copyright
+# Copyright (C) 2019  RADSec
+# Copyright (C) 2019  Glownew Group
+
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-#
+
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ## END COPYRIGHT NOTICE ##
@@ -82,7 +82,7 @@
       name: auditd
       state: started
       enabled: yes
-  when: amazonlinuxcis_enable_auditd
+  when: amazonlinux2cis_enable_auditd
   tags:
       - level2
       - auditd
@@ -280,7 +280,7 @@
   yum:
     name: rsyslogd
     state: present
-  when: amazonlinuxcis_rsyslog
+  when: amazonlinux2cis_rsyslog
   tags:
       - level1
       - patch
@@ -291,7 +291,7 @@
     name: rsyslogd
     enabled: yes
   ignore_errors: yes
-  when: amazonlinuxcis_rsyslog
+  when: amazonlinux2cis_rsyslog
   tags:
       - level1
       - patch
@@ -311,7 +311,7 @@
       regexp: '^\$FileCreateMode'
       line: '$FileCreateMode 0640'
       create: yes
-  when: amazonlinuxcis_rsyslog
+  when: amazonlinux2cis_rsyslog
   tags:
       - level1
       - patch
@@ -323,7 +323,7 @@
       recurse: yes
       patterns: "*.conf"
   register: rsyslogd_conf_files
-  when: amazonlinuxcis_rsyslog
+  when: amazonlinux2cis_rsyslog
   tags:
       - level1
       - patch
@@ -339,7 +339,7 @@
   with_items: rsyslogd_conf_files.path
   ignore_errors: yes
   when:
-    - amazonlinuxcis_rsyslog
+    - amazonlinux2cis_rsyslog
     - rsyslogd_conf_files.matches >= 1
   tags:
       - level1
@@ -350,8 +350,8 @@
   lineinfile:
       dest: /etc/rsyslog.conf
       regexp: "^\\*\\.\\*"
-      line: "*.* @@{{ amazonlinuxcis_rsyslog_loghost_address }}"
-  when: amazonlinuxcis_rsyslog
+      line: "*.* @@{{ amazonlinux2cis_rsyslog_loghost_address }}"
+  when: amazonlinux2cis_rsyslog
   tags:
       - level1
       - patch
@@ -364,8 +364,8 @@
       line: '# $ModLoad imtcp'
       create: yes
   when:
-    - not amazonlinuxcis_log_server
-    - amazonlinuxcis_rsyslog
+    - not amazonlinux2cis_log_server
+    - amazonlinux2cis_rsyslog
   tags:
       - level1
       - patch
@@ -378,8 +378,8 @@
       line: '# $InputTCPServerRun 514'
       create: yes
   when:
-    - not amazonlinuxcis_log_server
-    - amazonlinuxcis_rsyslog
+    - not amazonlinux2cis_log_server
+    - amazonlinux2cis_rsyslog
   tags:
       - level1
       - patch
@@ -392,8 +392,8 @@
       line: '$ModLoad imtcp'
       create: yes
   when:
-    - amazonlinuxcis_log_server
-    - amazonlinuxcis_rsyslog
+    - amazonlinux2cis_log_server
+    - amazonlinux2cis_rsyslog
   tags:
       - level1
       - patch
@@ -406,8 +406,8 @@
       line: '$InputTCPServerRun 514'
       create: yes
   when:
-    - amazonlinuxcis_log_server
-    - amazonlinuxcis_rsyslog
+    - amazonlinux2cis_log_server
+    - amazonlinux2cis_rsyslog
   tags:
       - level1
       - patch
@@ -417,7 +417,7 @@
   yum:
       name: syslog-ng
       state: present
-  when: amazonlinuxcis_syslog_ng
+  when: amazonlinux2cis_syslog_ng
   tags:
       - level1
       - patch
@@ -428,7 +428,7 @@
       name: syslog-ng
       enabled: yes
   ignore_errors: yes
-  when: amazonlinuxcis_syslog_ng
+  when: amazonlinux2cis_syslog_ng
   tags:
       - level1
       - patch

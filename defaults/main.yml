@@ -21,13 +21,13 @@
 # defaults file for AmazonLinux2CIS
 
 # Define what sections to run
-amazonlinuxcis_notauto: false
-amazonlinuxcis_section1: true
-amazonlinuxcis_section2: true
-amazonlinuxcis_section3: true
-amazonlinuxcis_section4: true
-amazonlinuxcis_section5: true
-amazonlinuxcis_section6: true
+amazonlinux2cis_notauto: false
+amazonlinux2cis_section1: true
+amazonlinux2cis_section2: true
+amazonlinux2cis_section3: true
+amazonlinux2cis_section4: true
+amazonlinux2cis_section5: true
+amazonlinux2cis_section6: true
 
 ############################
 ### Section 1 Parameters ###
@@ -36,10 +36,10 @@ amazonlinuxcis_section6: true
 # Section AIDE #
 
 # Section 1.3.1 | Ensure AIDE is installed and configured
-amazonlinuxcis_config_aide: true
+amazonlinux2cis_config_aide: true
 
 # Section 1.3.2 | Ensure filestystem integrity is regularly checked | AIDE cron settings
-amazonlinuxcis_aide_cron:
+amazonlinux2cis_aide_cron:
   cron_user: root
   cron_file: /etc/crontab
   aide_job: '/usr/sbin/aide --check'
@@ -53,77 +53,77 @@ amazonlinuxcis_aide_cron:
 
 # Section 1.6.1.2 & 1.6.1.3 | Ensure SELinux state is enforcing and configured
 # true = SELinux is disabled | false = SELinux is enabled
-amazonlinuxcis_selinux_disable: false
+amazonlinux2cis_selinux_disable: false
 # Section 1.6.1.2 & 1.6.1.3 | SELinux policy
-amazonlinuxcis_selinux_pol: targeted
+amazonlinux2cis_selinux_pol: targeted
 
 # MOTD Section #
 
 # Disable Amazon Linux update-motd script
 # set to true to enable custom motd to be properly set
-amazonlinuxcis_disable_auto_motd: true
+amazonlinux2cis_disable_auto_motd: true
 # Section 1.7.1.1 | Ensure message of the day is configured properly
-amazonlinuxcis_set_motd: true
+amazonlinux2cis_set_motd: true
 # Warning Banner Content (issue, issue.net, motd)
-amazonlinuxcis_warning_banner: |
+amazonlinux2cis_warning_banner: |
     Authorized uses only. All activity may be monitored and reported.
 # End Banner
 
 # System package updates #
 
 # Section 1.8 | Ensure updates of software repos and system packages are up-to-date | Run yum update
-amazonlinuxcis_update: false
+amazonlinux2cis_update: false
 
 ############################
 ### Section 2 Parameters ###
 ############################
 
 # Service configuration booleans set true to keep service
-amazonlinuxcis_cups_server: false
-amazonlinuxcis_dhcp_server: false
-amazonlinuxcis_ldap_server: false
-amazonlinuxcis_telnet_server: false
-amazonlinuxcis_nfs_server: false
-amazonlinuxcis_rpc_server: false
-amazonlinuxcis_ntalk_server: false
-amazonlinuxcis_rsyncd_server: false
-amazonlinuxcis_tftp_server: false
-amazonlinuxcis_rsh_server: false
-amazonlinuxcis_nis_server: false
-amazonlinuxcis_snmp_server: false
-amazonlinuxcis_squid_server: false
-amazonlinuxcis_smb_server: false
-amazonlinuxcis_dovecot_server: false
-amazonlinuxcis_httpd_server: false
-amazonlinuxcis_vsftpd_server: false
-amazonlinuxcis_named_server: false
-amazonlinuxcis_nfs_rpc_server: false
-amazonlinuxcis_is_mail_server: false
-amazonlinuxcis_bind: false
-amazonlinuxcis_vsftpd: false
-amazonlinuxcis_httpd: false
-amazonlinuxcis_dovecot: false
-amazonlinuxcis_samba: false
-amazonlinuxcis_squid: false
-amazonlinuxcis_net_snmp: false
-amazonlinuxcis_allow_autofs: false
+amazonlinux2cis_cups_server: false
+amazonlinux2cis_dhcp_server: false
+amazonlinux2cis_ldap_server: false
+amazonlinux2cis_telnet_server: false
+amazonlinux2cis_nfs_server: false
+amazonlinux2cis_rpc_server: false
+amazonlinux2cis_ntalk_server: false
+amazonlinux2cis_rsyncd_server: false
+amazonlinux2cis_tftp_server: false
+amazonlinux2cis_rsh_server: false
+amazonlinux2cis_nis_server: false
+amazonlinux2cis_snmp_server: false
+amazonlinux2cis_squid_server: false
+amazonlinux2cis_smb_server: false
+amazonlinux2cis_dovecot_server: false
+amazonlinux2cis_httpd_server: false
+amazonlinux2cis_vsftpd_server: false
+amazonlinux2cis_named_server: false
+amazonlinux2cis_nfs_rpc_server: false
+amazonlinux2cis_is_mail_server: false
+amazonlinux2cis_bind: false
+amazonlinux2cis_vsftpd: false
+amazonlinux2cis_httpd: false
+amazonlinux2cis_dovecot: false
+amazonlinux2cis_samba: false
+amazonlinux2cis_squid: false
+amazonlinux2cis_net_snmp: false
+amazonlinux2cis_allow_autofs: false
 
-amazonlinuxcis_openldap_clients_required: false
-amazonlinuxcis_telnet_required: false
-amazonlinuxcis_talk_required: false
-amazonlinuxcis_rsh_required: false
-amazonlinuxcis_ypbind_required: false
+amazonlinux2cis_openldap_clients_required: false
+amazonlinux2cis_telnet_required: false
+amazonlinux2cis_talk_required: false
+amazonlinux2cis_rsh_required: false
+amazonlinux2cis_ypbind_required: false
 
 # Section 2.1.11 | Ensure xinetd is not enabled
 # xinetd required
-amazonlinuxcis_xinetd_required: false
+amazonlinux2cis_xinetd_required: false
 
 # Section 2.2.1.x | Time synchronization #
 # Time Synchronization - Use chrony or ntp
-amazonlinuxcis_time_synchronization: ntp
+amazonlinux2cis_time_synchronization: ntp
 
 # Section 2.2.1.2 OR Section 2.2.1.3 | Ensure chrony or ntp is configured
-amazonlinuxcis_time_synchronization_servers:
+amazonlinux2cis_time_synchronization_servers:
     - 0.pool.ntp.org
     - 1.pool.ntp.org
     - 2.pool.ntp.org
@@ -131,10 +131,10 @@ amazonlinuxcis_time_synchronization_servers:
 
 # Section 2.2.2 | Ensure X Window System is not installed
 # Set to 'true' if X Windows is needed in your environment
-amazonlinuxcis_xwindows_required: no
+amazonlinux2cis_xwindows_required: no
 
 # Section 2.2.3 | Ensure avahi server is not enabled
-amazonlinuxcis_avahi_server: false
+amazonlinux2cis_avahi_server: false
 
 ############################
 ### Section 3 Parameters ###
@@ -145,40 +145,40 @@ amazonlinuxcis_avahi_server: false
 
 # System network parameters (host only OR host and router)
 # if host only = false OR host and router = true
-amazonlinuxcis_is_router: false
+amazonlinux2cis_is_router: false
 
 # IPv6 required
-amazonlinuxcis_ipv6_required: true
+amazonlinux2cis_ipv6_required: true
 
 # Section 3.4.2 | Ensure /etc/hosts.allow is configured
-amazonlinuxcis_host_allow:
+amazonlinux2cis_host_allow:
     - "10.0.0.0/255.0.0.0"
     - "172.16.0.0/255.240.0.0"
     - "192.168.0.0/255.255.0.0"
 
 # 3.4.3 | Ensure /etc/hosts.deny is configured
-amazonlinuxcis_enable_hosts_deny: false
+amazonlinux2cis_enable_hosts_deny: false
 
 # Section 3.6.1 | Ensure iptables is installed
 # Selection of firewall package to use below | default: iptables
-amazonlinuxcis_firewall: iptables
+amazonlinux2cis_firewall: iptables
 # Section 3.6.2 | Ensure default deny firewall policy
-amazonlinuxcis_firewall_default_deny_rule: false
+amazonlinux2cis_firewall_default_deny_rule: false
 # Section 3.6.3 | Ensure loopback traffic is configured
-amazonlinuxcis_firewall_loopback_rule: true
+amazonlinux2cis_firewall_loopback_rule: true
 # Section 3.6.4 | Ensure outbound and established connections are configured
-amazonlinuxcis_firewall_outbound_rule: true
+amazonlinux2cis_firewall_outbound_rule: true
 
 ############################
 ### Section 4 Parameters ###
 ############################
 
 # 4.1.2 - Enable auditd
-amazonlinuxcis_enable_auditd: false
+amazonlinux2cis_enable_auditd: false
 
 # System Accounting and Logging
 # Set logging service to 'true'
-amazonlinuxcis_log_server: false
+amazonlinux2cis_log_server: false
 
 # Enable system auditing | Select rsyslog or syslog_ng from the settings below #
 # rsyslog settings are sections 4.2.1.x
@@ -186,25 +186,25 @@ amazonlinuxcis_log_server: false
 
 # Section 4.2.1.x | rsyslog settings
 # IF using rsyslog, set to true and loghost_address should be reflected here
-amazonlinuxcis_rsyslog: false
-amazonlinuxcis_rsyslog_loghost_address: INSERT_DNS_NAME_HERE
+amazonlinux2cis_rsyslog: false
+amazonlinux2cis_rsyslog_loghost_address: INSERT_DNS_NAME_HERE
 
 # Section 4.2.2.x | syslog_ng settings
 # IF using syslog_ng, set to true and loghost_address should be reflected here
-amazonlinuxcis_syslog_ng: false
-amazonlinuxcis_syslog_ng_loghost_address: INSERT_DNS_NAME_HERE
+amazonlinux2cis_syslog_ng: false
+amazonlinux2cis_syslog_ng_loghost_address: INSERT_DNS_NAME_HERE
 
 ############################
 ### Section 5 Parameters ###
 ############################
 
 # Section 5.4.4 | Ensure default user umask is 027 or more restrictive
-amazonlinuxcis_modify_default_user_umask: true
-amazonlinuxcis_default_user_umask: 027
+amazonlinux2cis_modify_default_user_umask: true
+amazonlinux2cis_default_user_umask: 027
 
 ############################
 ### Section 6 Parameters ###
 ############################
 
 # Section 6.2.8 | Ensure users' home directory permissions are 750 or more restrictive
-amazonlinuxcis_modify_user_homes: true
+amazonlinux2cis_modify_user_homes: true
