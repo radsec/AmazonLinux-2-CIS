@@ -1,0 +1,195 @@
+---
+## COPYRIGHT NOTICE - LICENSED UNDER GNU GPLV3 ##
+## START COPYRIGHT NOTICE ##
+# AmazonLinux-CIS Ansible Script - Under Join Copyright
+# Copyright (C) 2018  RADSec
+# Copyright (C) 2018  Glownew Group
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+## END COPYRIGHT NOTICE ##
+# Preliminary tasks that should always be run
+# List users in order to look files inside each home directory
+- name: "PRELIM | List users accounts"
+  command: "awk -F: '{print $1}' /etc/passwd"
+  register: users
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Gather accounts with empty password fields"
+  shell: "cat /etc/shadow | awk -F: '($2 == \"\" ) {j++;print $1; } END {exit j}'"
+  register: empty_password_accounts
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Gather UID 0 accounts other than root"
+  shell: "cat /etc/passwd | awk -F: '($3 == 0 && $1 != \"root\") {i++;print $1 } END {exit i}'"
+  register: uid_zero_accounts_except_root
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Section 4.1 | Configure System Accounting (auditd)"
+  yum:
+      name: audit
+      state: present
+
+- name: "PRELIM | Section 5.1 | Configure cron"
+  yum:
+      name: cronie
+      state: present
+
+- name: "PRELIM | Check if prelink package is installed"
+  command: rpm -q prelink
+  register: prelink_installed
+  changed_when: no
+  failed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check if postfix package is installed"
+  command: rpm -q postfix
+  register: postfix_installed
+  changed_when: no
+  failed_when: no
+  check_mode: no
+
+# Individual service checks
+- name: "PRELIM | Check for xinetd service"
+  stat: path=/etc/init.d/xinetd
+  register: xinetd_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for ntpd service"
+  stat: path=/etc/init.d/ntpd
+  register: ntpd_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for chronyd service"
+  stat: path=/etc/init.d/chronyd
+  register: chronyd_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for avahi-daemon service"
+  stat: path=/etc/init.d/avahi-daemon
+  register: avahi_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for cups package"
+  stat: path=/etc/init.d/cups
+  register: cups_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for dhcpd service"
+  stat: path=/etc/init.d/dhcpd
+  register: dhcpd_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for slapd service | OpenLDAP Server"
+  stat: path=/etc/init.d/slapd
+  register: slapd_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for nfs service"
+  stat: path=/etc/init.d/nfs
+  register: nfs_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for rpcbind service"
+  stat: path=/etc/init.d/rpcbind
+  register: rpcbind_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for named service"
+  stat: path=/etc/init.d/named
+  register: named_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for vsftpd service"
+  stat: path=/etc/init.d/vsftpd
+  register: vsftpd_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for httpd service"
+  stat: path=/etc/init.d/httpd
+  register: httpd_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for dovecot service"
+  stat: path=/etc/init.d/dovecot
+  register: dovecot_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for smb service"
+  stat: path=/etc/init.d/smb
+  register: smb_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for squid service"
+  stat: path=/etc/init.d/squid
+  register: squid_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for snmpd service"
+  stat: path=/etc/init.d/snmpd
+  register: snmpd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for ypserv service"
+  stat: path=/etc/init.d/ypserv
+  register: ypserv_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for rsh.socket service"
+  stat: path=/etc/init.d/xinetd
+  register: rsh_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for rlogin.socket service"
+  stat: path=/etc/init.d/xinetd
+  register: rlogin_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for rexec.socket service"
+  stat: path=/etc/init.d/xinetd
+  register: rexec_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for telnet service"
+  stat: path=/etc/init.d/xinetd
+  register: telnet_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for tftp service"
+  stat: path=/etc/xinetd.d/tftp
+  register: tftp_service_status
+  ignore_errors: yes
+
+- name: "PRELIM | Check for rsyncd service"
+  stat: path=/etc/init.d/rsyncd
+  register: rsyncd_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for ntalk service"
+  stat: path=/etc/init.d/ntalk
+  register: ntalk_service_status
+  changed_when: no
+  check_mode: no
+
+- name: "PRELIM | Check for autofs service"
+  stat: path=/etc/init.d/autofs
+  register: autofs_service_status
+  changed_when: no
+  check_mode: no

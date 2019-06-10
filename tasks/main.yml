@@ -1,0 +1,81 @@
+---
+## COPYRIGHT NOTICE - LICENSED UNDER GNU GPLV3 ##
+## START COPYRIGHT NOTICE ##
+# AmazonLinux-CIS Ansible Script - Under Join Copyright
+# Copyright (C) 2018  RADSec
+# Copyright (C) 2018  Glownew Group
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+## END COPYRIGHT NOTICE ##
+# tasks file for AmazonLinuxCIS
+- name: Check OS version and family
+  fail:
+      msg: "This role can only be run agaist Amazon Linux 2017.9. {{ ansible_distribution }} {{ansible_distribution_version }} is not supported."
+  when:
+      - ansible_distribution == 'Amazon'
+      - ansible_distribution_version is version('2017.09', '!=')
+  tags:
+      - always
+
+- name: Check OS version and family
+  debug:
+      msg: "PASS | {{ ansible_distribution }} {{ansible_distribution_version }} is supported."
+  when:
+      - ansible_distribution == 'Amazon'
+      - ansible_distribution_version is version('2017.09', '>=')
+  tags:
+      - always
+
+- name: Check ansible version
+  fail:
+      msg: You must use ansible 2.2 or greater
+  when: not ansible_version.full is version('2.2', '>=')
+  tags:
+      - always
+
+- import_tasks: prelim.yml
+  become: yes
+  tags:
+      - prelim_tasks
+      - always
+
+- import_tasks: section1.yml
+  become: yes
+  when: amazonlinuxcis_section1
+
+- import_tasks: section2.yml
+  become: yes
+  when: amazonlinuxcis_section2
+
+- import_tasks: section3.yml
+  become: yes
+  when: amazonlinuxcis_section3
+
+- import_tasks: section4.yml
+  become: yes
+  when: amazonlinuxcis_section4
+
+- import_tasks: section5.yml
+  become: yes
+  when: amazonlinuxcis_section5
+
+- import_tasks: section6.yml
+  become: yes
+  when: amazonlinuxcis_section6
+
+- import_tasks: post.yml
+  become: yes
+  tags:
+      - post_tasks
+      - always

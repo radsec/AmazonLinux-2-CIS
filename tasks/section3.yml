@@ -1,0 +1,540 @@
+## COPYRIGHT NOTICE - LICENSED UNDER GNU GPLV3 ##
+## START COPYRIGHT NOTICE ##
+# AmazonLinux-CIS Ansible Script - Under Join Copyright
+# Copyright (C) 2018  RADSec
+# Copyright (C) 2018  Glownew Group
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+## END COPYRIGHT NOTICE ##
+- name: "SCORED | 3.1.1 | PATCH | Ensure IP forwarding is disabled"
+  sysctl:
+      name: net.ipv4.ip_forward
+      value: 0
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  when: not amazonlinuxcis_is_router
+  notify:
+      - sysctl flush ipv4 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.1.1
+
+- name: "SCORED | 3.1.2 | PATCH | Ensure packet redirect sending is disabled"
+  sysctl:
+      name: '{{ item.name }}'
+      value: '{{ item.value }}'
+      sysctl_set: yes
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  with_items:
+      - { name: net.ipv4.conf.all.send_redirects, value: 0 }
+      - { name: net.ipv4.conf.default.send_redirects, value: 0 }
+  when: not amazonlinuxcis_is_router
+  notify:
+      - sysctl flush ipv4 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.1.2
+
+- name: "SCORED | 3.2.1 | PATCH | Ensure source routed packets are not accepted"
+  sysctl:
+      name: '{{ item.name }}'
+      value: '{{ item.value }}'
+      sysctl_set: yes
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  with_items:
+      - { name: net.ipv4.conf.all.accept_source_route, value: 0 }
+      - { name: net.ipv4.conf.default.accept_source_route, value: 0 }
+  notify:
+      - sysctl flush ipv4 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.2.1
+
+- name: "SCORED | 3.2.2 | PATCH | Ensure ICMP redirects are not accepted"
+  sysctl:
+      name: '{{ item.name }}'
+      value: '{{ item.value }}'
+      sysctl_set: yes
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  with_items:
+      - { name: net.ipv4.conf.all.accept_redirects, value: 0 }
+      - { name: net.ipv4.conf.default.accept_redirects, value: 0 }
+  notify:
+      - sysctl flush ipv4 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.2.2
+
+- name: "SCORED | 3.2.3 | PATCH | Ensure secure ICMP redirects are not accepted"
+  sysctl:
+      name: '{{ item.name }}'
+      value: '{{ item.value }}'
+      sysctl_set: yes
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  with_items:
+      - { name: net.ipv4.conf.all.secure_redirects, value: 0 }
+      - { name: net.ipv4.conf.default.secure_redirects, value: 0 }
+  notify:
+      - sysctl flush ipv4 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.2.3
+
+- name: "SCORED | 3.2.4 | PATCH | Ensure suspicious packets are logged"
+  sysctl:
+      name: '{{ item.name }}'
+      value: '{{ item.value }}'
+      sysctl_set: yes
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  with_items:
+      - { name: net.ipv4.conf.all.log_martians, value: 1 }
+      - { name: net.ipv4.conf.default.log_martians, value: 1 }
+  notify:
+      - sysctl flush ipv4 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.2.4
+
+- name: "SCORED | 3.2.5 | PATCH | Ensure broadcast ICMP requests are ignored"
+  sysctl:
+      name: net.ipv4.icmp_echo_ignore_broadcasts
+      value: 1
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  notify:
+      - sysctl flush ipv4 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.2.5
+
+- name: "SCORED | 3.2.6 | PATCH | Ensure bogus ICMP responses are ignored"
+  sysctl:
+      name: net.ipv4.icmp_ignore_bogus_error_responses
+      value: 1
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  notify:
+      - sysctl flush ipv4 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.2.6
+
+- name: "SCORED | 3.2.7 | PATCH | Ensure Reverse Path Filtering is enabled"
+  sysctl:
+      name: '{{ item.name }}'
+      value: '{{ item.value }}'
+      sysctl_set: yes
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  with_items:
+      - { name: net.ipv4.conf.all.rp_filter, value: 1 }
+      - { name: net.ipv4.conf.default.rp_filter, value: 1 }
+  notify:
+      - sysctl flush ipv4 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.2.7
+
+- name: "SCORED | 3.2.8 | PATCH | Ensure TCP SYN Cookies is enabled"
+  sysctl:
+      name: net.ipv4.tcp_syncookies
+      value: 1
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  notify:
+      - sysctl flush ipv4 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.2.8
+
+- name: "SCORED | 3.3.1 | PATCH | Ensure IPv6 router advertisements are not accepted"
+  sysctl:
+      name: '{{ item.name }}'
+      value: '{{ item.value }}'
+      sysctl_set: yes
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  with_items:
+      - { name: net.ipv6.conf.all.accept_ra, value: 0 }
+      - { name: net.ipv6.conf.default.accept_ra, value: 0 }
+  when: amazonlinuxcis_ipv6_required == true
+  notify:
+      - sysctl flush ipv6 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.3.1
+
+- name: "SCORED | 3.3.2 | PATCH | Ensure IPv6 redirects are not accepted"
+  sysctl:
+      name: '{{ item.name }}'
+      value: '{{ item.value }}'
+      sysctl_set: yes
+      state: present
+      reload: yes
+      ignoreerrors: yes
+  with_items:
+      - { name: net.ipv6.conf.all.accept_redirects, value: 0 }
+      - { name: net.ipv6.conf.default.accept_redirects, value: 0 }
+  when: amazonlinuxcis_ipv6_required == true
+  notify:
+      - sysctl flush ipv6 route table
+  tags:
+      - level1
+      - sysctl
+      - patch
+      - rule_3.3.2
+
+- name: "NOTSCORED | 3.3.3 | PATCH | Ensure IPv6 is disabled"
+  lineinfile:
+      dest: /etc/modprobe.d/CIS.conf
+      regexp: "^(#)?options ipv6 disable="
+      line: "options ipv6 disable=1"
+      create: yes
+  when: amazonlinuxcis_ipv6_required == false
+  tags:
+      - level1
+      - patch
+      - rule_3.3.3
+
+- name: "SCORED | 3.4.1 | PATCH | Ensure TCP Wrappers is installed"
+  yum:
+    name: tcp_wrappers
+    state: present
+  tags:
+      - level1
+      - patch
+      - rule_3.4.1
+
+- name: "SCORED | 3.4.2 | PATCH | Ensure /etc/hosts.allow is configured"
+  template:
+      src: hosts.allow.j2
+      dest: /etc/hosts.allow
+      owner: root
+      group: root
+      mode: 0644
+  tags:
+      - level1
+      - patch
+      - rule_3.4.2
+
+- name: "SCORED | 3.4.3 | PATCH | Ensure /etc/hosts.deny is configured"
+  lineinfile:
+      dest: /etc/hosts.deny
+      regexp: "^(#)?ALL"
+      line: "ALL: ALL"
+  when: amazonlinuxcis_enable_hosts_deny
+  tags:
+      - level1
+      - patch
+      - rule_3.4.3
+
+- name: "SCORED | 3.4.4 | PATCH | Ensure permissions on /etc/hosts.allow are configured"
+  file:
+      dest: /etc/hosts.allow
+      owner: root
+      group: root
+      mode: 0644
+  tags:
+      - level1
+      - patch
+      - rule_3.4.4
+
+- name: "SCORED | 3.4.5 | PATCH | Ensure permissions on /etc/hosts.deny are 644"
+  file:
+      dest: /etc/hosts.deny
+      owner: root
+      group: root
+      mode: 0644
+  tags:
+      - level1
+      - patch
+      - rule_3.4.5
+
+- name: "NOTSCORED | 3.5.1 | PATCH | Ensure DCCP is disabled"
+  lineinfile:
+      dest: /etc/modprobe.d/CIS.conf
+      regexp: "^(#)?install dccp(\\s|$)"
+      line: "install dccp /bin/true"
+      create: yes
+  tags:
+      - level1
+      - patch
+      - rule_3.5.1
+
+- name: "NOTSCORED | 3.5.2 | PATCH | Ensure SCTP is disabled"
+  lineinfile:
+      dest: /etc/modprobe.d/CIS.conf
+      regexp: "^(#)?install sctp(\\s|$)"
+      line: "install sctp /bin/true"
+      create: yes
+  tags:
+      - level1
+      - patch
+      - rule_3.5.2
+
+- name: "NOTSCORED | 3.5.3 | PATCH | Ensure RDS is disabled"
+  lineinfile:
+      dest: /etc/modprobe.d/CIS.conf
+      regexp: "^(#)?install rds(\\s|$)"
+      line: "install rds /bin/true"
+      create: yes
+  tags:
+      - level1
+      - patch
+      - rule_3.5.3
+
+- name: "NOTSCORED | 3.5.4 | PATCH | Ensure TIPC is disabled"
+  lineinfile:
+      dest: /etc/modprobe.d/CIS.conf
+      regexp: "^(#)?install tipc(\\s|$)"
+      line: "install tipc /bin/true"
+      create: yes
+  tags:
+      - level1
+      - patch
+      - rule_3.5.4
+
+- name: "SCORED | 3.6.1 | PATCH | Ensure iptables is installed"
+  yum:
+      name: iptables
+      state: present
+  when: amazonlinuxcis_firewall == "iptables"
+  tags:
+      - level1
+      - patch
+      - rule_3.6.1
+
+- name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | INPUT Policy"
+  iptables:
+    chain: INPUT
+    policy: DROP
+    action: append
+    state: present
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_default_deny_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.2
+
+- name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | OUTPUT Policy"
+  iptables:
+    chain: OUTPUT
+    policy: DROP
+    action: append
+    state: present
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_default_deny_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.2
+
+- name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | FORWARD Policy"
+  iptables:
+    chain: FORWARD
+    policy: DROP
+    action: append
+    state: present
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_default_deny_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.2
+
+- name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | INPUT rule"
+  iptables:
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+    action: append
+    state: present
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_loopback_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.3
+
+- name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | OUTPUT rule"
+  iptables:
+    chain: OUTPUT
+    out_interface: lo
+    jump: ACCEPT
+    action: append
+    state: present
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_loopback_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.3
+
+- name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | 127.0.0.0/8 rule"
+  iptables:
+    chain: INPUT
+    source: 127.0.0.0/8
+    jump: DROP
+    action: append
+    state: present
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_loopback_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.3
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    chain: OUTPUT
+    protocol: tcp
+    match: state
+    ctstate: NEW,ESTABLISHED
+    jump: ACCEPT
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_outbound_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.4
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    chain: OUTPUT
+    protocol: udp
+    match: state
+    ctstate: NEW,ESTABLISHED
+    jump: ACCEPT
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_outbound_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.4
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    chain: OUTPUT
+    protocol: icmp
+    match: state
+    ctstate: NEW,ESTABLISHED
+    jump: ACCEPT
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_outbound_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.4
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    match: state
+    ctstate: ESTABLISHED
+    jump: ACCEPT
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_outbound_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.4
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    chain: INPUT
+    protocol: udp
+    match: state
+    ctstate: ESTABLISHED
+    jump: ACCEPT
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_outbound_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.4
+
+- name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
+  iptables:
+    chain: INPUT
+    protocol: icmp
+    match: state
+    ctstate: ESTABLISHED
+    jump: ACCEPT
+  when:
+    - amazonlinuxcis_firewall == "iptables"
+    - amazonlinuxcis_firewall_outbound_rule
+  tags:
+      - level1
+      - patch
+      - rule_3.6.4
+
+- name: "SCORED | 3.6.5 | PATCH | Ensure firewall rules exist for all open ports"
+  debug:
+    msg: "Ensure firewall rules exist for all open ports"
+  when: amazonlinuxcis_firewall == "iptables"
+  tags:
+      - level1
+      - patch
+      - rule_3.6.5
