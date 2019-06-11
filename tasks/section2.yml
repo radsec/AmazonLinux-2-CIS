@@ -27,6 +27,7 @@
       - services
       - patch
       - rule_2.1.1
+      - low
 
 - name: "SCORED | 2.1.1 | PATCH | Ensure chargen services are not enabled | chargen-dgram"
   command: chkconfig chargen-dgram off
@@ -38,6 +39,7 @@
       - services
       - patch
       - rule_2.1.1
+      - low
 
 - name: "SCORED | 2.1.1 | PATCH | Ensure chargen services are not enabled | chargen-stream"
   stat:
@@ -49,6 +51,7 @@
       - services
       - patch
       - rule_2.1.1
+      - low
 
 - name: "SCORED | 2.1.1 | PATCH | Ensure chargen services are not enabled | chargen-stream"
   command: chkconfig chargen-stream off
@@ -60,6 +63,7 @@
       - services
       - patch
       - rule_2.1.1
+      - low
 
 - name: "SCORED | 2.1.2 | PATCH | Ensure daytime services are not enabled | daytime-dgram"
   stat:
@@ -70,6 +74,7 @@
       - scored
       - patch
       - rule_2.1.2
+      - low
 
 - name: "SCORED | 2.1.2 | PATCH | Ensure daytime services are not enabled | daytime-dgram"
   command: chkconfig daytime-dgram off
@@ -80,6 +85,7 @@
       - scored
       - patch
       - rule_2.1.2
+      - low
 
 - name: "SCORED | 2.1.2 | PATCH | Ensure daytime services are not enabled | daytime-stream"
   stat:
@@ -90,6 +96,7 @@
       - scored
       - patch
       - rule_2.1.2
+      - low
 
 - name: "SCORED | 2.1.2 | PATCH | Ensure daytime services are not enabled | daytime-stream"
   command: chkconfig daytime-stream off
@@ -100,6 +107,7 @@
       - scored
       - patch
       - rule_2.1.2
+      - low
 
 - name: "SCORED | 2.1.3 | PATCH | Ensure discard services are not enabled | discard-dgram"
   stat:
@@ -110,6 +118,7 @@
       - scored
       - patch
       - rule_2.1.3
+      - low
 
 - name: "SCORED | 2.1.3 | PATCH | Ensure discard services are not enabled | discard-dgram"
   command: chkconfig discard-dgram off
@@ -120,6 +129,7 @@
       - scored
       - patch
       - rule_2.1.3
+      - low
 
 - name: "SCORED | 2.1.3 | PATCH | Ensure discard services are not enabled | discard-stream"
   stat:
@@ -130,6 +140,7 @@
       - scored
       - patch
       - rule_2.1.3
+      - low
 
 - name: "SCORED | 2.1.3 | PATCH | Ensure discard services are not enabled | discard-stream"
   command: chkconfig discard-stream off
@@ -140,6 +151,7 @@
       - scored
       - patch
       - rule_2.1.3
+      - low
 
 - name: "SCORED | 2.1.4 | PATCH | Ensure echo services are not enabled | echo-dgram"
   stat:
@@ -150,6 +162,7 @@
       - scored
       - patch
       - rule_2.1.4
+      - low
 
 - name: "SCORED | 2.1.4 | PATCH | Ensure echo services are not enabled | echo-dgram"
   command: chkconfig echo-dgram off
@@ -160,6 +173,7 @@
       - scored
       - patch
       - rule_2.1.4
+      - low
 
 - name: "SCORED | 2.1.4 | PATCH | Ensure echo services are not enabled | echo-stream"
   stat:
@@ -170,6 +184,7 @@
       - scored
       - patch
       - rule_2.1.4
+      - low
 
 - name: "SCORED | 2.1.4 | PATCH | Ensure echo services are not enabled | echo-stream"
   command: chkconfig echo-stream off
@@ -180,6 +195,7 @@
       - scored
       - patch
       - rule_2.1.4
+      - low
 
 - name: "SCORED | 2.1.5 | PATCH | Ensure time services are not enabled | time-dgram"
   stat:
@@ -190,6 +206,7 @@
       - scored
       - patch
       - rule_2.1.5
+      - low
 
 - name: "SCORED | 2.1.5 | PATCH | Ensure time services are not enabled | time-dgram"
   command: chkconfig time-dgram off
@@ -200,6 +217,7 @@
       - scored
       - patch
       - rule_2.1.5
+      - low
 
 - name: "SCORED | 2.1.5 | PATCH | Ensure time services are not enabled | time-stream"
   stat:
@@ -210,6 +228,7 @@
       - scored
       - patch
       - rule_2.1.5
+      - low
 
 - name: "SCORED | 2.1.5 | PATCH | Ensure time services are not enabled | time-stream"
   command: chkconfig time-stream off
@@ -220,6 +239,7 @@
       - scored
       - patch
       - rule_2.1.5
+      - low
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure rsh server is not enabled | rsh"
   service:
@@ -232,6 +252,7 @@
       - level1
       - patch
       - rule_2.1.6
+      - low
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure rsh server is not enabled | rlogin"
   service:
@@ -244,6 +265,7 @@
       - level1
       - patch
       - rule_2.1.6
+      - low
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure rsh server is not enabled | rexec"
   service:
@@ -256,6 +278,7 @@
       - level1
       - patch
       - rule_2.1.6
+      - low
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure rsh server is not enabled | rexec"
   stat:
@@ -266,6 +289,7 @@
       - scored
       - patch
       - rule_2.1.6
+      - low
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure rsh server is not enabled | rexec"
   command: chkconfig rexec off
@@ -276,6 +300,7 @@
       - scored
       - patch
       - rule_2.1.6
+      - low
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure rsh server is not enabled | rlogin"
   stat:
@@ -286,6 +311,7 @@
       - scored
       - patch
       - rule_2.1.6
+      - low
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure rsh server is not enabled | rlogin"
   command: chkconfig rlogin off
@@ -296,6 +322,7 @@
       - scored
       - patch
       - rule_2.1.6
+      - low
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure rsh server is not enabled | rsh"
   stat:
@@ -306,6 +333,7 @@
       - scored
       - patch
       - rule_2.1.6
+      - low
 
 - name: "SCORED | 2.1.6 | PATCH | Ensure rsh server is not enabled | rsh"
   command: chkconfig rsh off
@@ -316,6 +344,7 @@
       - scored
       - patch
       - rule_2.1.6
+      - low
 
 - name: "SCORED | 2.1.7 | PATCH | Ensure talk server is not enabled"
   stat:
@@ -326,6 +355,7 @@
       - scored
       - patch
       - rule_2.1.7
+      - low
 
 - name: "SCORED | 2.1.7 | PATCH | Ensure talk server is not enabled"
   command: chkconfig talk off
@@ -336,6 +366,7 @@
       - scored
       - patch
       - rule_2.1.7
+      - low
 
 - name: "SCORED | 2.1.8 | PATCH | Ensure telnet server is not enabled"
   service:
@@ -348,6 +379,7 @@
       - level1
       - patch
       - rule_2.1.8
+      - low
 
 - name: "SCORED | 2.1.9 | PATCH | Ensure tftp server is not enabled"
   stat:
@@ -358,6 +390,7 @@
       - scored
       - patch
       - rule_2.1.9
+      - low
 
 - name: "SCORED | 2.1.9 | PATCH | Ensure tftp server is not enabled"
   command: chkconfig tftp off
@@ -368,6 +401,7 @@
       - scored
       - patch
       - rule_2.1.9
+      - low
 
 - name: "SCORED | 2.1.10 | PATCH | Ensure rsync service is not enabled "
   service:
@@ -380,6 +414,7 @@
       - level1
       - patch
       - rule_2.1.10
+      - low
 
 - name: "SCORED | 2.1.11 | PATCH | Ensure xinetd is not enabled"
   service:
@@ -394,6 +429,7 @@
       - patch
       - scored
       - rule_2.1.11
+      - low
 
 - name: "NOTSCORED | 2.2.1.1 | PATCH | Ensure time synchronization is in use - service install"
   yum:
@@ -403,6 +439,7 @@
       - level1
       - patch
       - rule_2.2.1.1
+      - low
 
 - name: "NOTSCORED | 2.2.1.1 | PATCH | Ensure time synchronization is in use - service start"
   service:
@@ -414,6 +451,7 @@
       - level1
       - patch
       - rule_2.2.1.1
+      - low
 
 - name: "NOTSCORED | 2.2.1.1 | PATCH | Ensure time synchronization is in use - service stop ntp"
   service:
@@ -426,6 +464,7 @@
       - level1
       - patch
       - rule_2.2.1.1
+      - low
 
 - name: "NOTSCORED | 2.2.1.1 | PATCH | Ensure time synchronization is in use - service stop chrony"
   service:
@@ -438,6 +477,7 @@
       - level1
       - patch
       - rule_2.2.1.1
+      - low
 
 - name: "SCORED | 2.2.1.2 | PATCH | Ensure ntp is configured | modify /etc/ntp.conf"
   template:
@@ -451,6 +491,7 @@
       - level1
       - patch
       - rule_2.2.1.2
+      - low
 
 - name: "SCORED | 2.2.1.2 | PATCH | Ensure ntp is configured | modify /etc/sysconfig/ntpd"
   lineinfile:
@@ -462,6 +503,7 @@
       - level1
       - patch
       - rule_2.2.1.2
+      - low
 
 - name: "SCORED | 2.2.1.3 | PATCH | Ensure chrony is configured"
   template:
@@ -475,6 +517,7 @@
       - level1
       - patch
       - rule_2.2.1.3
+      - low
 
 - name: "SCORED | 2.2.1.3 | PATCH | Ensure chrony is configured | modify /etc/sysconfig/chronyd | 1"
   lineinfile:
@@ -488,6 +531,7 @@
       - level1
       - patch
       - rule_2.2.1.3
+      - low
 
 - name: "SCORED | 2.2.2 | PATCH | Ensure X Window System is not installed"
   yum:
@@ -503,6 +547,7 @@
       - xwindows
       - patch
       - rule_2.2.2
+      - low
 
 - name: "SCORED | 2.2.3 | PATCH | Ensure Avahi Server is not enabled"
   service:
@@ -518,6 +563,7 @@
       - services
       - patch
       - rule_2.2.3
+      - low
 
 - name: "SCORED | 2.2.4 | PATCH | Ensure CUPS is not enabled"
   service:
@@ -533,6 +579,7 @@
       - services
       - patch
       - rule_2.2.4
+      - low
 
 - name: "SCORED | 2.2.5 | PATCH | Ensure DHCP Server is not enabled"
   service:
@@ -548,6 +595,7 @@
       - services
       - patch
       - rule_2.2.5
+      - low
 
 - name: "SCORED | 2.2.6 | PATCH | Ensure LDAP server is not enabled"
   service:
@@ -563,6 +611,7 @@
       - services
       - patch
       - rule_2.2.6
+      - low
 
 - name: "SCORED | 2.2.7 | PATCH | Ensure NFS and RPC are not enabled"
   service:
@@ -579,6 +628,7 @@
       - services
       - patch
       - rule_2.2.7
+      - low
 
 - name: "SCORED | 2.2.7 | PATCH | Ensure NFS and RPC are not enabled"
   service:
@@ -595,6 +645,7 @@
       - services
       - patch
       - rule_2.2.7
+      - low
 
 - name: "SCORED | 2.2.8 | PATCH | Ensure DNS Server is not enabled"
   service:
@@ -607,6 +658,7 @@
       - level1
       - patch
       - rule_2.2.8
+      - low
 
 - name: "SCORED | 2.2.9 | PATCH | Ensure FTP Server is not enabled"
   service:
@@ -619,6 +671,7 @@
       - level1
       - patch
       - rule_2.2.9
+      - low
 
 - name: "SCORED | 2.2.10 | PATCH | Ensure HTTP server is not enabled"
   service:
@@ -631,6 +684,7 @@
       - level1
       - patch
       - rule_2.2.10
+      - low
 
 - name: "SCORED | 2.2.11 | PATCH | Ensure IMAP and POP3 server is not enabled"
   service:
@@ -643,6 +697,7 @@
       - level1
       - patch
       - rule_2.2.11
+      - low
 
 - name: "SCORED | 2.2.12 | PATCH | Ensure Samba is not enabled"
   service:
@@ -655,6 +710,7 @@
       - level1
       - patch
       - rule_2.2.12
+      - low
 
 - name: "SCORED | 2.2.13 | PATCH | Ensure HTTP Proxy Server is not enabled"
   service:
@@ -667,6 +723,7 @@
       - level1
       - patch
       - rule_2.2.13
+      - low
 
 - name: "SCORED | 2.2.14 | PATCH | Ensure SNMP Server is not enabled"
   service:
@@ -679,6 +736,7 @@
       - level1
       - patch
       - rule_2.2.14
+      - low
 
 - name: "SCORED | 2.2.15 | PATCH | Ensure mail transfer agent is configured for local-only mode"
   lineinfile:
@@ -690,6 +748,7 @@
       - level1
       - patch
       - rule_2.2.15
+      - low
 
 - name: "SCORED | 2.2.16 | PATCH | Ensure NIS Server is not enabled"
   service:
@@ -702,6 +761,7 @@
       - level1
       - patch
       - rule_2.2.16
+      - low
 
 - name: "SCORED | 2.2.19 | PATCH | Ensure tftp server is not enabled"
   service:
@@ -717,6 +777,7 @@
       - tftp
       - patch
       - rule_2.2.19
+      - low
 
 - name: "SCORED | 2.2.21 | PATCH | Ensure talk server is not enabled"
   service:
@@ -729,6 +790,7 @@
       - level1
       - patch
       - rule_2.2.21
+      - low
 
 - name: "SCORED | 2.3.1 | PATCH | Ensure NIS Client is not installed"
   yum:
@@ -739,6 +801,7 @@
       - level1
       - patch
       - rule_2.3.1
+      - low
 
 - name: "SCORED | 2.3.2 | PATCH | Ensure rsh client is not installed"
   yum:
@@ -749,6 +812,7 @@
       - level1
       - patch
       - rule_2.3.2
+      - low
 
 - name: "SCORED | 2.3.3 | PATCH | Ensure talk client is not installed"
   yum:
@@ -759,6 +823,7 @@
       - level1
       - patch
       - rule_2.3.3
+      - low
 
 - name: "SCORED | 2.3.4 | PATCH | Ensure telnet client is not installed"
   yum:
@@ -769,6 +834,7 @@
       - level1
       - patch
       - rule_2.3.4
+      - low
 
 - name: "SCORED | 2.3.5 | PATCH | Ensure LDAP client is not installed"
   yum:
@@ -779,3 +845,4 @@
       - level1
       - patch
       - rule_2.3.5
+      - low
