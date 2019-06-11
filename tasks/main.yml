@@ -39,8 +39,8 @@
 
 - name: Check ansible version
   fail:
-      msg: You must use ansible 2.4 or greater
-  when: not ansible_version.full is version('2.4', '>=')
+      msg: You must use ansible 2.7 or greater
+  when: not ansible_version.full is version('2.7', '>=')
   tags:
       - always
 
