@@ -32,6 +32,7 @@
       - sysctl
       - patch
       - rule_3.1.1
+      - low
 
 - name: "SCORED | 3.1.2 | PATCH | Ensure packet redirect sending is disabled"
   sysctl:
@@ -52,6 +53,7 @@
       - sysctl
       - patch
       - rule_3.1.2
+      - low
 
 - name: "SCORED | 3.2.1 | PATCH | Ensure source routed packets are not accepted"
   sysctl:
@@ -71,6 +73,7 @@
       - sysctl
       - patch
       - rule_3.2.1
+      - low
 
 - name: "SCORED | 3.2.2 | PATCH | Ensure ICMP redirects are not accepted"
   sysctl:
@@ -90,6 +93,7 @@
       - sysctl
       - patch
       - rule_3.2.2
+      - low
 
 - name: "SCORED | 3.2.3 | PATCH | Ensure secure ICMP redirects are not accepted"
   sysctl:
@@ -109,6 +113,7 @@
       - sysctl
       - patch
       - rule_3.2.3
+      - low
 
 - name: "SCORED | 3.2.4 | PATCH | Ensure suspicious packets are logged"
   sysctl:
@@ -128,6 +133,7 @@
       - sysctl
       - patch
       - rule_3.2.4
+      - low
 
 - name: "SCORED | 3.2.5 | PATCH | Ensure broadcast ICMP requests are ignored"
   sysctl:
@@ -143,6 +149,7 @@
       - sysctl
       - patch
       - rule_3.2.5
+      - low
 
 - name: "SCORED | 3.2.6 | PATCH | Ensure bogus ICMP responses are ignored"
   sysctl:
@@ -158,6 +165,7 @@
       - sysctl
       - patch
       - rule_3.2.6
+      - low
 
 - name: "SCORED | 3.2.7 | PATCH | Ensure Reverse Path Filtering is enabled"
   sysctl:
@@ -177,6 +185,7 @@
       - sysctl
       - patch
       - rule_3.2.7
+      - low
 
 - name: "SCORED | 3.2.8 | PATCH | Ensure TCP SYN Cookies is enabled"
   sysctl:
@@ -192,6 +201,7 @@
       - sysctl
       - patch
       - rule_3.2.8
+      - low
 
 - name: "SCORED | 3.3.1 | PATCH | Ensure IPv6 router advertisements are not accepted"
   sysctl:
@@ -212,6 +222,7 @@
       - sysctl
       - patch
       - rule_3.3.1
+      - low
 
 - name: "SCORED | 3.3.2 | PATCH | Ensure IPv6 redirects are not accepted"
   sysctl:
@@ -232,6 +243,7 @@
       - sysctl
       - patch
       - rule_3.3.2
+      - low
 
 - name: "NOTSCORED | 3.3.3 | PATCH | Ensure IPv6 is disabled"
   lineinfile:
@@ -244,6 +256,7 @@
       - level1
       - patch
       - rule_3.3.3
+      - medium
 
 - name: "SCORED | 3.4.1 | PATCH | Ensure TCP Wrappers is installed"
   yum:
@@ -253,6 +266,7 @@
       - level1
       - patch
       - rule_3.4.1
+      - low
 
 - name: "SCORED | 3.4.2 | PATCH | Ensure /etc/hosts.allow is configured"
   template:
@@ -265,6 +279,7 @@
       - level1
       - patch
       - rule_3.4.2
+      - low
 
 - name: "SCORED | 3.4.3 | PATCH | Ensure /etc/hosts.deny is configured"
   lineinfile:
@@ -276,6 +291,7 @@
       - level1
       - patch
       - rule_3.4.3
+      - medium
 
 - name: "SCORED | 3.4.4 | PATCH | Ensure permissions on /etc/hosts.allow are configured"
   file:
@@ -287,6 +303,7 @@
       - level1
       - patch
       - rule_3.4.4
+      - low
 
 - name: "SCORED | 3.4.5 | PATCH | Ensure permissions on /etc/hosts.deny are 644"
   file:
@@ -298,6 +315,7 @@
       - level1
       - patch
       - rule_3.4.5
+      - low
 
 - name: "NOTSCORED | 3.5.1 | PATCH | Ensure DCCP is disabled"
   lineinfile:
@@ -309,6 +327,7 @@
       - level1
       - patch
       - rule_3.5.1
+      - low
 
 - name: "NOTSCORED | 3.5.2 | PATCH | Ensure SCTP is disabled"
   lineinfile:
@@ -320,6 +339,7 @@
       - level1
       - patch
       - rule_3.5.2
+      - low
 
 - name: "NOTSCORED | 3.5.3 | PATCH | Ensure RDS is disabled"
   lineinfile:
@@ -331,6 +351,7 @@
       - level1
       - patch
       - rule_3.5.3
+      - low
 
 - name: "NOTSCORED | 3.5.4 | PATCH | Ensure TIPC is disabled"
   lineinfile:
@@ -342,6 +363,7 @@
       - level1
       - patch
       - rule_3.5.4
+      - low
 
 - name: "SCORED | 3.6.1 | PATCH | Ensure iptables is installed"
   yum:
@@ -352,6 +374,7 @@
       - level1
       - patch
       - rule_3.6.1
+      - low
 
 - name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | INPUT Policy"
   iptables:
@@ -366,6 +389,7 @@
       - level1
       - patch
       - rule_3.6.2
+      - medium
 
 - name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | OUTPUT Policy"
   iptables:
@@ -380,6 +404,7 @@
       - level1
       - patch
       - rule_3.6.2
+      - medium
 
 - name: "SCORED | 3.6.2 | PATCH | Ensure default deny firewall policy | FORWARD Policy"
   iptables:
@@ -394,6 +419,7 @@
       - level1
       - patch
       - rule_3.6.2
+      - medium
 
 - name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | INPUT rule"
   iptables:
@@ -409,6 +435,7 @@
       - level1
       - patch
       - rule_3.6.3
+      - low
 
 - name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | OUTPUT rule"
   iptables:
@@ -424,6 +451,7 @@
       - level1
       - patch
       - rule_3.6.3
+      - low
 
 - name: "SCORED | 3.6.3 | PATCH | Ensure loopback traffic is configured | 127.0.0.0/8 rule"
   iptables:
@@ -439,6 +467,7 @@
       - level1
       - patch
       - rule_3.6.3
+      - low
 
 - name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
   iptables:
@@ -454,6 +483,7 @@
       - level1
       - patch
       - rule_3.6.4
+      - low
 
 - name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
   iptables:
@@ -469,6 +499,7 @@
       - level1
       - patch
       - rule_3.6.4
+      - low
 
 - name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
   iptables:
@@ -484,6 +515,7 @@
       - level1
       - patch
       - rule_3.6.4
+      - low
 
 - name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
   iptables:
@@ -499,6 +531,7 @@
       - level1
       - patch
       - rule_3.6.4
+      - low
 
 - name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
   iptables:
@@ -514,6 +547,7 @@
       - level1
       - patch
       - rule_3.6.4
+      - low
 
 - name: "NOTSCORED | 3.6.4 | PATCH | Ensure outbound and established connections are configured"
   iptables:
@@ -529,6 +563,7 @@
       - level1
       - patch
       - rule_3.6.4
+      - low
 
 - name: "SCORED | 3.6.5 | PATCH | Ensure firewall rules exist for all open ports"
   debug:
@@ -538,3 +573,4 @@
       - level1
       - patch
       - rule_3.6.5
+      - low

@@ -25,6 +25,7 @@
       - level1
       - patch
       - rule_5.1.1
+      - low
 
 - name: "SCORED | 5.1.2 | PATCH | Ensure permissions on /etc/crontab are configured"
   file:
@@ -36,6 +37,7 @@
       - level1
       - patch
       - rule_5.1.2
+      - low
 
 - name: "SCORED | 5.1.3 | PATCH | Ensure permissions on /etc/cron.hourly are configured"
   file:
@@ -47,6 +49,7 @@
       - level1
       - patch
       - rule_5.1.3
+      - low
 
 - name: "SCORED | 5.1.4 | PATCH | Ensure permissions on /etc/cron.daily are configured"
   file:
@@ -58,6 +61,7 @@
       - level1
       - patch
       - rule_5.1.4
+      - low
 
 - name: "SCORED | 5.1.5 | PATCH | Ensure permissions on /etc/cron.weekly are configured"
   file:
@@ -69,6 +73,7 @@
       - level1
       - patch
       - rule_5.1.5
+      - low
 
 - name: "SCORED | 5.1.6 | PATCH | Ensure permissions on /etc/cron.monthly are configured"
   file:
@@ -80,6 +85,7 @@
       - level1
       - patch
       - rule_5.1.6
+      - low
 
 - name: "SCORED | 5.1.7 | PATCH | Ensure permissions on /etc/cron.d are configured"
   file:
@@ -92,6 +98,7 @@
       - level1
       - patch
       - rule_5.1.7
+      - low
 
 - name: "SCORED | 5.1.8 | PATCH | Ensure at/cron is restricted to authorized users"
   file:
@@ -101,6 +108,7 @@
       - level1
       - patch
       - rule_5.1.8
+      - low
 
 - name: "SCORED | 5.1.8 | PATCH | Ensure at/cron is restricted to authorized users"
   file:
@@ -113,6 +121,7 @@
       - level1
       - patch
       - rule_5.1.8
+      - low
 
 - name: "SCORED | 5.1.8 | PATCH | Ensure at/cron is restricted to authorized users"
   file:
@@ -122,6 +131,7 @@
       - level1
       - patch
       - rule_5.1.8
+      - low
 
 - name: "SCORED | 5.1.8 | PATCH | Ensure at/cron is restricted to authorized users"
   file:
@@ -134,6 +144,7 @@
       - level1
       - patch
       - rule_5.1.8
+      - low
 
 - name: "SCORED | 5.2.1 | PATCH | Ensure permissions on /etc/ssh/sshd_config are configured"
   file:
@@ -146,6 +157,7 @@
       - level1
       - patch
       - rule_5.2.1
+      - low
 
 - name: "SCORED | 5.2.2 | PATCH | Ensure SSH Protocol is set to 2"
   lineinfile:
@@ -157,6 +169,7 @@
       - level1
       - patch
       - rule_5.2.2
+      - low
 
 - name: "SCORED | 5.2.3 | PATCH | Ensure SSH LogLevel is set to INFO"
   lineinfile:
@@ -168,6 +181,7 @@
       - level1
       - patch
       - rule_5.2.3
+      - low
 
 - name: "SCORED | 5.2.4 | PATCH | Ensure SSH X11 forwarding is disabled"
   lineinfile:
@@ -179,6 +193,7 @@
       - level1
       - patch
       - rule_5.2.4
+      - low
 
 - name: "SCORED | 5.2.5 | PATCH | Ensure SSH MaxAuthTries is set to 4 or less"
   lineinfile:
@@ -190,6 +205,7 @@
       - level1
       - patch
       - rule_5.2.5
+      - low
 
 - name: "SCORED | 5.2.6 | PATCH | Ensure SSH IgnoreRhosts is enabled"
   lineinfile:
@@ -201,6 +217,7 @@
       - level1
       - patch
       - rule_5.2.6
+      - low
 
 - name: "SCORED | 5.2.7 | PATCH | Ensure SSH HostbasedAuthentication is disabled"
   lineinfile:
@@ -212,6 +229,7 @@
       - level1
       - patch
       - rule_5.2.7
+      - low
 
 - name: "SCORED | 5.2.8 | PATCH | Ensure SSH root login is disabled"
   lineinfile:
@@ -223,6 +241,7 @@
       - level1
       - patch
       - rule_5.2.8
+      - low
 
 - name: "SCORED | 5.2.9 | PATCH | Ensure SSH PermitEmptyPasswords is disabled"
   lineinfile:
@@ -234,6 +253,7 @@
       - level1
       - patch
       - rule_5.2.9
+      - low
 
 - name: "SCORED | 5.2.10 | PATCH | Ensure SSH PermitUserEnvironment is disabled"
   lineinfile:
@@ -245,6 +265,7 @@
       - level1
       - patch
       - rule_5.2.10
+      - low
 
 - name: "SCORED | 5.2.11 | PATCH | Ensure only approved MAC algorithms are used"
   lineinfile:
@@ -256,6 +277,7 @@
       - level1
       - patch
       - rule_5.2.11
+      - low
 
 - name: "SCORED | 5.2.12 | PATCH | Ensure SSH Idle Timeout Interval is configured"
   lineinfile:
@@ -267,6 +289,7 @@
       - level1
       - patch
       - rule_5.2.12
+      - low
 
 - name: "SCORED | 5.2.13 | PATCH | Ensure SSH LoginGraceTime is set to one minute or less"
   lineinfile:
@@ -278,6 +301,7 @@
       - level1
       - patch
       - rule_5.2.13
+      - low
 
 - name: "SCORED | 5.2.14 | PATCH | Ensure SSH access is limited"
   command: /bin/true
@@ -285,6 +309,7 @@
       - level1
       - patch
       - rule_5.2.14
+      - medium
 
 - name: "SCORED | 5.2.15 | PATCH | Ensure SSH warning banner is configured"
   lineinfile:
@@ -296,6 +321,7 @@
       - level1
       - patch
       - rule_5.2.15
+      - low
 
 - name: "SCORED | 5.3.1 | PATCH | Ensure password creation requirements are configured"
   lineinfile:
@@ -313,6 +339,7 @@
       - level1
       - patch
       - rule_5.3.1
+      - low
 
 # - name: "SCORED | 5.3.2 | PATCH | Ensure lockout for failed password attempts is configured | Create SymLn for /etc/pam.d/system-auth-local to enable persistent configuration file"
 #   copy:
@@ -360,6 +387,7 @@
       - level1
       - patch
       - rule_5.3.4
+      - low
 
 - name: "SCORED | 5.3.2 | PATCH | Ensure lockout for failed password attempts is configured | /etc/pam.d/password-auth write changes"
   blockinfile:
@@ -375,6 +403,7 @@
       - level1
       - patch
       - rule_5.3.2
+      - low
 
 - name: "SCORED | 5.3.2 | PATCH | Ensure lockout for failed password attempts is configured | /etc/pam.d/system-auth write changes"
   blockinfile:
@@ -390,6 +419,7 @@
       - level1
       - patch
       - rule_5.3.2
+      - low
 
 - name: "SCORED | 5.3.3 | PATCH | Ensure password reuse is limited"
   command: /bin/true
@@ -397,6 +427,7 @@
       - level1
       - patch
       - rule_5.3.3
+      - low
 
 - name: "SCORED | 5.4.1.1 | PATCH | Ensure password expiration is 90 days or less"
   lineinfile:
@@ -408,6 +439,7 @@
       - level1
       - patch
       - rule_5.4.1.1
+      - low
 
 - name: "SCORED | 5.4.1.2 | PATCH | Ensure minimum days between password changes is 7 or more"
   lineinfile:
@@ -419,6 +451,7 @@
       - level1
       - patch
       - rule_5.4.1.2
+      - low
 
 - name: "SCORED | 5.4.1.3 | PATCH | Ensure password expiration warning days is 7 or more"
   lineinfile:
@@ -430,6 +463,7 @@
       - level1
       - patch
       - rule_5.4.1.3
+      - low
 
 - name: "SCORED | 5.4.1.4 | PATCH | Ensure inactive password lock is 30 days or less"
   command: /bin/true
@@ -437,6 +471,7 @@
       - level1
       - patch
       - rule_5.4.1.4
+      - low
 
 - name: "SCORED | 5.4.2 | PATCH | Ensure system accounts are non-login"
   command: /bin/true
@@ -444,6 +479,7 @@
       - level1
       - patch
       - rule_5.4.2
+      - low
 
 - name: "SCORED | 5.4.3 | PATCH | Ensure default group for the root account is GID 0"
   command: usermod -g 0 root
@@ -451,6 +487,7 @@
       - level1
       - patch
       - rule_5.4.3
+      - low
 
 - name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
   lineinfile:
@@ -463,6 +500,7 @@
       - level1
       - patch
       - rule_5.4.4
+      - low
 
 - name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
   lineinfile:
@@ -475,6 +513,7 @@
       - level1
       - patch
       - rule_5.4.4
+      - low
 
 - name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
   find:
@@ -487,6 +526,7 @@
       - level1
       - patch
       - rule_5.4.4
+      - low
 
 - name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
   lineinfile:
@@ -502,6 +542,7 @@
       - level1
       - patch
       - rule_5.4.4
+      - low
 
 - name: "SCORED | 5.4.5 | PATCH | Ensure default user shell timeout is 900 seconds or less"
   lineinfile:
@@ -513,6 +554,7 @@
       - level2
       - patch
       - rule_5.4.5
+      - low
 
 - name: "SCORED | 5.4.5 | PATCH | Ensure default user shell timeout is 900 seconds or less"
   lineinfile:
@@ -524,6 +566,7 @@
       - level2
       - patch
       - rule_5.4.5
+      - loww
 
 - name: "NOTSCORED | 5.5 | PATCH | Ensure root login is restricted to system console"
   command: /bin/true
@@ -531,6 +574,7 @@
       - level1
       - patch
       - rule_5.5
+      - low
 
 - name: "SCORED | 5.6 | PATCH | Ensure access to the su command is restricted"
   lineinfile:
@@ -542,3 +586,4 @@
       - level1
       - patch
       - rule_5.6
+      - low
