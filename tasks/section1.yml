@@ -338,6 +338,7 @@
       - scored
       - patch
       - rule_1.1.6
+      - medium
 
 - name: "SCORED | 1.1.7 | PATCH | Ensure separate partition exists for /var/tmp"
   shell: mount | grep "on /var/tmp "
@@ -349,6 +350,7 @@
       - scored
       - patch
       - rule_1.1.7
+      - medium
 
 - name: "SCORED | 1.1.8 | PATCH | Ensure nodev option set on /var/tmp partition"
   command: /bin/true
@@ -358,6 +360,7 @@
       - scored
       - patch
       - rule_1.1.8
+      - low
 
 - name: "SCORED | 1.1.9 | PATCH | Ensure nosuid option set on /var/tmp partition"
   command: /bin/true
@@ -367,6 +370,7 @@
       - scored
       - patch
       - rule_1.1.9
+      - low
 
 - name: "SCORED | 1.1.10 | PATCH | Ensure noexec option set on /var/tmp partition"
   command: /bin/true
@@ -376,6 +380,7 @@
       - scored
       - patch
       - rule_1.1.10
+      - low
 
 - name: "SCORED | 1.1.11 | PATCH | Ensure separate partition exists for /var/log"
   shell: mount | grep "on /var/log "
@@ -387,6 +392,7 @@
       - scored
       - patch
       - rule_1.1.11
+      - medium
 
 - name: "SCORED | 1.1.12 | PATCH | Ensure separate partition exists for /var/log/audit"
   shell: mount | grep "on /var/log/audit "
@@ -398,6 +404,7 @@
       - scored
       - patch
       - rule_1.1.12
+      - medium
 
 - name: "SCORED | 1.1.13 | PATCH | Ensure separate partition exists for /home"
   shell: mount | grep "on /home "
@@ -409,6 +416,7 @@
       - scored
       - patch
       - rule_1.1.13
+      - medium
 
 - name: "SCORED | 1.1.14 | PATCH | Ensure nodev option set on /home partition"
   command: /bin/true
@@ -417,6 +425,7 @@
       - level1
       - patch
       - rule_1.1.14
+      - low
 
 - name: "SCORED | 1.1.15 | PATCH | Ensure nodev option set on /dev/shm partition\n
          SCORED | 1.1.16 | PATCH | Ensure nosuid option set on /dev/shm partition\n
@@ -434,6 +443,7 @@
       - rule_1.1.15
       - rule_1.1.16
       - rule_1.1.17
+      - low
 
 - name: "SCORED | 1.1.18 | PATCH | Ensure sticky bit is set on all world-writable directories"
   shell: df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
@@ -442,6 +452,7 @@
       - level1
       - patch
       - rule_1.1.18
+      - low
 
 - name: "SCORED | 1.1.19 | PATCH | Disable Automounting"
   service:
@@ -455,6 +466,7 @@
       - level1
       - patch
       - rule_1.1.19
+      - low
 
 - name: "NOTSCORED | 1.2.1 | PATCH | Ensure package manager repositories are configured"
   command: /bin/true
@@ -464,6 +476,7 @@
       - notscored
       - patch
       - rule_1.2.1
+      - low
 
 - name: "NOTSCORED | 1.2.2 | PATCH | Ensure GPG keys are configured"
   command: /bin/true
@@ -473,6 +486,7 @@
       - notscored
       - patch
       - rule_1.2.2
+      - low
 
 - name: "SCORED | 1.2.3 | PATCH | Ensure gpgcheck is globally activated"
   replace:
@@ -484,6 +498,7 @@
       - scored
       - patch
       - rule_1.2.3
+      - low
 
 - name: "SCORED | 1.2.3 | PATCH | Ensure gpgcheck is globally activated"
   find:
@@ -496,6 +511,7 @@
       - scored
       - patch
       - rule_1.2.3
+      - low
 
 - name: "SCORED | 1.2.3 | PATCH | Ensure gpgcheck is globally activated"
   replace:
@@ -509,6 +525,7 @@
       - scored
       - patch
       - rule_1.2.3
+      - low
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
   yum:
@@ -520,6 +537,7 @@
       - aide
       - patch
       - rule_1.3.1
+      - medium
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
   command: /usr/sbin/aide --init
@@ -533,6 +551,7 @@
       - aide
       - patch
       - rule_1.3.1
+      - medium
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
   command: mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
@@ -543,6 +562,7 @@
       - aide
       - patch
       - rule_1.3.1
+      - medium
 
 
 - name: "SCORED | 1.3.2 | PATCH | Ensure filesystem integrity is regularly checked"
@@ -563,6 +583,7 @@
       - file_integrity
       - patch
       - rule_1.3.2
+      - low
 
 - name: "SCORED | 1.4.1 | PATCH | Ensure permissions on bootloader config are configured"
   stat:
@@ -574,6 +595,7 @@
       - grub
       - patch
       - rule_1.4.1
+      - low
 
 - name: "SCORED | 1.4.1 | PATCH | Ensure permissions on bootloader config are configured"
   file:
@@ -588,6 +610,7 @@
       - grub
       - patch
       - rule_1.4.1
+      - low
 
 - name: "SCORED | 1.4.3 | PATCH | Ensure authentication required for single user mode"
   lineinfile:
@@ -599,6 +622,7 @@
       - level1
       - patch
       - rule_1.4.2
+      - low
 
 - name: "SCORED | 1.4.3 | PATCH | Ensure interactive boot is not enabled"
   lineinfile:
@@ -610,6 +634,7 @@
       - level1
       - patch
       - rule_1.4.3
+      - low
 
 - name: "SCORED | 1.5.1 | PATCH | Ensure core dumps are restricted"
   lineinfile:
@@ -624,6 +649,7 @@
       - limits
       - patch
       - rule_1.5.1
+      - low
 
 - name: "SCORED | 1.5.1 | PATCH | Ensure core dumps are restricted"
   sysctl:
@@ -639,6 +665,7 @@
       - sysctl
       - patch
       - rule_1.5.1
+      - low
 
 - name: "NOTSCORED | 1.5.2 | PATCH | Ensure XD/NX support is enabled"
   shell: dmesg | grep NX
@@ -648,6 +675,7 @@
       - level1
       - patch
       - rule_1.5.2
+      - low
 
 - name: "NOTSCORED | 1.5.2 | PATCH | Ensure XD/NX support is enabled"
   debug:
@@ -656,6 +684,7 @@
       - level1
       - patch
       - rule_1.5.2
+      - low
 
 - name: "NOTSCORED | 1.5.2 | PATCH | Ensure XD/NX support is enabled"
   debug:
@@ -665,6 +694,7 @@
       - level1
       - patch
       - rule_1.5.2
+      - low
 
 - name: "SCORED | 1.5.3 | PATCH | Ensure address space layout randomization (ASLR) is enabled"
   sysctl:
@@ -679,6 +709,7 @@
       - scored
       - patch
       - rule_1.5.3
+      - low
 
 - name: "SCORED | 1.5.4 | PATCH | Ensure prelink is disabled"
   command: prelink -ua
@@ -688,6 +719,7 @@
       - scored
       - patch
       - rule_1.5.4
+      - low
 
 - name: "SCORED | 1.5.4 | PATCH | Ensure prelink is disabled"
   yum:
@@ -698,6 +730,7 @@
       - scored
       - patch
       - rule_1.5.4
+      - medium
 
 - name: "SCORED | 1.6.1.1 | PATCH | Ensure SELinux is not disabled in bootloader configuration"
   replace:
@@ -712,6 +745,7 @@
       - scored
       - patch
       - rule_1.6.1.1
+      - high
 
 - name: "SCORED | 1.6.1.2 | PATCH | Ensure the SELinux state is enforcing"
   selinux:
@@ -725,6 +759,7 @@
       - selinux
       - patch
       - rule_1.6.1.2
+      - high
 
 - name: "SCORED | 1.6.1.3 | PATCH | Ensure SELinux policy is configured"
   selinux:
@@ -738,6 +773,7 @@
       - selinux
       - patch
       - rule_1.6.1.3
+      - medium
 
 - name: "SCORED | 1.6.1.4 | PATCH | Ensure SETroubleshoot is not installed"
   yum:
@@ -749,6 +785,7 @@
       - selinux
       - patch
       - rule_1.6.1.4
+      - low
 
 - name: "SCORED | 1.6.1.5 | PATCH | Ensure the MCS Translation Service (mcstrans) is not installed"
   yum:
@@ -759,6 +796,7 @@
       - scored
       - patch
       - rule_1.6.1.5
+      - low
 
 - name: "SCORED | 1.6.1.6 | PATCH | Ensure no unconfined daemons exist"
   command: /bin/true
@@ -767,6 +805,7 @@
       - level2
       - patch
       - rule_1.6.1.6
+      - medium
 
 - name: "SCORED | 1.6.2 | PATCH | Ensure SELinux is installed"
   yum:
@@ -777,6 +816,7 @@
       - scored
       - patch
       - rule_1.6.2
+      - high
 
 - stat: path=/etc/motd
   register: motd_link
@@ -785,6 +825,7 @@
       - banner
       - patch
       - rule_1.7.1.1
+      - low
 
 - command: /usr/sbin/update-motd --disable
   when:
@@ -796,6 +837,7 @@
       - banner
       - patch
       - rule_1.7.1.1
+      - low
 
 - name: "SCORED | 1.7.1.1 | PATCH | Ensure message of the day is configured properly"
   shell: update-motd --disable
@@ -806,6 +848,7 @@
       - banner
       - patch
       - rule_1.7.1.1
+      - low
 
 - name: "SCORED | 1.7.1.1 | PATCH | Ensure message of the day is configured properly"
   template:
@@ -817,6 +860,7 @@
       - banner
       - patch
       - rule_1.7.1.1
+      - low
 
 - name: "SCORED | 1.7.1.1 | PATCH | Ensure message of the day is configured properly"
   template:
@@ -828,6 +872,7 @@
       - banner
       - patch
       - rule_1.7.1.1
+      - low
 
 - name: "NOTSCORED | 1.7.1.2 | PATCH | Ensure local login warning banner is configured properly"
   template:
@@ -837,6 +882,7 @@
       - level1
       - patch
       - rule_1.7.1.2
+      - low
 
 - name: "NOTSCORED | 1.7.1.3 | PATCH | Ensure remote login warning banner is configured properly"
   template:
@@ -847,6 +893,7 @@
       - banner
       - patch
       - rule_1.7.1.3
+      - low
 
 - name: "NOTSCORED | 1.7.1.4 | PATCH | Ensure permissions on /etc/motd are configured"
   stat: path=/etc/motd
@@ -856,6 +903,7 @@
       - perms
       - patch
       - rule_1.7.1.4
+      - low
 
 - name: "NOTSCORED | 1.7.1.4 | PATCH | Ensure permissions on /etc/motd are configured"
   command: /usr/sbin/update-motd --disable
@@ -868,6 +916,7 @@
       - perms
       - patch
       - rule_1.7.1.4
+      - low
 
 - name: "NOTSCORED | 1.7.1.4 | PATCH | Ensure permissions on /etc/motd are configured"
   file:
@@ -883,6 +932,7 @@
       - perms
       - patch
       - rule_1.7.1.4
+      - low
 
 - name: "NOTSCORED | 1.7.1.4 | PATCH | Ensure permissions on /etc/motd are configured"
   template:
@@ -896,6 +946,7 @@
       - banner
       - patch
       - rule_1.7.1.1
+      - low
 
 - name: "SCORED | 1.7.1.5 | PATCH | Ensure permissions on /etc/issue are configured"
   file:
@@ -909,6 +960,7 @@
       - perms
       - patch
       - rule_1.7.1.5
+      - low
 
 - name: "NOTSCORED | 1.7.1.6 | PATCH | Ensure permissions on /etc/issue.net are configured"
   file:
@@ -922,6 +974,7 @@
       - perms
       - patch
       - rule_1.7.1.6
+      - low
 
 - name: "SCORED | 1.7.2 | PATCH | Ensure GDM login banner is configured"
   debug:
@@ -932,6 +985,7 @@
       - level1
       - patch
       - rule_1.7.2
+      - low
 
 - name: "NOTSCORED | 1.8 | PATCH | Ensure updates, patches, and additional security software are installed"
   yum:
@@ -942,3 +996,4 @@
       - level1
       - patch
       - rule_1.8
+      - medium
