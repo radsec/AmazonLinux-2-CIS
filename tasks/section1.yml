@@ -19,7 +19,7 @@
 ## END COPYRIGHT NOTICE ##
 - name: "SCORED | 1.1.1.1 | PATCH | Ensure mounting of cramfs filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
+      dest: /etc/modprobe.d/cramfs.conf
       regexp: "^(#)?install cramfs(\\s|$)"
       line: "install cramfs /bin/true"
       create: yes
@@ -30,35 +30,18 @@
       - rule_1.1.1.1
       - cramfs
 
-- name: "SCORED | 1.1.1.2 | PATCH | Ensure mounting of freevxfs filesystems is disabled"
-  lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install freevxfs(\\s|$)"
-      line: "install freevxfs /bin/true"
-      create: yes
+- name: "SCORED | 1.1.1.1 | PATCH | Ensure mounting of cramfs filesystems is disabled"
+  command: rmmod cramfs
   tags:
       - level1
       - scored
       - patch
-      - rule_1.1.1.2
-      - freevxfs
+      - rule_1.1.1.1
+      - cramfs
 
-- name: "SCORED | 1.1.1.3 | PATCH | Ensure mounting of jffs2 filesystems is disabled"
+- name: "SCORED | 1.1.1.2 | PATCH | Ensure mounting of hfs filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install jffs2(\\s|$)"
-      line: "install jffs2 /bin/true"
-      create: yes
-  tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.1.3
-      - jffs2
-
-- name: "SCORED | 1.1.1.4 | PATCH | Ensure mounting of hfs filesystems is disabled"
-  lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
+      dest: /etc/modprobe.d/hfs.conf
       regexp: "^(#)?install hfs(\\s|$)"
       line: "install hfs /bin/true"
       create: yes
@@ -66,12 +49,21 @@
       - level1
       - scored
       - patch
-      - rule_1.1.1.4
+      - rule_1.1.1.2
       - hfs
 
-- name: "SCORED | 1.1.1.5 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
+- name: "SCORED | 1.1.1.2 | PATCH | Ensure mounting of hfs filesystems is disabled"
+  command: rmmod hfs
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_1.1.1.2
+      - hfs
+
+- name: "SCORED | 1.1.1.3 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
+      dest: /etc/modprobe.d/hfsplus.conf
       regexp: "^(#)?install hfsplus(\\s|$)"
       line: "install hfsplus /bin/true"
       create: yes
@@ -79,12 +71,21 @@
       - level1
       - scored
       - patch
-      - rule_1.1.1.5
+      - rule_1.1.1.3
       - hfsplus
 
-- name: "SCORED | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled"
+- name: "SCORED | 1.1.1.3 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
+  command: rmmod hfsplus
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_1.1.1.3
+      - hfsplus
+
+- name: "SCORED | 1.1.1.4 | PATCH | Ensure mounting of squashfs filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
+      dest: /etc/modprobe.d/squashfs.conf
       regexp: "^(#)?install squashfs(\\s|$)"
       line: "install squashfs /bin/true"
       create: yes
@@ -92,12 +93,21 @@
       - level1
       - scored
       - patch
-      - rule_1.1.1.6
+      - rule_1.1.1.4
       - squashfs
 
-- name: "SCORED | 1.1.1.7 | PATCH | Ensure mounting of udf filesystems is disabled"
+- name: "SCORED | 1.1.1.4 | PATCH | Ensure mounting of squashfs filesystems is disabled"
+  command: rmmod squashfs
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_1.1.1.4
+      - squashfs
+
+- name: "SCORED | 1.1.1.5 | PATCH | Ensure mounting of udf filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
+      dest: /etc/modprobe.d/udf.conf
       regexp: "^(#)?install udf(\\s|$)"
       line: "install udf /bin/true"
       create: yes
@@ -105,21 +115,17 @@
       - level1
       - scored
       - patch
-      - rule_1.1.1.7
+      - rule_1.1.1.5
       - udf
 
-- name: "SCORED | 1.1.1.8 | PATCH | Ensure mounting of FAT filesystems is disabled"
-  lineinfile:
-      dest: /etc/modprobe.d/CIS.conf
-      regexp: "^(#)?install vfat(\\s|$)"
-      line: "install vfat /bin/true"
-      create: yes
+- name: "SCORED | 1.1.1.5 | PATCH | Ensure mounting of udf filesystems is disabled"
+  command: rmmod udf
   tags:
       - level1
       - scored
       - patch
-      - rule_1.1.1.8
-      - vfat
+      - rule_1.1.1.5
+      - udf
 
 - name: 1.1.2 Ensure separate partition exists for /tmp (Scored)
   command: grep '\s/tmp\s' /etc/fstab
@@ -255,25 +261,10 @@
     - rule_1.1.4
     - low
 
-- name: 1.1.5 Ensure separate partition exists for /var (Scored)
-  command: grep '\s/var\s' /etc/fstab
-  register: var_partition
-  failed_when: var_partition.rc == 1
-  changed_when: false
-  ignore_errors: true
-  check_mode: no
-  tags:
-    - level1
-    - rule_1
-    - rule_1.1
-    - rule_1.1.5
-    - low
-
 - yum:
     name: python-pip
     state: present
-  check_mode: no
-  when: var_partition.rc == 0
+  when: tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
@@ -284,12 +275,87 @@
 - name: install dependencies for mountopts-module
   pip:
     name: fstab
-  when: var_partition.rc == 0
+  when: tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
     - rule_1.1
     - rule_1.1.5
+    - low
+
+- mountopts:
+    name: /tmp
+    option: noexec
+    state: present
+  check_mode: no
+  when: tmp_partition.rc == 0
+  tags:
+    - level1
+    - rule_1
+    - rule_1.1
+    - rule_1.1.5
+    - low
+
+- shell: mount | grep /tmp|grep noexec
+  register: mount_tmp_output
+  failed_when: false
+  ignore_errors: true
+  changed_when: false
+  check_mode: no
+  tags:
+    - level1
+    - rule_1
+    - rule_1.1
+    - rule_1.1.5
+    - low
+
+- name: 1.1.5 Ensure nosuid option set on /tmp partition (Scored)
+  command: mount -o remount,noexec /tmp
+  ignore_errors: true
+  check_mode: no
+  when: tmp_partition.rc == 0 and mount_tmp_output.rc != 0
+  tags:
+    - level1
+    - rule_1
+    - rule_1.1
+    - rule_1.1.
+    - low
+
+- name: 1.1.6 Ensure separate partition exists for /var (Scored)
+  command: grep '\s/var\s' /etc/fstab
+  register: var_partition
+  failed_when: var_partition.rc == 1
+  changed_when: false
+  ignore_errors: true
+  check_mode: no
+  tags:
+    - level2
+    - rule_1
+    - rule_1.1
+    - rule_1.1.6
+    - low
+
+- yum:
+    name: python-pip
+    state: present
+  check_mode: no
+  when: var_partition.rc == 0
+  tags:
+    - level2
+    - rule_1
+    - rule_1.1
+    - rule_1.1.6
+    - low
+
+- name: install dependencies for mountopts-module
+  pip:
+    name: fstab
+  when: var_partition.rc == 0
+  tags:
+    - level2
+    - rule_1
+    - rule_1.1
+    - rule_1.1.6
     - low
 
 - mountopts:
@@ -298,10 +364,10 @@
     state: present
   when: var_partition.rc == 0
   tags:
-    - level1
+    - level2
     - rule_1
     - rule_1.1
-    - rule_1.1.5
+    - rule_1.1.6
     - low
 
 - mountopts:
@@ -310,10 +376,10 @@
     state: present
   when: var_partition.rc == 0
   tags:
-    - level1
+    - level2
     - rule_1
     - rule_1.1
-    - rule_1.1.5
+    - rule_1.1.6
     - low
 
 - mountopts:
@@ -322,10 +388,10 @@
     state: present
   when: var_partition.rc == 0
   tags:
-    - level1
+    - level2
     - rule_1
     - rule_1.1
-    - rule_1.1.5
+    - rule_1.1.6
     - low
 
 - name: "SCORED | 1.1.6 | PATCH | Ensure separate partition exists for /var"
@@ -334,11 +400,11 @@
   changed_when: no
   failed_when: no
   tags:
-      - level2
-      - scored
-      - patch
-      - rule_1.1.6
-      - medium
+    - level2
+    - rule_1
+    - rule_1.1
+    - rule_1.1.6
+    - low
 
 - name: "SCORED | 1.1.7 | PATCH | Ensure separate partition exists for /var/tmp"
   shell: mount | grep "on /var/tmp "
@@ -352,35 +418,53 @@
       - rule_1.1.7
       - medium
 
-- name: "SCORED | 1.1.8 | PATCH | Ensure nodev option set on /var/tmp partition"
-  command: /bin/true
-  changed_when: no
+- name: "SCORED | 1.1.8 | PATCH | Ensure nodev option set on /var/tmp partition\n
+         SCORED | 1.1.9 | PATCH | Ensure nosuid option set on /var/tmp partition\n
+         SCORED | 1.1.10 | PATCH | Ensure noexec option set on /var/tmp partition"
+  mount:
+    path: /var/tmp
+    opts: "rw,nosuid,nodev,noexec,relatime"
+    state: mounted
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.8
-      - low
+    - level1
+    - scored
+    - patch
+    - rule_1.1.8
+    - rule_1.1.9
+    - rule_1.1.10
+    - low
 
-- name: "SCORED | 1.1.9 | PATCH | Ensure nosuid option set on /var/tmp partition"
-  command: /bin/true
-  changed_when: no
-  tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.9
-      - low
+#- name: "SCORED | 1.1.8 | PATCH | Ensure nodev option set on /var/tmp partition"
+#  command: /bin/true
+#  changed_when: no
+#  tags:
+#      - level1
+#      - scored
+#      - patch
+#      - rule_1.1.8
+#      - rule_1.1.9
+#      - rule_1.1.10
+#      - low
 
-- name: "SCORED | 1.1.10 | PATCH | Ensure noexec option set on /var/tmp partition"
-  command: /bin/true
-  changed_when: no
-  tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.10
-      - low
+#- name: "SCORED | 1.1.9 | PATCH | Ensure nosuid option set on /var/tmp partition"
+#  command: /bin/true
+#  changed_when: no
+#  tags:
+#      - level1
+#      - scored
+#      - patch
+#      - rule_1.1.9
+#      - low
+#
+#- name: "SCORED | 1.1.10 | PATCH | Ensure noexec option set on /var/tmp partition"
+#  command: /bin/true
+#  changed_when: no
+#  tags:
+#      - level1
+#      - scored
+#      - patch
+#      - rule_1.1.10
+#      - low
 
 - name: "SCORED | 1.1.11 | PATCH | Ensure separate partition exists for /var/log"
   shell: mount | grep "on /var/log "
@@ -419,8 +503,10 @@
       - medium
 
 - name: "SCORED | 1.1.14 | PATCH | Ensure nodev option set on /home partition"
-  command: /bin/true
-  changed_when: no
+  mount:
+    path: /home
+    opts: nodev
+    state: mounted
   tags:
       - level1
       - patch
@@ -455,10 +541,10 @@
       - low
 
 - name: "SCORED | 1.1.19 | PATCH | Disable Automounting"
-  service:
+  systemd:
       name: autofs
       enabled: no
-  ignore_errors: true
+  ignore_errors: true 
   when:
     - amazonlinux2cis_allow_autofs == false
     - autofs_service_status.stdout == "loaded"
@@ -587,7 +673,8 @@
 
 - name: "SCORED | 1.4.1 | PATCH | Ensure permissions on bootloader config are configured"
   stat:
-      path: /boot/grub/menu.lst
+    path: /boot/grub2/grub.cfg
+#   path: /boot/grub/menu.lst
   register: grub_cfg
   tags:
       - level1
@@ -612,29 +699,20 @@
       - rule_1.4.1
       - low
 
-- name: "SCORED | 1.4.3 | PATCH | Ensure authentication required for single user mode"
+- name : "SCORED | 1.4.2 | PATCH | Ensure authentication required for single user mode"
   lineinfile:
-      state: present
-      dest: /etc/sysconfig/init
-      regexp: "^SINGLE"
-      line: "SINGLE=/sbin/sulogin"
+    state: present
+    dest: {{ item }}
+    regexp: "^ExecStart="
+    line: "ExecStart=-/bin/sh -c \"/sbin/sulogin; /usr/bin/systemctl --fail --no-block default\""
+  with_items:
+    - /usr/lib/systemd/system/rescue.service
+    - /usr/lib/systemd/system/emergency.service
   tags:
-      - level1
-      - patch
-      - rule_1.4.2
-      - low
-
-- name: "SCORED | 1.4.3 | PATCH | Ensure interactive boot is not enabled"
-  lineinfile:
-      state: present
-      dest: /etc/sysconfig/init
-      regexp: "^PROMPT="
-      line: "PROMPT=no"
-  tags:
-      - level1
-      - patch
-      - rule_1.4.3
-      - low
+    - level1
+    - patch
+    - rule_1.4.2
+    - low
 
 - name: "SCORED | 1.5.1 | PATCH | Ensure core dumps are restricted"
   lineinfile:
@@ -667,36 +745,7 @@
       - rule_1.5.1
       - low
 
-- name: "NOTSCORED | 1.5.2 | PATCH | Ensure XD/NX support is enabled"
-  shell: dmesg | grep NX
-  register: nx_protection_reg
-  ignore_errors: yes
-  tags:
-      - level1
-      - patch
-      - rule_1.5.2
-      - low
-
-- name: "NOTSCORED | 1.5.2 | PATCH | Ensure XD/NX support is enabled"
-  debug:
-    var: nx_protection_reg
-  tags:
-      - level1
-      - patch
-      - rule_1.5.2
-      - low
-
-- name: "NOTSCORED | 1.5.2 | PATCH | Ensure XD/NX support is enabled"
-  debug:
-    msg: "PASS | 1.5.2 | XD/NX support is enabled"
-  when: 'nx_protection_reg.stdout_lines[0] == "[    0.000000] NX (Execute Disable) protection: active"'
-  tags:
-      - level1
-      - patch
-      - rule_1.5.2
-      - low
-
-- name: "SCORED | 1.5.3 | PATCH | Ensure address space layout randomization (ASLR) is enabled"
+- name: "SCORED | 1.5.2 | PATCH | Ensure address space layout randomization (ASLR) is enabled"
   sysctl:
       name: kernel.randomize_va_space
       value: 2
@@ -708,20 +757,20 @@
       - level1
       - scored
       - patch
-      - rule_1.5.3
+      - rule_1.5.2
       - low
 
-- name: "SCORED | 1.5.4 | PATCH | Ensure prelink is disabled"
+- name: "SCORED | 1.5.3 | PATCH | Ensure prelink is disabled"
   command: prelink -ua
   when: prelink_installed.rc == 0
   tags:
       - level1
       - scored
       - patch
-      - rule_1.5.4
+      - rule_1.5.3
       - low
 
-- name: "SCORED | 1.5.4 | PATCH | Ensure prelink is disabled"
+- name: "SCORED | 1.5.3 | PATCH | Ensure prelink is disabled"
   yum:
     name: prelink
     state: absent
@@ -729,7 +778,7 @@
       - level1
       - scored
       - patch
-      - rule_1.5.4
+      - rule_1.5.3
       - medium
 
 - name: "SCORED | 1.6.1.1 | PATCH | Ensure SELinux is not disabled in bootloader configuration"
@@ -974,17 +1023,6 @@
       - perms
       - patch
       - rule_1.7.1.6
-      - low
-
-- name: "SCORED | 1.7.2 | PATCH | Ensure GDM login banner is configured"
-  debug:
-      msg: "Not currently implemented"
-  #when: gdm_installed_audit.rc == '0' and gdm_login_banner_configured_audit
-  changed_when: no
-  tags:
-      - level1
-      - patch
-      - rule_1.7.2
       - low
 
 - name: "NOTSCORED | 1.8 | PATCH | Ensure updates, patches, and additional security software are installed"
