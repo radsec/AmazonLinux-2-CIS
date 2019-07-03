@@ -716,34 +716,34 @@
 
 - name: "SCORED | 1.5.1 | PATCH | Ensure core dumps are restricted"
   lineinfile:
-      state: present
-      dest: /etc/security/limits.conf
-      regexp: '^#?\\*.*core'
-      line: '*                hard    core            0'
-      insertbefore: '^# End of file'
+    state: present
+    dest: /etc/security/limits.conf
+    regexp: '^#?\\*.*core'
+    line: '*                hard    core            0'
+    insertbefore: '^# End of file'
   tags:
-      - level1
-      - scored
-      - limits
-      - patch
-      - rule_1.5.1
-      - low
+    - level1
+    - scored
+    - limits
+    - patch
+    - rule_1.5.1
+    - low
 
 - name: "SCORED | 1.5.1 | PATCH | Ensure core dumps are restricted"
   sysctl:
-      name: fs.suid_dumpable
-      value: 0
-      state: present
-      reload: yes
-      sysctl_set: yes
-      ignoreerrors: yes
+    name: fs.suid_dumpable
+    value: 0
+    state: present
+    reload: yes
+    sysctl_set: yes
+    ignoreerrors: yes
   tags:
-      - level1
-      - scored
-      - sysctl
-      - patch
-      - rule_1.5.1
-      - low
+    - level1
+    - scored
+    - sysctl
+    - patch
+    - rule_1.5.1
+    - low
 
 - name: "SCORED | 1.5.2 | PATCH | Ensure address space layout randomization (ASLR) is enabled"
   sysctl:
