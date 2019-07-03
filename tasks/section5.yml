@@ -18,328 +18,523 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ## END COPYRIGHT NOTICE ##
 - name: "SCORED | 5.1.1 | PATCH | Ensure cron daemon is enabled"
-  service:
-      name: crond
-      enabled: yes
+  systemd:
+    name: crond
+    enabled: yes
   tags:
-      - level1
-      - patch
-      - rule_5.1.1
-      - low
+    - level1
+    - patch
+    - rule_5.1.1
+    - low
 
 - name: "SCORED | 5.1.2 | PATCH | Ensure permissions on /etc/crontab are configured"
   file:
-      dest: /etc/crontab
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/crontab
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - patch
-      - rule_5.1.2
-      - low
+    - level1
+    - patch
+    - rule_5.1.2
+    - low
 
 - name: "SCORED | 5.1.3 | PATCH | Ensure permissions on /etc/cron.hourly are configured"
   file:
-      dest: /etc/cron.hourly
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/cron.hourly
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - patch
-      - rule_5.1.3
-      - low
+    - level1
+    - patch
+    - rule_5.1.3
+    - low
 
 - name: "SCORED | 5.1.4 | PATCH | Ensure permissions on /etc/cron.daily are configured"
   file:
-      dest: /etc/cron.daily
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/cron.daily
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - patch
-      - rule_5.1.4
-      - low
+    - level1
+    - patch
+    - rule_5.1.4
+    - low
 
 - name: "SCORED | 5.1.5 | PATCH | Ensure permissions on /etc/cron.weekly are configured"
   file:
-      dest: /etc/cron.weekly
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/cron.weekly
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - patch
-      - rule_5.1.5
-      - low
+    - level1
+    - patch
+    - rule_5.1.5
+    - low
 
 - name: "SCORED | 5.1.6 | PATCH | Ensure permissions on /etc/cron.monthly are configured"
   file:
-      dest: /etc/cron.monthly
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/cron.monthly
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - patch
-      - rule_5.1.6
-      - low
+    - level1
+    - patch
+    - rule_5.1.6
+    - low
 
 - name: "SCORED | 5.1.7 | PATCH | Ensure permissions on /etc/cron.d are configured"
   file:
-      dest: /etc/cron.d
-      state: directory
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/cron.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - patch
-      - rule_5.1.7
-      - low
+    - level1
+    - patch
+    - rule_5.1.7
+    - low
 
 - name: "SCORED | 5.1.8 | PATCH | Ensure at/cron is restricted to authorized users"
   file:
-      dest: /etc/at.deny
-      state: absent
+    dest: /etc/at.deny
+    state: absent
   tags:
-      - level1
-      - patch
-      - rule_5.1.8
-      - low
+    - level1
+    - patch
+    - rule_5.1.8
+    - low
 
 - name: "SCORED | 5.1.8 | PATCH | Ensure at/cron is restricted to authorized users"
   file:
-      dest: /etc/at.allow
-      state: touch
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/at.allow
+    state: touch
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - patch
-      - rule_5.1.8
-      - low
+    - level1
+    - patch
+    - rule_5.1.8
+    - low
 
 - name: "SCORED | 5.1.8 | PATCH | Ensure at/cron is restricted to authorized users"
   file:
-      dest: /etc/cron.deny
-      state: absent
+    dest: /etc/cron.deny
+    state: absent
   tags:
-      - level1
-      - patch
-      - rule_5.1.8
-      - low
+    - level1
+    - patch
+    - rule_5.1.8
+    - low
 
 - name: "SCORED | 5.1.8 | PATCH | Ensure at/cron is restricted to authorized users"
   file:
-      dest: /etc/cron.allow
-      state: touch
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/cron.allow
+    state: touch
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - patch
-      - rule_5.1.8
-      - low
+    - level1
+    - patch
+    - rule_5.1.8
+    - low
 
 - name: "SCORED | 5.2.1 | PATCH | Ensure permissions on /etc/ssh/sshd_config are configured"
   file:
-      dest: /etc/ssh/sshd_config
-      state: file
-      owner: root
-      group: root
-      mode: 0600
+    dest: /etc/ssh/sshd_config
+    state: file
+    owner: root
+    group: root
+    mode: 0600
   tags:
-      - level1
-      - patch
-      - rule_5.2.1
-      - low
+    - level1
+    - patch
+    - rule_5.2.1
+    - low
 
-- name: "SCORED | 5.2.2 | PATCH | Ensure SSH Protocol is set to 2"
+- name: "SCORED | 5.2.2 | Ensure permissions on SSH private host key files are configured"
+  command: find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:ssh_keys {} \;
+  tags:
+    - level1
+    - patch
+    - rule_5.2.2
+    - low
+
+- name: "SCORED | 5.2.2 | Ensure permissions on SSH private host key files are configured"
+  command: find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod 0640 {} \;
+  tags:
+    - level1
+    - patch
+    - rule_5.2.2
+    - low
+
+- name: "SCORED | 5.2.3 | Ensure permissions on SSH public host key files are configured"
+  command: find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod 0644 {} \;
+  tags:
+    - level1
+    - patch
+    - rule_5.2.3
+    - low
+
+- name: "SCORED | 5.2.3 | Ensure permissions on SSH public host key files are configured"
+  command: find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \;
+  tags:
+    - level1
+    - patch
+    - rule_5.2.3
+    - low
+
+- name: "SCORED | 5.2.4 | PATCH | Ensure SSH Protocol is set to 2"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^Protocol'
-      line: 'Protocol 2'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^Protocol'
+    line: 'Protocol 2'
   tags:
-      - level1
-      - patch
-      - rule_5.2.2
-      - low
+    - level1
+    - patch
+    - rule_5.2.4
+    - low
 
-- name: "SCORED | 5.2.3 | PATCH | Ensure SSH LogLevel is set to INFO"
+- name: "SCORED | 5.2.5 | PATCH | Ensure SSH LogLevel is set to INFO"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^LogLevel'
-      line: 'LogLevel INFO'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^LogLevel'
+    line: 'LogLevel INFO'
   tags:
-      - level1
-      - patch
-      - rule_5.2.3
-      - low
+    - level1
+    - patch
+    - rule_5.2.5
+    - low
 
-- name: "SCORED | 5.2.4 | PATCH | Ensure SSH X11 forwarding is disabled"
+- name: "SCORED | 5.2.6 | PATCH | Ensure SSH X11 forwarding is disabled"
   lineinfile:
       state: present
       dest: /etc/ssh/sshd_config
       regexp: '^X11Forwarding'
       line: 'X11Forwarding no'
   tags:
-      - level1
-      - patch
-      - rule_5.2.4
-      - low
-
-- name: "SCORED | 5.2.5 | PATCH | Ensure SSH MaxAuthTries is set to 4 or less"
-  lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^(#)?MaxAuthTries \d'
-      line: 'MaxAuthTries 4'
-  tags:
-      - level1
-      - patch
-      - rule_5.2.5
-      - low
-
-- name: "SCORED | 5.2.6 | PATCH | Ensure SSH IgnoreRhosts is enabled"
-  lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^IgnoreRhosts'
-      line: 'IgnoreRhosts yes'
-  tags:
-      - level1
+      - level2
       - patch
       - rule_5.2.6
       - low
 
-- name: "SCORED | 5.2.7 | PATCH | Ensure SSH HostbasedAuthentication is disabled"
+- name: "SCORED | 5.2.7 | PATCH | Ensure SSH MaxAuthTries is set to 4 or less"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^HostbasedAuthentication'
-      line: 'HostbasedAuthentication no'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^(#)?MaxAuthTries \d'
+    line: 'MaxAuthTries 4'
   tags:
-      - level1
-      - patch
-      - rule_5.2.7
-      - low
+    - level1
+    - patch
+    - rule_5.2.7
+    - low
 
-- name: "SCORED | 5.2.8 | PATCH | Ensure SSH root login is disabled"
+- name: "SCORED | 5.2.8 | PATCH | Ensure SSH IgnoreRhosts is enabled"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^PermitRootLogin'
-      line: 'PermitRootLogin no'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^IgnoreRhosts'
+    line: 'IgnoreRhosts yes'
   tags:
-      - level1
-      - patch
-      - rule_5.2.8
-      - low
+    - level1
+    - patch
+    - rule_5.2.8
+    - low
 
-- name: "SCORED | 5.2.9 | PATCH | Ensure SSH PermitEmptyPasswords is disabled"
+- name: "SCORED | 5.2.9 | PATCH | Ensure SSH HostbasedAuthentication is disabled"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^PermitEmptyPasswords'
-      line: 'PermitEmptyPasswords no'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^HostbasedAuthentication'
+    line: 'HostbasedAuthentication no'
   tags:
-      - level1
-      - patch
-      - rule_5.2.9
-      - low
+    - level1
+    - patch
+    - rule_5.2.9
+    - low
 
-- name: "SCORED | 5.2.10 | PATCH | Ensure SSH PermitUserEnvironment is disabled"
+- name: "SCORED | 5.2.10 | PATCH | Ensure SSH root login is disabled"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^PermitUserEnvironment'
-      line: 'PermitUserEnvironment no'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
   tags:
-      - level1
-      - patch
-      - rule_5.2.10
-      - low
+    - level1
+    - patch
+    - rule_5.2.10
+    - low
 
-- name: "SCORED | 5.2.11 | PATCH | Ensure only approved MAC algorithms are used"
+- name: "SCORED | 5.2.11 | PATCH | Ensure SSH PermitEmptyPasswords is disabled"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^MACs'
-      line: 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^PermitEmptyPasswords'
+    line: 'PermitEmptyPasswords no'
   tags:
-      - level1
-      - patch
-      - rule_5.2.11
-      - low
+    - level1
+    - patch
+    - rule_5.2.11
+    - low
 
-- name: "SCORED | 5.2.12 | PATCH | Ensure SSH Idle Timeout Interval is configured"
+- name: "SCORED | 5.2.12 | PATCH | Ensure SSH PermitUserEnvironment is disabled"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^ClientAliveInterval'
-      line: 'ClientAliveInterval 300'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^PermitUserEnvironment'
+    line: 'PermitUserEnvironment no'
   tags:
-      - level1
-      - patch
-      - rule_5.2.12
-      - low
+    - level1
+    - patch
+    - rule_5.2.12
+    - low
 
-- name: "SCORED | 5.2.13 | PATCH | Ensure SSH LoginGraceTime is set to one minute or less"
+- name: "SCORED | 5.2.13 | PATCH | Ensure only strong ciphers are used"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^LoginGraceTime'
-      line: 'LoginGraceTime 60'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^Ciphers'
+    line: 'Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr'
   tags:
-      - level1
-      - patch
-      - rule_5.2.13
-      - low
+    - level1
+    - patch
+    - rule_5.2.13
+    - low
 
-- name: "SCORED | 5.2.14 | PATCH | Ensure SSH access is limited"
-  command: /bin/true
-  tags:
-      - level1
-      - patch
-      - rule_5.2.14
-      - medium
-
-- name: "SCORED | 5.2.15 | PATCH | Ensure SSH warning banner is configured"
+- name: "SCORED | 5.2.14 | PATCH | Ensure only strong MAC algorithms are used"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^Banner'
-      line: 'Banner /etc/issue'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^MACs'
+    line: 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com'
   tags:
-      - level1
-      - patch
-      - rule_5.2.15
-      - low
+    - level1
+    - patch
+    - rule_5.2.14
+    - low
+
+- name: "SCORED | 5.2.15 | PATCH | Ensure that strong Key Exchange algorithms are used "
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^KexAlgorithms'
+    line: 'KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256'
+  tags:
+    - level1
+    - patch
+    - rule_5.2.15
+    - low
+
+- name: "SCORED | 5.2.16 | PATCH | Ensure SSH Idle Timeout Interval is configured"
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^ClientAliveInterval'
+    line: 'ClientAliveInterval 300'
+  tags:
+    - level1
+    - patch
+    - rule_5.2.16
+    - low
+
+- name: "SCORED | 5.2.17 | PATCH | Ensure SSH LoginGraceTime is set to one minute or less"
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^LoginGraceTime'
+    line: 'LoginGraceTime 60'
+  tags:
+    - level1
+    - patch
+    - rule_5.2.17
+    - low
+
+- name: "SCORED | 5.2.18 | PATCH | Ensure SSH access is limited"
+  debug:
+    msg: "Edit the /etc/ssh/sshd_config file to set one or more of the following parameters: AllowUsers <list>, AllowGroups <list>, DenyUsers <list>,DenyGroups <list>"
+  tags:
+    - level1
+    - patch
+    - rule_5.2.18
+    - medium
+
+- name: "SCORED | 5.2.19 | PATCH | Ensure SSH warning banner is configured"
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^Banner'
+    line: 'Banner /etc/issue'
+  tags:
+    - level1
+    - patch
+    - rule_5.2.19
+    - low
 
 - name: "SCORED | 5.3.1 | PATCH | Ensure password creation requirements are configured"
   lineinfile:
-      state: present
-      dest: /etc/security/pwquality.conf
-      regexp: '^{{ item.key }}'
-      line: '{{ item.key }} = {{ item.value }}'
+    state: present
+    dest: /etc/security/pwquality.conf
+    regexp: '^{{ item.key }}'
+    line: '{{ item.key }} = {{ item.value }}'
   with_items:
-      - { key: 'minlen',  value: '14' }
-      - { key: 'dcredit', value: '-1' }
-      - { key: 'ucredit', value: '-1' }
-      - { key: 'ocredit', value: '-1' }
-      - { key: 'lcredit', value: '-1' }
+    - { key: 'minlen',  value: '14' }
+    - { key: 'dcredit', value: '-1' }
+    - { key: 'ucredit', value: '-1' }
+    - { key: 'ocredit', value: '-1' }
+    - { key: 'lcredit', value: '-1' }
   tags:
-      - level1
-      - patch
-      - rule_5.3.1
-      - low
+    - level1
+    - patch
+    - rule_5.3.1
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+  pamd:
+    name: system-auth
+    type: auth
+    control: required
+    module_path: pam_faillock.so
+    module_arguments: 'preauth
+        audit
+        silent
+        deny=5
+        unlock_time=900'
+    state: updated
+  ignore_errors: yes
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+  pamd:
+    name: system-auth
+    type: auth
+    control: '[success=1 default=bad]'
+    module_path: pam_unix.so
+    state: updated
+  ignore_errors: yes
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+  pamd:
+    name: system-auth
+    type: auth
+    control: '[default=die]'
+    module_path: pam_faillock.so
+    module_arguments: 'authfail
+        audit
+        deny=5
+        unlock_time=900'
+    state: updated
+  ignore_errors: yes
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+  pamd:
+    name: system-auth
+    type: auth
+    control: sufficient
+    module_path: pam_faillock.so
+    module_arguments: 'authsucc
+        audit
+        deny=5
+        unlock_time=900'
+    state: updated
+  ignore_errors: yes
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth"
+  pamd:
+    name: password-auth
+    type: auth
+    control: required
+    module_path: pam_faillock.so
+    module_arguments: 'preauth
+        audit
+        silent
+        deny=5
+        unlock_time=900'
+    state: updated
+  ignore_errors: yes
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth"
+  pamd:
+    name: password-auth
+    type: auth
+    control: '[success=1 default=bad]'
+    module_path: pam_unix.so
+    state: updated
+  ignore_errors: yes
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth"
+  pamd:
+    name: password-auth
+    type: auth
+    control: '[default=die]'
+    module_path: pam_faillock.so
+    module_arguments: 'authfail
+        audit
+        deny=5
+        unlock_time=900'
+    state: updated
+  ignore_errors: yes
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth"
+  pamd:
+    name: password-auth
+    type: auth
+    control: sufficient
+    module_path: pam_faillock.so
+    module_arguments: 'authsucc
+        audit
+        deny=5
+        unlock_time=900'
+    state: updated
+  ignore_errors: yes
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
 
 # - name: "SCORED | 5.3.2 | PATCH | Ensure lockout for failed password attempts is configured | Create SymLn for /etc/pam.d/system-auth-local to enable persistent configuration file"
 #   copy:
@@ -381,126 +576,209 @@
 #       - patch
 #       - rule_5.3.2
 
+- name: "SCORED | 5.3.3 | Ensure password reuse is limited | password-auth"
+  pamd:
+    name: password-auth
+    type: password
+    control: sufficient
+    module_path: pam_pwhistory.so
+    module_arguments: 'remember=5'
+    state: updated
+  ignore_errors: yes
+  tags:
+    - level1
+    - patch
+    - rule_5.3.3
+    - low
+
+- name: "SCORED | 5.3.3 | Ensure password reuse is limited | system-auth"
+  pamd:
+    name: system-auth
+    type: password
+    control: sufficient
+    module_path: pam_pwhistory.so
+    module_arguments: 'remember=5'
+    state: updated
+  ignore_errors: yes
+  tags:
+    - level1
+    - patch
+    - rule_5.3.3
+    - low
+
 - name: "SCORED | 5.3.4 | PATCH | Ensure password hashing algorithm is SHA-512"
   command: authconfig --passalgo=sha512 --update
   tags:
-      - level1
-      - patch
-      - rule_5.3.4
-      - low
+    - level1
+    - patch
+    - rule_5.3.4
+    - low
 
-- name: "SCORED | 5.3.2 | PATCH | Ensure lockout for failed password attempts is configured | /etc/pam.d/password-auth write changes"
-  blockinfile:
-      state: present
-      dest: /etc/pam.d/password-auth
-      insertbefore: '(^auth\s+required\s+pam_deny.so*)'
-      block: |
-        auth        required      pam_faillock.so preauth audit silent deny=5 unlock=900
-        auth        [success=1 default=bad] pam_unix.so
-        auth        [default=die] pam_faillock.so authfail audit deny=5 unlock_time=900
-        auth        sufficient    pam_faillock.so authsucc audit deny=5 unlock_time=900
-  tags:
-      - level1
-      - patch
-      - rule_5.3.2
-      - low
+# - name: "SCORED | 5.3.2 | PATCH | Ensure lockout for failed password attempts is configured | /etc/pam.d/password-auth write changes"
+#   blockinfile:
+#       state: present
+#       dest: /etc/pam.d/password-auth
+#       insertbefore: '(^auth\s+required\s+pam_deny.so*)'
+#       block: |
+#         auth        required      pam_faillock.so preauth audit silent deny=5 unlock=900
+#         auth        [success=1 default=bad] pam_unix.so
+#         auth        [default=die] pam_faillock.so authfail audit deny=5 unlock_time=900
+#         auth        sufficient    pam_faillock.so authsucc audit deny=5 unlock_time=900
+#   tags:
+#       - level1
+#       - patch
+#       - rule_5.3.2
+#       - low
 
-- name: "SCORED | 5.3.2 | PATCH | Ensure lockout for failed password attempts is configured | /etc/pam.d/system-auth write changes"
-  blockinfile:
-      state: present
-      dest: /etc/pam.d/system-auth
-      insertbefore: '(^auth\s+required\s+pam_deny.so*)'
-      block: |
-        auth        required      pam_faillock.so preauth audit silent deny=5 unlock=900
-        auth        [success=1 default=bad] pam_unix.so
-        auth        [default=die] pam_faillock.so authfail audit deny=5 unlock_time=900
-        auth        sufficient    pam_faillock.so authsucc audit deny=5 unlock_time=900
-  tags:
-      - level1
-      - patch
-      - rule_5.3.2
-      - low
+# - name: "SCORED | 5.3.2 | PATCH | Ensure lockout for failed password attempts is configured | /etc/pam.d/system-auth write changes"
+#   blockinfile:
+#       state: present
+#       dest: /etc/pam.d/system-auth
+#       insertbefore: '(^auth\s+required\s+pam_deny.so*)'
+#       block: |
+#         auth        required      pam_faillock.so preauth audit silent deny=5 unlock=900
+#         auth        [success=1 default=bad] pam_unix.so
+#         auth        [default=die] pam_faillock.so authfail audit deny=5 unlock_time=900
+#         auth        sufficient    pam_faillock.so authsucc audit deny=5 unlock_time=900
+#   tags:
+#       - level1
+#       - patch
+#       - rule_5.3.2
+#       - low
 
-- name: "SCORED | 5.3.3 | PATCH | Ensure password reuse is limited"
-  command: /bin/true
-  tags:
-      - level1
-      - patch
-      - rule_5.3.3
-      - low
-
-- name: "SCORED | 5.4.1.1 | PATCH | Ensure password expiration is 90 days or less"
+- name: "SCORED | 5.4.1.1 | PATCH | Ensure password expiration is 365 days or less"
   lineinfile:
-      state: present
-      dest: /etc/login.defs
-      regexp: '^PASS_MAX_DAYS'
-      line: 'PASS_MAX_DAYS 90'
+    state: present
+    dest: /etc/login.defs
+    regexp: '^PASS_MAX_DAYS'
+    line: 'PASS_MAX_DAYS 365'
   tags:
-      - level1
-      - patch
-      - rule_5.4.1.1
-      - low
+    - level1
+    - patch
+    - rule_5.4.1.1
+    - low
 
 - name: "SCORED | 5.4.1.2 | PATCH | Ensure minimum days between password changes is 7 or more"
   lineinfile:
-      state: present
-      dest: /etc/login.defs
-      regexp: '^PASS_MIN_DAYS'
-      line: 'PASS_MIN_DAYS 7'
+    state: present
+    dest: /etc/login.defs
+    regexp: '^PASS_MIN_DAYS'
+    line: 'PASS_MIN_DAYS 7'
   tags:
-      - level1
-      - patch
-      - rule_5.4.1.2
-      - low
+    - level1
+    - patch
+    - rule_5.4.1.2
+    - low
 
 - name: "SCORED | 5.4.1.3 | PATCH | Ensure password expiration warning days is 7 or more"
   lineinfile:
-      state: present
-      dest: /etc/login.defs
-      regexp: '^PASS_WARN_AGE'
-      line: 'PASS_WARN_AGE 7'
+    state: present
+    dest: /etc/login.defs
+    regexp: '^PASS_WARN_AGE'
+    line: 'PASS_WARN_AGE 7'
   tags:
-      - level1
-      - patch
-      - rule_5.4.1.3
-      - low
+    - level1
+    - patch
+    - rule_5.4.1.3
+    - low
 
 - name: "SCORED | 5.4.1.4 | PATCH | Ensure inactive password lock is 30 days or less"
-  command: /bin/true
+  command: useradd -D -f 30
   tags:
-      - level1
-      - patch
-      - rule_5.4.1.4
-      - low
+    - level1
+    - patch
+    - rule_5.4.1.4
+    - low
+
+- name: "SCORED | 5.4.1.5 | Ensure all users last password change date is in the past (Scored)"
+  debug:
+    msg: 'Confirm all password change dates are in the past.'
+  tags:
+    - level1
+    - patch
+    - rule_5.4.1.5
+    - low
+
+- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+  copy:
+    src: scripts/6.2.6.sh
+    dest: /opt/6.2.6.sh
+    owner: root
+    group: root
+    mode: 0700
+  tags:
+    - rule_6.2.6
+    - low
+    - level1
+    - low
+
+- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+  shell: /opt/6.2.6.sh
+  args:
+    executable: /bin/bash
+  register: root_path_integrity
+  tags:
+    - rule_6.2.6
+    - low
+    - level1
+    - low
 
 - name: "SCORED | 5.4.2 | PATCH | Ensure system accounts are non-login"
-  command: /bin/true
+  copy:
+    src: scripts/five_four_two.sh
+    dest: /opt/five_four_two.sh
+    owner: root
+    group: root
+    mode: 0700
   tags:
-      - level1
-      - patch
-      - rule_5.4.2
-      - low
+    - level1
+    - patch
+    - rule_5.4.2
+    - low
+
+- name: "SCORED | 5.4.2 | PATCH | Ensure system accounts are non-login"
+  shell: /opt/five_four_two.sh
+  args:
+    executable: /bin/bash
+  tags:
+    - level1
+    - patch
+    - rule_5.4.2
+    - low
+
+- name: "SCORED | 5.4.2 | PATCH | Ensure system accounts are non-login"
+  copy:
+    src: scripts/five_four_two.sh
+    dest: /opt/five_four_two.sh
+    owner: root
+    group: root
+    state: absent
+  tags:
+    - level1
+    - patch
+    - rule_5.4.2
+    - low
 
 - name: "SCORED | 5.4.3 | PATCH | Ensure default group for the root account is GID 0"
   command: usermod -g 0 root
   tags:
-      - level1
-      - patch
-      - rule_5.4.3
-      - low
+    - level1
+    - patch
+    - rule_5.4.3
+    - low
 
 - name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
   lineinfile:
-      state: present
-      dest: /etc/bashrc
-      regexp: 'umask'
-      line: 'umask {{ amazonlinux2cis_default_user_umask }}'
+    state: present
+    dest: /etc/bashrc
+    regexp: 'umask'
+    line: 'umask {{ amazonlinux2cis_default_user_umask }}'
   when: amazonlinux2cis_modify_default_user_umask
   tags:
-      - level1
-      - patch
-      - rule_5.4.4
-      - low
+    - level1
+    - patch
+    - rule_5.4.4
+    - low
 
 - name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
   lineinfile:
@@ -517,73 +795,53 @@
 
 - name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
   find:
-      paths: /etc/profile.d/
-      recurse: yes
-      patterns: "*.sh"
+    paths: /etc/profile.d/
+    recurse: yes
+    patterns: "*.sh"
   register: profiled_dir
   when: amazonlinux2cis_modify_default_user_umask
   tags:
-      - level1
-      - patch
-      - rule_5.4.4
-      - low
+    - level1
+    - patch
+    - rule_5.4.4
+    - low
 
 - name: "SCORED | 5.4.4 | PATCH | Ensure default user umask is 027 or more restrictive"
   lineinfile:
-      state: present
-      dest: "{{ item }}"
-      regexp: 'umask'
-      line: 'umask {{ amazonlinux2cis_default_user_umask }}'
-      backup: yes
+    state: present
+    dest: "{{ item }}"
+    regexp: 'umask'
+    line: 'umask {{ amazonlinux2cis_default_user_umask }}'
+    backup: yes
   with_items: profiled_dir.files.path
   ignore_errors: yes
   when: amazonlinux2cis_modify_default_user_umask
   tags:
-      - level1
-      - patch
-      - rule_5.4.4
-      - low
+    - level1
+    - patch
+    - rule_5.4.4
+    - low
 
 - name: "SCORED | 5.4.5 | PATCH | Ensure default user shell timeout is 900 seconds or less"
   lineinfile:
-      state: present
-      dest: /etc/bashrc
-      regexp: '^TMOUT'
-      line: 'TMOUT=600'
+    state: present
+    dest: /etc/bashrc
+    regexp: '^TMOUT'
+    line: 'TMOUT=600'
   tags:
-      - level2
-      - patch
-      - rule_5.4.5
-      - low
+    - level2
+    - patch
+    - rule_5.4.5
+    - low
 
 - name: "SCORED | 5.4.5 | PATCH | Ensure default user shell timeout is 900 seconds or less"
   lineinfile:
-      state: present
-      dest: /etc/profile
-      regexp: '^TMOUT'
-      line: 'TMOUT=600'
+    state: present
+    dest: /etc/profile
+    regexp: '^TMOUT'
+    line: 'TMOUT=600'
   tags:
-      - level2
-      - patch
-      - rule_5.4.5
-      - loww
-
-- name: "NOTSCORED | 5.5 | PATCH | Ensure root login is restricted to system console"
-  command: /bin/true
-  tags:
-      - level1
-      - patch
-      - rule_5.5
-      - low
-
-- name: "SCORED | 5.6 | PATCH | Ensure access to the su command is restricted"
-  lineinfile:
-      state: present
-      dest: /etc/pam.d/su
-      regexp: '^#auth\s+required\s+pam_wheel\.so'
-      line: 'auth           required        pam_wheel.so use_uid'
-  tags:
-      - level1
-      - patch
-      - rule_5.6
-      - low
+    - level2
+    - patch
+    - rule_5.4.5
+    - low
