@@ -217,15 +217,15 @@
 
 - name: "SCORED | 5.2.6 | PATCH | Ensure SSH X11 forwarding is disabled"
   lineinfile:
-      state: present
-      dest: /etc/ssh/sshd_config
-      regexp: '^X11Forwarding'
-      line: 'X11Forwarding no'
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^X11Forwarding'
+    line: 'X11Forwarding no'
   tags:
-      - level2
-      - patch
-      - rule_5.2.6
-      - low
+    - level2
+    - patch
+    - rule_5.2.6
+    - low
 
 - name: "SCORED | 5.2.7 | PATCH | Ensure SSH MaxAuthTries is set to 4 or less"
   lineinfile:
