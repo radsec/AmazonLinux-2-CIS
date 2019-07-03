@@ -823,13 +823,13 @@
 
 - name: "NOTSCORED | 3.6 | PATCH | Ensure IPv6 is disabled"
   lineinfile:
-   dest: /etc/modprobe.d/CIS.conf
-   regexp: "^(#)?options ipv6 disable="
-   line: "options ipv6 disable=1"
+   dest: /etc/default/grub
+   regexp: "^(#)?GRUB_CMDLINE_LINUX="
+   line: "GRUB_CMDLINE_LINUX=\"ipv6.disable=1\""
    create: yes
   when: amazonlinux2cis_ipv6_required == false
   tags:
-   - level1
+   - level2
    - patch
    - rule_3.6
    - medium
