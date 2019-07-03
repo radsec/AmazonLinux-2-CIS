@@ -10,7 +10,7 @@ This role will make significant changes to systems and could break the running o
 
 ## System Requirements
 ```
-Ansible 2.2+
+Ansible 2.5+
 Amazon Linux 2
 ```
 ## Role and Setting Variables
