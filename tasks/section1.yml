@@ -19,60 +19,63 @@
 ## END COPYRIGHT NOTICE ##
 - name: "SCORED | 1.1.1.1 | PATCH | Ensure mounting of cramfs filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/cramfs.conf
-      regexp: "^(#)?install cramfs(\\s|$)"
-      line: "install cramfs /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+#   dest: /etc/modprobe.d/cramfs.conf
+    regexp: "^(#)?install cramfs(\\s|$)"
+    line: "install cramfs /bin/true"
+    create: yes
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.1.1
-      - cramfs
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.1
+    - cramfs
 
 - name: "SCORED | 1.1.1.1 | PATCH | Ensure mounting of cramfs filesystems is disabled"
   command: rmmod cramfs
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.1.1
-      - cramfs
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.1
+    - cramfs
 
 - name: "SCORED | 1.1.1.2 | PATCH | Ensure mounting of hfs filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/hfs.conf
-      regexp: "^(#)?install hfs(\\s|$)"
-      line: "install hfs /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+#   dest: /etc/modprobe.d/hfs.conf
+    regexp: "^(#)?install hfs(\\s|$)"
+    line: "install hfs /bin/true"
+    create: yes
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.1.2
-      - hfs
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.2
+    - hfs
 
 - name: "SCORED | 1.1.1.2 | PATCH | Ensure mounting of hfs filesystems is disabled"
   command: rmmod hfs
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.1.2
-      - hfs
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.2
+    - hfs
 
 - name: "SCORED | 1.1.1.3 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/hfsplus.conf
-      regexp: "^(#)?install hfsplus(\\s|$)"
-      line: "install hfsplus /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+#    dest: /etc/modprobe.d/hfsplus.conf
+    regexp: "^(#)?install hfsplus(\\s|$)"
+    line: "install hfsplus /bin/true"
+    create: yes
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.1.3
-      - hfsplus
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.3
+    - hfsplus
 
 - name: "SCORED | 1.1.1.3 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
   command: rmmod hfsplus
@@ -85,47 +88,49 @@
 
 - name: "SCORED | 1.1.1.4 | PATCH | Ensure mounting of squashfs filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/squashfs.conf
-      regexp: "^(#)?install squashfs(\\s|$)"
-      line: "install squashfs /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+#    dest: /etc/modprobe.d/squashfs.conf
+    regexp: "^(#)?install squashfs(\\s|$)"
+    line: "install squashfs /bin/true"
+    create: yes
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.1.4
-      - squashfs
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.4
+    - squashfs
 
 - name: "SCORED | 1.1.1.4 | PATCH | Ensure mounting of squashfs filesystems is disabled"
   command: rmmod squashfs
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.1.4
-      - squashfs
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.4
+    - squashfs
 
 - name: "SCORED | 1.1.1.5 | PATCH | Ensure mounting of udf filesystems is disabled"
   lineinfile:
-      dest: /etc/modprobe.d/udf.conf
-      regexp: "^(#)?install udf(\\s|$)"
-      line: "install udf /bin/true"
-      create: yes
+    dest: /etc/modprobe.d/CIS.conf
+#   dest: /etc/modprobe.d/udf.conf
+    regexp: "^(#)?install udf(\\s|$)"
+    line: "install udf /bin/true"
+    create: yes
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.1.5
-      - udf
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.5
+    - udf
 
 - name: "SCORED | 1.1.1.5 | PATCH | Ensure mounting of udf filesystems is disabled"
   command: rmmod udf
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.1.5
-      - udf
+    - level1
+    - scored
+    - patch
+    - rule_1.1.1.5
+    - udf
 
 - name: 1.1.2 Ensure separate partition exists for /tmp (Scored)
   command: grep '\s/tmp\s' /etc/fstab
@@ -517,113 +522,113 @@
          SCORED | 1.1.16 | PATCH | Ensure nosuid option set on /dev/shm partition\n
          SCORED | 1.1.17 | PATCH | Ensure noexec option set on /dev/shm partition"
   mount:
-      name: /dev/shm
-      src: tmpfs
-      state: mounted
-      fstype: tmpfs
-      opts: "defaults,nodev,nosuid,noexec"
+    name: /dev/shm
+    src: tmpfs
+    state: mounted
+    fstype: tmpfs
+    opts: "defaults,nodev,nosuid,noexec"
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.1.15
-      - rule_1.1.16
-      - rule_1.1.17
-      - low
+    - level1
+    - scored
+    - patch
+    - rule_1.1.15
+    - rule_1.1.16
+    - rule_1.1.17
+    - low
 
 - name: "SCORED | 1.1.18 | PATCH | Ensure sticky bit is set on all world-writable directories"
   shell: df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
   #when: sticky_bit_on_worldwritable_dirs_audit.rc == '0'
   tags:
-      - level1
-      - patch
-      - rule_1.1.18
-      - low
+    - level1
+    - patch
+    - rule_1.1.18
+    - low
 
 - name: "SCORED | 1.1.19 | PATCH | Disable Automounting"
   systemd:
-      name: autofs
-      enabled: no
+    name: autofs
+    enabled: no
   ignore_errors: true 
   when:
     - amazonlinux2cis_allow_autofs == false
     - autofs_service_status.stdout == "loaded"
   tags:
-      - level1
-      - patch
-      - rule_1.1.19
-      - low
+    - level1
+    - patch
+    - rule_1.1.19
+    - low
 
 - name: "NOTSCORED | 1.2.1 | PATCH | Ensure package manager repositories are configured"
   command: /bin/true
   changed_when: no
   tags:
-      - level1
-      - notscored
-      - patch
-      - rule_1.2.1
-      - low
+    - level1
+    - notscored
+    - patch
+    - rule_1.2.1
+    - low
 
 - name: "NOTSCORED | 1.2.2 | PATCH | Ensure GPG keys are configured"
   command: /bin/true
   changed_when: no
   tags:
-      - level1
-      - notscored
-      - patch
-      - rule_1.2.2
-      - low
+    - level1
+    - notscored
+    - patch
+    - rule_1.2.2
+    - low
 
 - name: "SCORED | 1.2.3 | PATCH | Ensure gpgcheck is globally activated"
   replace:
-      name: /etc/yum.conf
-      regexp: "^gpgcheck=0"
-      replace: "gpgcheck=1"
+    name: /etc/yum.conf
+    regexp: "^gpgcheck=0"
+    replace: "gpgcheck=1"
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.2.3
-      - low
+    - level1
+    - scored
+    - patch
+    - rule_1.2.3
+    - low
 
 - name: "SCORED | 1.2.3 | PATCH | Ensure gpgcheck is globally activated"
   find:
-      paths: /etc/yum.repos.d
-      patterns: "*.repo"
+    paths: /etc/yum.repos.d
+    patterns: "*.repo"
   register: yum_repos
   changed_when: no
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.2.3
-      - low
+    - level1
+    - scored
+    - patch
+    - rule_1.2.3
+    - low
 
 - name: "SCORED | 1.2.3 | PATCH | Ensure gpgcheck is globally activated"
   replace:
-      name: "{{ item.path }}"
-      regexp: "^gpgcheck=0"
-      replace: "gpgcheck=1"
+    name: "{{ item.path }}"
+    regexp: "^gpgcheck=0"
+    replace: "gpgcheck=1"
   with_items:
-      - "{{ yum_repos.files }}"
+    - "{{ yum_repos.files }}"
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.2.3
-      - low
+    - level1
+    - scored
+    - patch
+    - rule_1.2.3
+    - low
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
   yum:
-      name: aide
-      state: present
+    name: aide
+    state: present
   tags:
-      - level1
-      - scored
-      - aide
-      - patch
-      - rule_1.3.1
-      - medium
+    - level1
+    - scored
+    - aide
+    - patch
+    - rule_1.3.1
+    - medium
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
   command: /usr/sbin/aide --init
@@ -632,44 +637,44 @@
   poll: 0
   check_mode: no
   tags:
-      - level1
-      - scored
-      - aide
-      - patch
-      - rule_1.3.1
-      - medium
+    - level1
+    - scored
+    - aide
+    - patch
+    - rule_1.3.1
+    - medium
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
   command: mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
   when: amazonlinux2cis_config_aide
   tags:
-      - level1
-      - scored
-      - aide
-      - patch
-      - rule_1.3.1
-      - medium
+    - level1
+    - scored
+    - aide
+    - patch
+    - rule_1.3.1
+    - medium
 
 
 - name: "SCORED | 1.3.2 | PATCH | Ensure filesystem integrity is regularly checked"
   cron:
-      name: Run AIDE integrity check weekly
-      cron_file: "{{ amazonlinux2cis_aide_cron['cron_file'] }}"
-      user: "{{ amazonlinux2cis_aide_cron['cron_user'] }}"
-      minute: "{{ amazonlinux2cis_aide_cron['aide_minute'] | default('0') }}"
-      hour: "{{ amazonlinux2cis_aide_cron['aide_hour'] | default('5') }}"
-      day: "{{ amazonlinux2cis_aide_cron['aide_day'] | default('*') }}"
-      month: "{{ amazonlinux2cis_aide_cron['aide_month'] | default('*') }}"
-      weekday: "{{ amazonlinux2cis_aide_cron['aide_weekday'] | default('*') }}"
-      job: "{{ amazonlinux2cis_aide_cron['aide_job'] }}"
+    name: Run AIDE integrity check weekly
+    cron_file: "{{ amazonlinux2cis_aide_cron['cron_file'] }}"
+    user: "{{ amazonlinux2cis_aide_cron['cron_user'] }}"
+    minute: "{{ amazonlinux2cis_aide_cron['aide_minute'] | default('0') }}"
+    hour: "{{ amazonlinux2cis_aide_cron['aide_hour'] | default('5') }}"
+    day: "{{ amazonlinux2cis_aide_cron['aide_day'] | default('*') }}"
+    month: "{{ amazonlinux2cis_aide_cron['aide_month'] | default('*') }}"
+    weekday: "{{ amazonlinux2cis_aide_cron['aide_weekday'] | default('*') }}"
+    job: "{{ amazonlinux2cis_aide_cron['aide_job'] }}"
   tags:
-      - level1
-      - scored
-      - aide
-      - file_integrity
-      - patch
-      - rule_1.3.2
-      - low
+    - level1
+    - scored
+    - aide
+    - file_integrity
+    - patch
+    - rule_1.3.2
+    - low
 
 - name: "SCORED | 1.4.1 | PATCH | Ensure permissions on bootloader config are configured"
   stat:
@@ -677,27 +682,27 @@
 #   path: /boot/grub/menu.lst
   register: grub_cfg
   tags:
-      - level1
-      - scored
-      - grub
-      - patch
-      - rule_1.4.1
-      - low
+    - level1
+    - scored
+    - grub
+    - patch
+    - rule_1.4.1
+    - low
 
 - name: "SCORED | 1.4.1 | PATCH | Ensure permissions on bootloader config are configured"
   file:
-      path: "{{ grub_cfg.stat.lnk_source }}"
-      owner: root
-      group: root
-      mode: 0600
+    path: "{{ grub_cfg.stat.lnk_source }}"
+    owner: root
+    group: root
+    mode: 0600
   when: grub_cfg.stat.exists and grub_cfg.stat.islnk
   tags:
-      - level1
-      - scored
-      - grub
-      - patch
-      - rule_1.4.1
-      - low
+    - level1
+    - scored
+    - grub
+    - patch
+    - rule_1.4.1
+    - low
 
 - name : "SCORED | 1.4.2 | PATCH | Ensure authentication required for single user mode"
   lineinfile:
@@ -747,134 +752,134 @@
 
 - name: "SCORED | 1.5.2 | PATCH | Ensure address space layout randomization (ASLR) is enabled"
   sysctl:
-      name: kernel.randomize_va_space
-      value: 2
-      state: present
-      reload: yes
-      sysctl_set: yes
-      ignoreerrors: yes
+    name: kernel.randomize_va_space
+    value: 2
+    state: present
+    reload: yes
+    sysctl_set: yes
+    ignoreerrors: yes
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.5.2
-      - low
+    - level1
+    - scored
+    - patch
+    - rule_1.5.2
+    - low
 
 - name: "SCORED | 1.5.3 | PATCH | Ensure prelink is disabled"
   command: prelink -ua
   when: prelink_installed.rc == 0
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.5.3
-      - low
+    - level1
+    - scored
+    - patch
+    - rule_1.5.3
+    - low
 
 - name: "SCORED | 1.5.3 | PATCH | Ensure prelink is disabled"
   yum:
     name: prelink
     state: absent
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_1.5.3
-      - medium
+    - level1
+    - scored
+    - patch
+    - rule_1.5.3
+    - medium
 
 - name: "SCORED | 1.6.1.1 | PATCH | Ensure SELinux is not disabled in bootloader configuration"
   replace:
-      dest: /etc/default/grub
-      regexp: '(selinux|enforcing)\s*=\s*0\s*'
-      follow: yes
+    dest: /etc/default/grub
+    regexp: '(selinux|enforcing)\s*=\s*0\s*'
+    follow: yes
   register: selinux_grub_patch
   ignore_errors: yes
   notify: generate new grub config
   tags:
-      - level2
-      - scored
-      - patch
-      - rule_1.6.1.1
-      - high
+    - level2
+    - scored
+    - patch
+    - rule_1.6.1.1
+    - high
 
 - name: "SCORED | 1.6.1.2 | PATCH | Ensure the SELinux state is enforcing"
   selinux:
-      conf: /etc/selinux/config
-      policy: "{{ amazonlinux2cis_selinux_pol }}"
-      state: enforcing
+    conf: /etc/selinux/config
+    policy: "{{ amazonlinux2cis_selinux_pol }}"
+    state: enforcing
   when: not amazonlinux2cis_selinux_disable
   tags:
-      - level2
-      - scored
-      - selinux
-      - patch
-      - rule_1.6.1.2
-      - high
+    - level2
+    - scored
+    - selinux
+    - patch
+    - rule_1.6.1.2
+    - high
 
 - name: "SCORED | 1.6.1.3 | PATCH | Ensure SELinux policy is configured"
   selinux:
-      conf: /etc/selinux/config
-      policy: "{{ amazonlinux2cis_selinux_pol }}"
-      state: enforcing
+    conf: /etc/selinux/config
+    policy: "{{ amazonlinux2cis_selinux_pol }}"
+    state: enforcing
   when: not amazonlinux2cis_selinux_disable
   tags:
-      - level2
-      - scored
-      - selinux
-      - patch
-      - rule_1.6.1.3
-      - medium
+    - level2
+    - scored
+    - selinux
+    - patch
+    - rule_1.6.1.3
+    - medium
 
 - name: "SCORED | 1.6.1.4 | PATCH | Ensure SETroubleshoot is not installed"
   yum:
-      name: setroubleshoot
-      state: absent
+    name: setroubleshoot
+    state: absent
   tags:
-      - level2
-      - scored
-      - selinux
-      - patch
-      - rule_1.6.1.4
-      - low
+    - level2
+    - scored
+    - selinux
+    - patch
+    - rule_1.6.1.4
+    - low
 
 - name: "SCORED | 1.6.1.5 | PATCH | Ensure the MCS Translation Service (mcstrans) is not installed"
   yum:
-      name: mcstrans
-      state: absent
+    name: mcstrans
+    state: absent
   tags:
-      - level2
-      - scored
-      - patch
-      - rule_1.6.1.5
-      - low
+    - level2
+    - scored
+    - patch
+    - rule_1.6.1.5
+    - low
 
 - name: "SCORED | 1.6.1.6 | PATCH | Ensure no unconfined daemons exist"
   command: /bin/true
   changed_when: no
   tags:
-      - level2
-      - patch
-      - rule_1.6.1.6
-      - medium
+    - level2
+    - patch
+    - rule_1.6.1.6
+    - medium
 
 - name: "SCORED | 1.6.2 | PATCH | Ensure SELinux is installed"
   yum:
-      name: libselinux
-      state: present
+    name: libselinux
+    state: present
   tags:
-      - level2
-      - scored
-      - patch
-      - rule_1.6.2
-      - high
+    - level2
+    - scored
+    - patch
+    - rule_1.6.2
+    - high
 
 - stat: path=/etc/motd
   register: motd_link
   tags:
-      - level1
-      - banner
-      - patch
-      - rule_1.7.1.1
-      - low
+    - level1
+    - banner
+    - patch
+    - rule_1.7.1.1
+    - low
 
 - command: /usr/sbin/update-motd --disable
   when:
@@ -882,77 +887,77 @@
     - amazonlinux2cis_disable_auto_motd
   ignore_errors: true
   tags:
-      - level1
-      - banner
-      - patch
-      - rule_1.7.1.1
-      - low
+    - level1
+    - banner
+    - patch
+    - rule_1.7.1.1
+    - low
 
 - name: "SCORED | 1.7.1.1 | PATCH | Ensure message of the day is configured properly"
   shell: update-motd --disable
   become: yes
   when: amazonlinux2cis_disable_auto_motd
   tags:
-      - level1
-      - banner
-      - patch
-      - rule_1.7.1.1
-      - low
+    - level1
+    - banner
+    - patch
+    - rule_1.7.1.1
+    - low
 
 - name: "SCORED | 1.7.1.1 | PATCH | Ensure message of the day is configured properly"
   template:
-      src: etc/motd.j2
-      dest: /etc/motd
+    src: etc/motd.j2
+    dest: /etc/motd
   when: amazonlinux2cis_set_motd
   tags:
-      - level1
-      - banner
-      - patch
-      - rule_1.7.1.1
-      - low
+    - level1
+    - banner
+    - patch
+    - rule_1.7.1.1
+    - low
 
 - name: "SCORED | 1.7.1.1 | PATCH | Ensure message of the day is configured properly"
   template:
-      src: etc/motd.j2
-      dest: /var/lib/update-motd/motd
+    src: etc/motd.j2
+    dest: /var/lib/update-motd/motd
   when: amazonlinux2cis_set_motd
   tags:
-      - level1
-      - banner
-      - patch
-      - rule_1.7.1.1
-      - low
+    - level1
+    - banner
+    - patch
+    - rule_1.7.1.1
+    - low
 
 - name: "NOTSCORED | 1.7.1.2 | PATCH | Ensure local login warning banner is configured properly"
   template:
-      src: etc/issue.j2
-      dest: /etc/issue
+    src: etc/issue.j2
+    dest: /etc/issue
   tags:
-      - level1
-      - patch
-      - rule_1.7.1.2
-      - low
+    - level1
+    - patch
+    - rule_1.7.1.2
+    - low
 
 - name: "NOTSCORED | 1.7.1.3 | PATCH | Ensure remote login warning banner is configured properly"
   template:
-      src: etc/issue.net.j2
-      dest: /etc/issue.net
+    src: etc/issue.net.j2
+    dest: /etc/issue.net
   tags:
-      - level1
-      - banner
-      - patch
-      - rule_1.7.1.3
-      - low
+    - level1
+    - banner
+    - patch
+    - rule_1.7.1.3
+    - low
 
 - name: "NOTSCORED | 1.7.1.4 | PATCH | Ensure permissions on /etc/motd are configured"
   stat: path=/etc/motd
   register: motd_link
   tags:
-      - level1
-      - perms
-      - patch
-      - rule_1.7.1.4
-      - low
+    - level1
+    - perms
+    - patch
+    - rule_1.7.1.4
+    - low
 
 - name: "NOTSCORED | 1.7.1.4 | PATCH | Ensure permissions on /etc/motd are configured"
   command: /usr/sbin/update-motd --disable
@@ -961,77 +966,77 @@
     - amazonlinux2cis_disable_auto_motd
   ignore_errors: true
   tags:
-      - level1
-      - perms
-      - patch
-      - rule_1.7.1.4
-      - low
+    - level1
+    - perms
+    - patch
+    - rule_1.7.1.4
+    - low
 
 - name: "NOTSCORED | 1.7.1.4 | PATCH | Ensure permissions on /etc/motd are configured"
   file:
-      path: /etc/motd
-      state: file
-      owner: root
-      group: root
-      mode: 0644
+    path: /etc/motd
+    state: file
+    owner: root
+    group: root
+    mode: 0644
   when: motd_link.islink is defined and motd_link.stat.islink == False
   ignore_errors: true
   tags:
-      - level1
-      - perms
-      - patch
-      - rule_1.7.1.4
-      - low
+    - level1
+    - perms
+    - patch
+    - rule_1.7.1.4
+    - low
 
 - name: "NOTSCORED | 1.7.1.4 | PATCH | Ensure permissions on /etc/motd are configured"
   template:
-      src: etc/motd.j2
-      dest: /etc/motd
+    src: etc/motd.j2
+    dest: /etc/motd
   when:
     - amazonlinux2cis_set_motd
     - motd_link.islink is defined and motd_link.stat.islink == False
   tags:
-      - level1
-      - banner
-      - patch
-      - rule_1.7.1.1
-      - low
+    - level1
+    - banner
+    - patch
+    - rule_1.7.1.1
+    - low
 
 - name: "SCORED | 1.7.1.5 | PATCH | Ensure permissions on /etc/issue are configured"
   file:
-      dest: /etc/issue
-      state: file
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/issue
+    state: file
+    owner: root
+    group: root
+    mode: 0644
   tags:
-      - level1
-      - perms
-      - patch
-      - rule_1.7.1.5
-      - low
+    - level1
+    - perms
+    - patch
+    - rule_1.7.1.5
+    - low
 
 - name: "NOTSCORED | 1.7.1.6 | PATCH | Ensure permissions on /etc/issue.net are configured"
   file:
-      dest: /etc/issue.net
-      state: file
-      owner: root
-      group: root
-      mode: 0644
+    dest: /etc/issue.net
+    state: file
+    owner: root
+    group: root
+    mode: 0644
   tags:
-      - level1
-      - perms
-      - patch
-      - rule_1.7.1.6
-      - low
+    - level1
+    - perms
+    - patch
+    - rule_1.7.1.6
+    - low
 
 - name: "NOTSCORED | 1.8 | PATCH | Ensure updates, patches, and additional security software are installed"
   yum:
-      name: "*"
-      state: latest
+    name: "*"
+    state: latest
   when: amazonlinux2cis_update
   tags:
-      - level1
-      - patch
-      - rule_1.8
-      - medium
+    - level1
+    - patch
+    - rule_1.8
+    - medium

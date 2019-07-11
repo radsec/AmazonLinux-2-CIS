@@ -41,9 +41,9 @@
 
 - name: "NOTSCORED | 2.1.1.1 | PATCH | Ensure time synchronization is in use - service stop ntp"
   systemd:
-      name: ntpd
-      state: stopped
-      enabled: no
+    name: ntpd
+    state: stopped
+    enabled: no
   ignore_errors: true
   when: amazonlinux2cis_time_synchronization == "chrony" and ntpd_service_status.stdout == "loaded"
   tags:
@@ -86,10 +86,10 @@
     line: "daemon $prog -u ntp:ntp -p /var/run/ntpd.pid $OPTIONS"
   when: amazonlinux2cis_time_synchronization == "ntp"
   tags:
-      - level1
-      - patch
-      - rule_2.1.1.2
-      - low
+    - level1
+    - patch
+    - rule_2.1.1.2
+    - low
 
 - name: "SCORED | 2.1.1.3 | PATCH | Ensure chrony is configured"
   template:
