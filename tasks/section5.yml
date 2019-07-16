@@ -639,6 +639,7 @@
     dest: /etc/login.defs
     regexp: '^PASS_MAX_DAYS'
     line: 'PASS_MAX_DAYS 365'
+  when: amazonlinux2cis_password_expiration
   tags:
     - level1
     - patch
@@ -651,6 +652,7 @@
     dest: /etc/login.defs
     regexp: '^PASS_MIN_DAYS'
     line: 'PASS_MIN_DAYS 7'
+  when: amazonlinux2cis_password_minimum_days_password_change
   tags:
     - level1
     - patch
@@ -686,30 +688,6 @@
     - rule_5.4.1.5
     - low
 
-- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
-  copy:
-    src: scripts/6.2.6.sh
-    dest: /opt/6.2.6.sh
-    owner: root
-    group: root
-    mode: 0700
-  tags:
-    - rule_6.2.6
-    - low
-    - level1
-    - low
-
-- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
-  shell: /opt/6.2.6.sh
-  args:
-    executable: /bin/bash
-  register: root_path_integrity
-  tags:
-    - rule_6.2.6
-    - low
-    - level1
-    - low
-
 - name: "SCORED | 5.4.2 | PATCH | Ensure system accounts are non-login"
   copy:
     src: scripts/five_four_two.sh
@@ -717,6 +695,7 @@
     owner: root
     group: root
     mode: 0700
+  when: amazonlinux2cis_ensure_system_accounts_are_non_login
   tags:
     - level1
     - patch
@@ -727,6 +706,7 @@
   shell: /opt/five_four_two.sh
   args:
     executable: /bin/bash
+  when: amazonlinux2cis_ensure_system_accounts_are_non_login
   tags:
     - level1
     - patch
@@ -740,6 +720,7 @@
     owner: root
     group: root
     state: absent
+  when: amazonlinux2cis_ensure_system_accounts_are_non_login
   tags:
     - level1
     - patch

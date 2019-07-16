@@ -185,6 +185,15 @@ amazonlinux2cis_syslog_ng_loghost_address: INSERT_DNS_NAME_HERE
 ### Section 5 Parameters ###
 ############################
 
+# Section 5.4.1.1 | Ensure password expiration is 365 days or less
+amazonlinux2cis_password_expiration: true
+
+# Section 5.4.1.2 | Ensure minimum days between password changes is 7 or more
+amazonlinux2cis_password_minimum_days_password_change: true
+
+# Section 5.4.2 | Ensure system accounts are non-login
+amazonlinux2cis_ensure_system_accounts_are_non_login: true
+
 # Section 5.4.4 | Ensure default user umask is 027 or more restrictive
 amazonlinux2cis_modify_default_user_umask: true
 amazonlinux2cis_default_user_umask: 027
