@@ -289,6 +289,13 @@
 - name: "Determine if FIPS is installed"
   stat: /root/fipsinstalled
   register: root_fipsinstalled
+  tags:
+    - level1
+    - patch
+    - rule_5.2.13
+    - rule_5.2.14
+    - rule_5.2.15
+    - low
 
 - name: "SCORED | 5.2.13 | PATCH | Ensure only strong ciphers are used"
   lineinfile:
