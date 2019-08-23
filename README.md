@@ -16,7 +16,15 @@ Amazon Linux 2
 ## Role
 ```
 role: AmazonLinux-2-CIS
-tags: level1 or level2
+```
+## Role/Playbook Tags
+```
+tags: 
+level1
+level2
+always
+prelim_tasks
+post_tasks
 ```
 ## Section Vars
 ```
