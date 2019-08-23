@@ -10,12 +10,26 @@ This role will make significant changes to systems and could break the running o
 
 ## System Requirements
 ```
-Ansible 2.5+
+Ansible 2.7+
 Amazon Linux 2
 ```
-## Role and Setting Variables
+## Role
 ```
-Work in progress
+role: AmazonLinux-2-CIS
+tags: level1 or level2
+```
+## Section Vars
+```
+section1
+section2
+section3
+section4
+section5
+section6
+```
+## Vars
+```
+Refer to defaults/main.yml for other vars
 ```
 ## License
 This Source Code Form is subject to the terms of the Mozilla Public
