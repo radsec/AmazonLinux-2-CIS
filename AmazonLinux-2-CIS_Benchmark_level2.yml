@@ -1,0 +1,13 @@
+---
+- hosts:  all
+  become: yes
+  become_method: sudo
+  gather_facts: true
+  roles:
+# Match role folder name here - AmazonLinux-2-CIS
+    - role: AmazonLinux-2-CIS
+  tags:
+    - always
+    - prelim_tasks
+    - level2
+    - post_tasks

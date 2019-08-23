@@ -31,6 +31,10 @@ section6
 ```
 Refer to defaults/main.yml for other vars
 ```
+## Sample Playbook.ymls
+```
+Refer to AmazonLinux-2-CIS_Benchmark_(level1, level1_and_level2, or level2).ymls for sample playbook.ymls. Change the role to match role folder name.
+```
 ## License
 This Source Code Form is subject to the terms of the Mozilla Public
 License, v. 2.0. If a copy of the MPL was not distributed with this
