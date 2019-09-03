@@ -64,6 +64,10 @@ amazonlinux2cis_update: false
 ############################
 ### Section 2 Parameters ###
 ############################
+# Set this to false to prevent disabling of services.
+# Value of true will disable all services not excluded or skipped using the var booleans below.
+# The disable_service_checks can also be enabled via the skip tag function by skipping "disable_service_checks" tag to the running playbook
+amazonlinux2cis_disable_service_checks: true
 
 # Service configuration booleans set true to keep service
 amazonlinux2cis_cups_server: false
