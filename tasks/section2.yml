@@ -32,7 +32,9 @@
     state: stopped
     enabled: no
   ignore_errors: true
-  when: amazonlinux2cis_time_synchronization == "chrony" and ntpd_service_status.stdout == "loaded"
+  when:
+    - amazonlinux2cis_time_synchronization is defined
+    - amazonlinux2cis_time_synchronization == "chrony" and ntpd_service_status.stdout == "loaded"
   tags:
     - level1
     - patch
@@ -45,7 +47,9 @@
     state: stopped
     enabled: no
   ignore_errors: yes
-  when: amazonlinux2cis_time_synchronization == "ntp" and chronyd_service_status.stdout == "loaded"
+  when: 
+    - amazonlinux2cis_time_synchronization is defined
+    - amazonlinux2cis_time_synchronization == "ntp" and chronyd_service_status.stdout == "loaded"
   tags:
     - level1
     - patch
@@ -59,7 +63,9 @@
     owner: root
     group: root
     mode: 0644
-  when: amazonlinux2cis_time_synchronization == "ntp"
+  when:
+    - amazonlinux2cis_time_synchronization is defined
+    - amazonlinux2cis_time_synchronization == "ntp"
   tags:
     - level1
     - patch
@@ -71,7 +77,9 @@
     dest: /etc/init.d/ntpd
     regexp: "^(#)?(\\s)*?daemon\\s\\$prog"
     line: "daemon $prog -u ntp:ntp -p /var/run/ntpd.pid $OPTIONS"
-  when: amazonlinux2cis_time_synchronization == "ntp"
+  when:
+    - amazonlinux2cis_time_synchronization is defined
+    - amazonlinux2cis_time_synchronization == "ntp"
   tags:
     - level1
     - patch
@@ -85,7 +93,9 @@
     owner: root
     group: root
     mode: 0644
-  when: amazonlinux2cis_time_synchronization == "chrony"
+  when:
+    - amazonlinux2cis_time_synchronization is defined
+    - amazonlinux2cis_time_synchronization == "chrony"
   tags:
     - level1
     - patch
@@ -99,7 +109,9 @@
     line: "OPTIONS=\"-u chrony\""
     state: present
     create: yes
-  when: amazonlinux2cis_time_synchronization == "chrony"
+  when:
+    - amazonlinux2cis_time_synchronization is defined
+    - amazonlinux2cis_time_synchronization == "chrony"
   tags:
     - level1
     - patch
