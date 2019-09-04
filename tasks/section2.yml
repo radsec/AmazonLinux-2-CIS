@@ -8,8 +8,6 @@
   yum:
       name: "{{ amazonlinux2cis_time_synchronization }}"
       state: present
-  when:
-    - amazonlinux2cis_time_synchronization is defined
   tags:
     - level1
     - patch
@@ -22,8 +20,6 @@
       state: started
       enabled: yes
   ignore_errors: true
-  when:
-    - amazonlinux2cis_time_synchronization is defined
   tags:
     - level1
     - patch
@@ -51,7 +47,7 @@
     state: stopped
     enabled: no
   ignore_errors: yes
-  when: 
+  when:
     - amazonlinux2cis_time_synchronization is defined
     - amazonlinux2cis_time_synchronization == "ntp" and chronyd_service_status.stdout == "loaded"
   tags:
@@ -78,9 +74,9 @@
 
 - name: "SCORED | 2.1.1.2 | PATCH | Ensure ntp is configured | modify /etc/sysconfig/ntpd"
   lineinfile:
-    dest: /etc/init.d/ntpd
-    regexp: "^(#)?(\\s)*?daemon\\s\\$prog"
-    line: "daemon $prog -u ntp:ntp -p /var/run/ntpd.pid $OPTIONS"
+    dest: /etc/sysconfig/ntpd
+    regexp: "^(#)?OPTIONS"
+    line: "OPTIONS=\"-u ntp:ntp\""
   when:
     - amazonlinux2cis_time_synchronization is defined
     - amazonlinux2cis_time_synchronization == "ntp"

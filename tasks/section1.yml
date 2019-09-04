@@ -20,6 +20,8 @@
 
 - name: "SCORED | 1.1.1.1 | PATCH | Ensure mounting of cramfs filesystems is disabled"
   command: rmmod cramfs
+  register: result
+  failed_when: "result.rc|float < 1"
   tags:
     - level1
     - scored
@@ -43,6 +45,8 @@
 
 - name: "SCORED | 1.1.1.2 | PATCH | Ensure mounting of hfs filesystems is disabled"
   command: rmmod hfs
+  register: result
+  failed_when: "result.rc|float < 1"
   tags:
     - level1
     - scored
@@ -66,6 +70,8 @@
 
 - name: "SCORED | 1.1.1.3 | PATCH | Ensure mounting of hfsplus filesystems is disabled"
   command: rmmod hfsplus
+  register: result
+  failed_when: "result.rc|float < 1"
   tags:
       - level1
       - scored
@@ -89,6 +95,8 @@
 
 - name: "SCORED | 1.1.1.4 | PATCH | Ensure mounting of squashfs filesystems is disabled"
   command: rmmod squashfs
+  register: result
+  failed_when: "result.rc|float < 1"
   tags:
     - level1
     - scored
@@ -112,6 +120,8 @@
 
 - name: "SCORED | 1.1.1.5 | PATCH | Ensure mounting of udf filesystems is disabled"
   command: rmmod udf
+  register: result
+  failed_when: "result.rc|float < 1"
   tags:
     - level1
     - scored
@@ -416,7 +426,12 @@
   mount:
     path: /var/tmp
     opts: "rw,nosuid,nodev,noexec,relatime"
+    fstype: "tmpfs"
+    src: tmpfs
     state: mounted
+  when:
+    - var_tmp_mounted is defined
+    - var_tmp_mounted.rc|float == 0
   tags:
     - level1
     - scored
@@ -499,6 +514,11 @@
     path: /home
     opts: nodev
     state: mounted
+    fstype: "ext4"
+    src: home
+  when:
+    - home_mounted is defined
+    - home_mounted.rc|float == 0
   tags:
       - level1
       - patch

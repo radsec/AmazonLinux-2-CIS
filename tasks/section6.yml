@@ -159,9 +159,10 @@
     - low
 
 - name: "SCORED | 6.2.2 | PATCH | Ensure no legacy '+' entries exist in /etc/passwd"
-  command: sed -i '/^+/ d' /etc/passwd
+  shell: "sed -i '/^+/ d' /etc/passwd"
   args:
     warn: no
+  ignore_errors: yes
   tags:
     - rule_6.2.2
     - patch
@@ -169,7 +170,7 @@
     - low
 
 - name: "SCORED | 6.2.3 | PATCH | Ensure no legacy '+' entries exist in /etc/shadow"
-  command: sed -i '/^+/ d' /etc/shadow
+  command: "sed -i '/^+/ d' /etc/shadow"
   tags:
     - rule_6.2.3
     - patch
