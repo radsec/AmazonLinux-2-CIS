@@ -713,6 +713,7 @@
     owner: root
     group: root
     mode: 0700
+  changed_when: no
   when: amazonlinux2cis_ensure_system_accounts_are_non_login
   tags:
     - level1
@@ -738,6 +739,7 @@
     owner: root
     group: root
     state: absent
+  changed_when: no
   when: amazonlinux2cis_ensure_system_accounts_are_non_login
   tags:
     - level1
