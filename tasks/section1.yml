@@ -694,7 +694,7 @@
 - name : "SCORED | 1.4.2 | PATCH | Ensure authentication required for single user mode"
   lineinfile:
     state: present
-    dest: {{ item }}
+    dest: "{{ item }}"
     regexp: "^ExecStart="
     line: "ExecStart=-/bin/sh -c \"/sbin/sulogin; /usr/bin/systemctl --fail --no-block default\""
   with_items:
