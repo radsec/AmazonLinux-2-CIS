@@ -160,7 +160,8 @@
 
 - name: "SCORED | 6.2.2 | PATCH | Ensure no legacy '+' entries exist in /etc/passwd"
   command: sed -i '/^+/ d' /etc/passwd
-  warn: no
+  args:
+    warn: no
   tags:
     - rule_6.2.2
     - patch
