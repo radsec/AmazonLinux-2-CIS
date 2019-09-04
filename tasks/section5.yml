@@ -287,7 +287,8 @@
     - low
 
 - name: "Determine if FIPS is installed"
-  stat: /root/fipsinstalled
+  stat:
+    path: /root/fipsinstalled
   register: root_fipsinstalled
   tags:
     - level1
