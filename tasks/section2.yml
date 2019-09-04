@@ -369,7 +369,8 @@
   lineinfile:
     dest: /etc/postfix/main.cf
     regexp: "^(#)?inet_interfaces"
-    line: "inet_interfaces = localhost"
+    line: "inet_interfaces = loopback-only"
+  notify: systemctl restart postfix
   when: 
     - (not amazonlinux2cis_is_mail_server and postfix_installed.rc == 0)
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks

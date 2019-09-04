@@ -303,8 +303,9 @@
     state: present
     dest: /etc/ssh/sshd_config
     regexp: '^Ciphers'
-    line: 'Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr'
-  when: not root_fipsinstalled.exists
+    line: 'Ciphers {{ amazonlinux2cis_ssh_ciphers | quote }}'
+#    line: 'Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr'
+#  when: not root_fipsinstalled.exists
   tags:
     - level1
     - patch
@@ -316,21 +317,23 @@
     state: present
     dest: /etc/ssh/sshd_config
     regexp: '^MACs'
-    line: 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com'
-  when: not root_fipsinstalled.exists
+    line: 'MACs {{ amazonlinux2cis_ssh_mac_algorithms | quote }}'
+    #    line: 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com'
+#  when: not root_fipsinstalled.exists
   tags:
     - level1
     - patch
     - rule_5.2.14
     - low
 
-- name: "SCORED | 5.2.15 | PATCH | Ensure that strong Key Exchange algorithms are used "
+- name: "SCORED | 5.2.15 | PATCH | Ensure that strong Key Exchange algorithms are used"
   lineinfile:
     state: present
     dest: /etc/ssh/sshd_config
     regexp: '^KexAlgorithms'
-    line: 'KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256'
-  when: not root_fipsinstalled.exists
+    line: 'KexAlgorithms {{ amazonlinux2cis_ssh_kex_algorithms | quote }}'
+#    line: 'KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256'
+#  when: not root_fipsinstalled.exists
   tags:
     - level1
     - patch
