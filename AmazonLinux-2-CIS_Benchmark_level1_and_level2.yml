@@ -3,6 +3,9 @@
   become: yes
   become_method: sudo
   gather_facts: true
+  vars:
+    ignore_errors: true
+    ignore_unreachable: true
   roles:
 # Match role folder name here - AmazonLinux-2-CIS
     - role: AmazonLinux-2-CIS
