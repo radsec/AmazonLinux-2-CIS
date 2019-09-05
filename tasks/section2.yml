@@ -645,6 +645,7 @@
     name: openldap-clients
     state: absent
   when: 
+    - amazonlinux2cis_ad_ldap_joined_machine is defined and not amazonlinux2cis_ad_ldap_joined_machine
     - (not amazonlinux2cis_openldap_clients_required)
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
