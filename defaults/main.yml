@@ -69,6 +69,10 @@ amazonlinux2cis_update: false
 # The disable_service_checks can also be enabled via the skip tag function by skipping "disable_service_checks" tag to the running playbook
 amazonlinux2cis_disable_service_checks: true
 
+# Set this value to true if the machine is joined to AD/LDAP server.
+# Set this value to false if the machine is not joined to AD/LDAP server.
+amazonlinux2cis_ad_ldap_joined_machine: true
+
 # Service configuration booleans set true to keep service
 amazonlinux2cis_cups_server: false
 amazonlinux2cis_dhcp_server: false
