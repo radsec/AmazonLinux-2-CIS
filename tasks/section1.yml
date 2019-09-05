@@ -323,7 +323,7 @@
     - rule_1.1.
     - low
 
-- name: 1.1.6 Ensure separate partition exists for /var (Scored)
+- name: 1.1.6 Ensure separate partition exists for /var (Scored) - Level2
   command: grep '\s/var\s' /etc/fstab
   register: var_partition
   failed_when: var_partition.rc == 1
@@ -349,7 +349,7 @@
     - rule_1.1.6
     - low
 
-- name: install dependencies for mountopts-module
+- name: install dependencies for mountopts-module - Level2
   pip:
     name: fstab
   when: var_partition.rc == 0
