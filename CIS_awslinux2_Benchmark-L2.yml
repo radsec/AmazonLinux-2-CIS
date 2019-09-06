@@ -1,0 +1,12 @@
+---
+- hosts:  all
+  become: yes
+  become_method: sudo
+  gather_facts: true
+  vars:
+    ignore_errors: true
+    ignore_unreachable: true
+    amazonlinux2cis_level1: false
+    amazonlinux2cis_level2: true
+  roles:
+    - role: CIS_awslinux2_Benchmark

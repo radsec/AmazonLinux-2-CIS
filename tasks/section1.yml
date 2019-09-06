@@ -11,6 +11,8 @@
     regexp: "^(#)?install cramfs(\\s|$)"
     line: "install cramfs /bin/true"
     create: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -22,6 +24,8 @@
   command: rmmod cramfs
   register: result
   failed_when: "result.rc|float < 1"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -36,6 +40,8 @@
     regexp: "^(#)?install hfs(\\s|$)"
     line: "install hfs /bin/true"
     create: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -47,6 +53,8 @@
   command: rmmod hfs
   register: result
   failed_when: "result.rc|float < 1"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -61,6 +69,8 @@
     regexp: "^(#)?install hfsplus(\\s|$)"
     line: "install hfsplus /bin/true"
     create: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -72,6 +82,8 @@
   command: rmmod hfsplus
   register: result
   failed_when: "result.rc|float < 1"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
       - level1
       - scored
@@ -86,6 +98,8 @@
     regexp: "^(#)?install squashfs(\\s|$)"
     line: "install squashfs /bin/true"
     create: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -97,6 +111,8 @@
   command: rmmod squashfs
   register: result
   failed_when: "result.rc|float < 1"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -111,6 +127,8 @@
     regexp: "^(#)?install udf(\\s|$)"
     line: "install udf /bin/true"
     create: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -122,6 +140,8 @@
   command: rmmod udf
   register: result
   failed_when: "result.rc|float < 1"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -136,6 +156,8 @@
   changed_when: false
   ignore_errors: true
   check_mode: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - rule_1
@@ -147,7 +169,9 @@
   yum:
     name: python-pip
     state: present
-  when: tmp_partition.rc == 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
+    - tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
@@ -158,7 +182,9 @@
 - name: PRE 1.1.3 Install dependencies for mountopts-module | PART TWO
   pip:
     name: fstab
-  when: tmp_partition.rc == 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
@@ -171,7 +197,9 @@
     name: /tmp
     option: nodev
     state: present
-  when: tmp_partition.rc == 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
@@ -184,6 +212,8 @@
   failed_when: false
   ignore_errors: true
   check_mode: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - rule_1
@@ -195,7 +225,9 @@
   command: mount -o remount,nodev /tmp
   ignore_errors: true
   check_mode: no
-  when: tmp_partition.rc == 0 and mount_tmp_output.rc != 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0 and mount_tmp_output.rc != 0
   tags:
     - level1
     - rule_1
@@ -206,7 +238,9 @@
 - yum:
     name: python-pip
     state: present
-  when: tmp_partition.rc == 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
@@ -217,7 +251,9 @@
 - name: install dependencies for mountopts-module
   pip:
     name: fstab
-  when: tmp_partition.rc == 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
@@ -230,7 +266,9 @@
     option: nosuid
     state: present
   check_mode: no
-  when: tmp_partition.rc == 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
@@ -244,6 +282,8 @@
   ignore_errors: true
   changed_when: false
   check_mode: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - rule_1
@@ -255,7 +295,9 @@
   command: mount -o remount,nosuid /tmp
   ignore_errors: true
   check_mode: no
-  when: tmp_partition.rc == 0 and mount_tmp_output.rc != 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0 and mount_tmp_output.rc != 0
   tags:
     - level1
     - rule_1
@@ -266,7 +308,9 @@
 - yum:
     name: python-pip
     state: present
-  when: tmp_partition.rc == 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
@@ -277,7 +321,9 @@
 - name: install dependencies for mountopts-module
   pip:
     name: fstab
-  when: tmp_partition.rc == 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
@@ -290,7 +336,9 @@
     option: noexec
     state: present
   check_mode: no
-  when: tmp_partition.rc == 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0
   tags:
     - level1
     - rule_1
@@ -304,6 +352,8 @@
   ignore_errors: true
   changed_when: false
   check_mode: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - rule_1
@@ -315,7 +365,9 @@
   command: mount -o remount,noexec /tmp
   ignore_errors: true
   check_mode: no
-  when: tmp_partition.rc == 0 and mount_tmp_output.rc != 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - tmp_partition.rc == 0 and mount_tmp_output.rc != 0
   tags:
     - level1
     - rule_1
@@ -323,13 +375,15 @@
     - rule_1.1.
     - low
 
-- name: 1.1.6 Ensure separate partition exists for /var (Scored) - Level2
+- name: 1.1.6 Ensure separate partition exists for /var (Scored)
   command: grep '\s/var\s' /etc/fstab
   register: var_partition
   failed_when: var_partition.rc == 1
   changed_when: false
   ignore_errors: true
   check_mode: no
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
   tags:
     - level2
     - rule_1
@@ -341,7 +395,9 @@
     name: python-pip
     state: present
   check_mode: no
-  when: var_partition.rc == 0
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
+    - var_partition.rc == 0
   tags:
     - level2
     - rule_1
@@ -349,10 +405,12 @@
     - rule_1.1.6
     - low
 
-- name: install dependencies for mountopts-module - Level2
+- name: install dependencies for mountopts-module
   pip:
     name: fstab
-  when: var_partition.rc == 0
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
+    - var_partition.rc == 0
   tags:
     - level2
     - rule_1
@@ -364,7 +422,9 @@
     name: /var
     option: nosuid
     state: present
-  when: var_partition.rc == 0
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
+    - var_partition.rc == 0
   tags:
     - level2
     - rule_1
@@ -376,7 +436,9 @@
     name: /var
     option: noexec
     state: present
-  when: var_partition.rc == 0
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
+    - var_partition.rc == 0
   tags:
     - level2
     - rule_1
@@ -388,7 +450,9 @@
     name: /var
     option: nodev
     state: present
-  when: var_partition.rc == 0
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
+    - var_partition.rc == 0
   tags:
     - level2
     - rule_1
@@ -401,6 +465,8 @@
   register: var_mounted
   changed_when: no
   failed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level2
     - rule_1
@@ -413,6 +479,8 @@
   register: var_tmp_mounted
   changed_when: no
   failed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
       - level2
       - scored
@@ -430,6 +498,7 @@
     src: tmpfs
     state: mounted
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - var_tmp_mounted is defined
     - var_tmp_mounted.rc|float == 0
   tags:
@@ -478,6 +547,8 @@
   register: var_log_mounted
   changed_when: no
   failed_when: no
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
   tags:
       - level2
       - scored
@@ -490,6 +561,8 @@
   register: var_log_audit_mounted
   changed_when: no
   failed_when: no
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
   tags:
       - level2
       - scored
@@ -502,6 +575,8 @@
   register: home_mounted
   changed_when: no
   failed_when: no
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2 or amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
       - level2
       - scored
@@ -517,6 +592,7 @@
     fstype: "ext4"
     src: home
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - home_mounted is defined
     - home_mounted.rc|float == 0
   tags:
@@ -534,6 +610,8 @@
     state: mounted
     fstype: tmpfs
     opts: "defaults,nodev,nosuid,noexec"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -546,6 +624,8 @@
 - name: "SCORED | 1.1.18 | PATCH | Ensure sticky bit is set on all world-writable directories"
   shell: df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type d -perm -0002 2>/dev/null | xargs chmod a+t
   #when: sticky_bit_on_worldwritable_dirs_audit.rc == '0'
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -558,6 +638,7 @@
     enabled: no
   ignore_errors: true 
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - amazonlinux2cis_allow_autofs == false
     - autofs_service_status.stdout == "loaded"
   tags:
@@ -569,6 +650,8 @@
 - name: "NOTSCORED | 1.2.1 | PATCH | Ensure package manager repositories are configured"
   command: /bin/true
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - notscored
@@ -591,6 +674,8 @@
     name: /etc/yum.conf
     regexp: "^gpgcheck=0"
     replace: "gpgcheck=1"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -604,6 +689,8 @@
     patterns: "*.repo"
   register: yum_repos
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -618,6 +705,8 @@
     replace: "gpgcheck=1"
   with_items:
     - "{{ yum_repos.files }}"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -629,6 +718,8 @@
   yum:
     name: aide
     state: present
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -639,10 +730,12 @@
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
   command: /usr/sbin/aide --init
-  when: amazonlinux2cis_config_aide
   async: 45
   poll: 0
   check_mode: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_config_aide is defined and amazonlinux2cis_config_aide
   tags:
     - level1
     - scored
@@ -653,7 +746,9 @@
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
   command: mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
-  when: amazonlinux2cis_config_aide
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_config_aide is defined and amazonlinux2cis_config_aide
   tags:
     - level1
     - scored
@@ -674,6 +769,8 @@
     month: "{{ amazonlinux2cis_aide_cron['aide_month'] | default('*') }}"
     weekday: "{{ amazonlinux2cis_aide_cron['aide_weekday'] | default('*') }}"
     job: "{{ amazonlinux2cis_aide_cron['aide_job'] }}"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -702,7 +799,10 @@
     owner: root
     group: root
     mode: 0600
-  when: grub_cfg.stat.exists and grub_cfg.stat.islnk
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - grub_cfg is defined
+    - grub_cfg.stat.exists and grub_cfg.stat.islnk
   tags:
     - level1
     - scored
@@ -720,6 +820,8 @@
   with_items:
     - /usr/lib/systemd/system/rescue.service
     - /usr/lib/systemd/system/emergency.service
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -733,6 +835,8 @@
     regexp: '^#?\\*.*core'
     line: '*                hard    core            0'
     insertbefore: '^# End of file'
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -749,6 +853,8 @@
     reload: yes
     sysctl_set: yes
     ignoreerrors: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -765,6 +871,8 @@
     reload: yes
     sysctl_set: yes
     ignoreerrors: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -774,7 +882,9 @@
 
 - name: "SCORED | 1.5.3 | PATCH | Ensure prelink is disabled"
   command: prelink -ua
-  when: prelink_installed.rc == 0
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - prelink_installed is defined and prelink_installed.rc == 0
   tags:
     - level1
     - scored
@@ -786,6 +896,8 @@
   yum:
     name: prelink
     state: absent
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - scored
@@ -801,6 +913,8 @@
   register: selinux_grub_patch
   ignore_errors: yes
   notify: generate new grub config
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
   tags:
     - level2
     - scored
@@ -813,7 +927,9 @@
     conf: /etc/selinux/config
     policy: "{{ amazonlinux2cis_selinux_pol }}"
     state: enforcing
-  when: not amazonlinux2cis_selinux_disable
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
+    - amazonlinux2cis_selinux_disable is defined and not amazonlinux2cis_selinux_disable
   tags:
     - level2
     - scored
@@ -827,7 +943,9 @@
     conf: /etc/selinux/config
     policy: "{{ amazonlinux2cis_selinux_pol }}"
     state: enforcing
-  when: not amazonlinux2cis_selinux_disable
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_selinux_disable is defined and not amazonlinux2cis_selinux_disable
   tags:
     - level2
     - scored
@@ -840,6 +958,8 @@
   yum:
     name: setroubleshoot
     state: absent
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
   tags:
     - level2
     - scored
@@ -852,6 +972,8 @@
   yum:
     name: mcstrans
     state: absent
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
   tags:
     - level2
     - scored
@@ -862,6 +984,8 @@
 - name: "SCORED | 1.6.1.6 | PATCH | Ensure no unconfined daemons exist"
   command: /bin/true
   changed_when: no
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
   tags:
     - level2
     - patch
@@ -872,6 +996,8 @@
   yum:
     name: libselinux
     state: present
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
   tags:
     - level2
     - scored
@@ -890,8 +1016,9 @@
 
 - command: /usr/sbin/update-motd --disable
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - motd_link.islink is defined and motd_link.stat.islink
-    - amazonlinux2cis_disable_auto_motd
+    - amazonlinux2cis_disable_auto_motd is defined and amazonlinux2cis_disable_auto_motd
   ignore_errors: true
   tags:
     - level1
@@ -903,7 +1030,9 @@
 - name: "SCORED | 1.7.1.1 | PATCH | Ensure message of the day is configured properly"
   shell: update-motd --disable
   become: yes
-  when: amazonlinux2cis_disable_auto_motd
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_disable_auto_motd is defined and amazonlinux2cis_disable_auto_motd
   tags:
     - level1
     - banner
@@ -915,7 +1044,9 @@
   template:
     src: etc/motd.j2
     dest: /etc/motd
-  when: amazonlinux2cis_set_motd
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_set_motd is defined and amazonlinux2cis_set_motd
   tags:
     - level1
     - banner
@@ -927,7 +1058,9 @@
   template:
     src: etc/motd.j2
     dest: /var/lib/update-motd/motd
-  when: amazonlinux2cis_set_motd
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_set_motd is defined and amazonlinux2cis_set_motd
   tags:
     - level1
     - banner
@@ -939,6 +1072,8 @@
   template:
     src: etc/issue.j2
     dest: /etc/issue
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -949,6 +1084,8 @@
   template:
     src: etc/issue.net.j2
     dest: /etc/issue.net
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - banner
@@ -969,8 +1106,9 @@
 - name: "NOTSCORED | 1.7.1.4 | PATCH | Ensure permissions on /etc/motd are configured"
   command: /usr/sbin/update-motd --disable
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - motd_link.islink is defined and motd_link.stat.islink
-    - amazonlinux2cis_disable_auto_motd
+    - amazonlinux2cis_disable_auto_motd is defined and amazonlinux2cis_disable_auto_motd
   ignore_errors: true
   tags:
     - level1
@@ -986,7 +1124,9 @@
     owner: root
     group: root
     mode: 0644
-  when: motd_link.islink is defined and motd_link.stat.islink == False
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - motd_link.islink is defined and motd_link.stat.islink == False
   ignore_errors: true
   tags:
     - level1
@@ -1000,7 +1140,8 @@
     src: etc/motd.j2
     dest: /etc/motd
   when:
-    - amazonlinux2cis_set_motd
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_set_motd is defined and amazonlinux2cis_set_motd
     - motd_link.islink is defined and motd_link.stat.islink == False
   tags:
     - level1
@@ -1016,6 +1157,8 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - perms
@@ -1030,6 +1173,8 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - perms
@@ -1041,7 +1186,9 @@
   yum:
     name: "*"
     state: latest
-  when: amazonlinux2cis_update
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_update is defined and amazonlinux2cis_update
   tags:
     - level1
     - patch

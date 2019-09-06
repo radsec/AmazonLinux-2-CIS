@@ -11,7 +11,9 @@
     state: present
     reload: yes
     ignoreerrors: yes
-  when: not amazonlinux2cis_is_router
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - not amazonlinux2cis_is_router
   notify:
     - sysctl flush ipv4 route table
   tags:
@@ -28,7 +30,9 @@
     state: present
     reload: yes
     ignoreerrors: yes
-  when: not amazonlinux2cis_is_router
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - not amazonlinux2cis_is_router
   notify:
     - sysctl flush ipv6 route table
   tags:
@@ -49,7 +53,9 @@
   with_items:
     - { name: net.ipv4.conf.all.send_redirects, value: 0 }
     - { name: net.ipv4.conf.default.send_redirects, value: 0 }
-  when: not amazonlinux2cis_is_router
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - not amazonlinux2cis_is_router
   notify:
     - sysctl flush ipv4 route table
   tags:
@@ -72,6 +78,8 @@
     - { name: net.ipv4.conf.default.accept_source_route, value: 0 }
   notify:
     - sysctl flush ipv4 route table
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - sysctl
@@ -92,6 +100,8 @@
     - { name: net.ipv6.conf.default.accept_source_route, value: 0 }
   notify:
     - sysctl flush ipv6 route table
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - sysctl
@@ -112,6 +122,8 @@
     - { name: net.ipv4.conf.default.accept_redirects, value: 0 }
   notify:
     - sysctl flush ipv4 route table
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - sysctl
@@ -132,6 +144,8 @@
     - { name: net.ipv6.conf.default.accept_redirects, value: 0 }
   notify:
     - sysctl flush ipv6 route table
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - sysctl
@@ -152,6 +166,8 @@
     - { name: net.ipv4.conf.default.secure_redirects, value: 0 }
   notify:
     - sysctl flush ipv4 route table
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - sysctl
@@ -172,6 +188,8 @@
     - { name: net.ipv4.conf.default.log_martians, value: 1 }
   notify:
     - sysctl flush ipv4 route table
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - sysctl
@@ -188,6 +206,8 @@
     ignoreerrors: yes
   notify:
     - sysctl flush ipv4 route table
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - sysctl
@@ -204,6 +224,8 @@
     ignoreerrors: yes
   notify:
     - sysctl flush ipv4 route table
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - sysctl
@@ -224,6 +246,8 @@
     - { name: net.ipv4.conf.default.rp_filter, value: 1 }
   notify:
     - sysctl flush ipv4 route table
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - sysctl
@@ -240,6 +264,8 @@
     ignoreerrors: yes
   notify:
     - sysctl flush ipv4 route table
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - sysctl
@@ -260,7 +286,9 @@
     - { name: net.ipv6.conf.default.accept_ra, value: 0 }
   notify:
     - sysctl flush ipv6 route table
-  when: amazonlinux2cis_ipv6_required == true
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_ipv6_required is defined and amazonlinux2cis_ipv6_required
   tags:
     - level1
     - sysctl
@@ -272,6 +300,8 @@
   yum:
     name: tcp_wrappers
     state: present
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -285,6 +315,8 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -296,7 +328,9 @@
     dest: /etc/hosts.deny
     regexp: "^(#)?ALL"
     line: "ALL: ALL"
-  when: amazonlinux2cis_enable_hosts_deny
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_enable_hosts_deny is defined and amazonlinux2cis_enable_hosts_deny
   tags:
    - level1
    - patch
@@ -309,6 +343,8 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -321,6 +357,8 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -333,6 +371,8 @@
     regexp: "^(#)?install dccp(\\s|$)"
     line: "install dccp /bin/true"
     create: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -345,6 +385,8 @@
     regexp: "^(#)?install sctp(\\s|$)"
     line: "install sctp /bin/true"
     create: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -357,6 +399,8 @@
     regexp: "^(#)?install rds(\\s|$)"
     line: "install rds /bin/true"
     create: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -369,6 +413,8 @@
     regexp: "^(#)?install tipc(\\s|$)"
     line: "install tipc /bin/true"
     create: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -383,8 +429,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_default_deny_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_default_deny_rule is defined and amazonlinux2cis_firewall_default_deny_rule
   tags:
     - level1
     - patch
@@ -399,8 +446,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_default_deny_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_default_deny_rule is defined and amazonlinux2cis_firewall_default_deny_rule
   tags:
     - level1
     - patch
@@ -415,8 +463,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_default_deny_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_default_deny_rule is defined and amazonlinux2cis_firewall_default_deny_rule
   tags:
     - level1
     - patch
@@ -432,8 +481,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_loopback_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_loopback_rule is defined and amazonlinux2cis_firewall_loopback_rule
   tags:
     - level1
     - patch
@@ -449,8 +499,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_loopback_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_loopback_rule is defined and amazonlinux2cis_firewall_loopback_rule
   tags:
     - level1
     - patch
@@ -466,8 +517,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_loopback_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_loopback_rule is defined and amazonlinux2cis_firewall_loopback_rule
   tags:
     - level1
     - patch
@@ -483,8 +535,9 @@
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -500,8 +553,9 @@
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -517,8 +571,9 @@
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -534,8 +589,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -551,8 +607,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -568,8 +625,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -579,7 +637,9 @@
 - name: "SCORED | 3.5.1.4 | PATCH | Ensure firewall rules exist for all open ports"
   debug:
     msg: "Ensure firewall rules exist for all open ports"
-  when: amazonlinux2cis_firewall == "iptables"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
   tags:
     - level1
     - patch
@@ -594,8 +654,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_default_deny_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_default_deny_rule is defined and amazonlinux2cis_firewall_default_deny_rule
   tags:
     - level1
     - patch
@@ -610,8 +671,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_default_deny_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_default_deny_rule is defined and amazonlinux2cis_firewall_default_deny_rule
   tags:
     - level1
     - patch
@@ -626,8 +688,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_default_deny_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_default_deny_rule is defined and amazonlinux2cis_firewall_default_deny_rule
   tags:
     - level1
     - patch
@@ -643,8 +706,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_loopback_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_loopback_rule is defined and amazonlinux2cis_firewall_loopback_rule
   tags:
     - level1
     - patch
@@ -660,8 +724,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_loopback_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_loopback_rule is defined and amazonlinux2cis_firewall_loopback_rule
   tags:
     - level1
     - patch
@@ -677,8 +742,9 @@
     action: append
     state: present
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_loopback_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_loopback_rule is defined and amazonlinux2cis_firewall_loopback_rule
   tags:
     - level1
     - patch
@@ -694,8 +760,9 @@
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -711,8 +778,9 @@
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -728,8 +796,9 @@
     ctstate: NEW,ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -745,8 +814,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -762,8 +832,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -779,8 +850,9 @@
     ctstate: ESTABLISHED
     jump: ACCEPT
   when:
-    - amazonlinux2cis_firewall == "iptables"
-    - amazonlinux2cis_firewall_outbound_rule
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
+    - amazonlinux2cis_firewall_outbound_rule is defined and amazonlinux2cis_firewall_outbound_rule
   tags:
     - level1
     - patch
@@ -790,7 +862,9 @@
 - name: "SCORED | 3.5.2.4 | PATCH | Ensure IPv6 firewall rules exist for all open ports"
   debug:
     msg: "Ensure firewall rules exist for all open ports"
-  when: amazonlinux2cis_firewall == "iptables"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
   tags:
     - level1
     - patch
@@ -801,7 +875,9 @@
   yum:
     name: iptables
     state: present
-  when: amazonlinux2cis_firewall == "iptables"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_firewall is defined and amazonlinux2cis_firewall == "iptables"
   tags:
     - level1
     - patch
@@ -816,7 +892,9 @@
     follow: yes
   ignore_errors: yes
   notify: generate new grub config
-  when: amazonlinux2cis_ipv6_required == false
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_ipv6_required and not amazonlinux2cis_ipv6_required
   tags:
    - level2
    - patch

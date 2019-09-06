@@ -1,8 +1,0 @@
----
-- hosts:  all
-  become: yes
-  become_method: sudo
-  gather_facts: true
-  import_role:
-    name: AmazonLinux-2-CIS
-    become: yes

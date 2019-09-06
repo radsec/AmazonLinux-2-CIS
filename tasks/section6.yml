@@ -6,6 +6,9 @@
 ## END COPYRIGHT NOTICE ##
 - name: "NOTSCORED | 6.1.1 | PATCH | Audit system file permissions"
   command: /bin/true
+  changed_when: no
+  when:
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
   tags:
     - patch
     - rule_6.1.1
@@ -30,6 +33,8 @@
     owner: root
     group: root
     mode: 0000
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.3
     - patch
@@ -42,6 +47,8 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.4
     - patch
@@ -50,10 +57,12 @@
 
 - name: "SCORED | 6.1.5 | PATCH | Ensure permissions on /etc/gshadow are configured"
   file:
-      dest: /etc/gshadow
-      owner: root
-      group: root
-      mode: 0000
+    dest: /etc/gshadow
+    owner: root
+    group: root
+    mode: 0000
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.5
     - patch
@@ -66,6 +75,8 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.6
     - patch
@@ -78,6 +89,8 @@
     owner: root
     group: root
     mode: 0000
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.7
     - patch
@@ -90,6 +103,8 @@
     owner: root
     group: root
     mode: 0600
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.8
     - patch
@@ -102,6 +117,8 @@
     owner: root
     group: root
     mode: 0600
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.9
     - patch
@@ -111,6 +128,8 @@
 - name: "SCORED | 6.1.10 | PATCH | Ensure no world writable files exist"
   command: /bin/true
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.10
     - patch
@@ -120,6 +139,8 @@
 - name: "SCORED | 6.1.11 | PATCH | Ensure no unowned files or directories exist"
   command: /bin/true
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.11
     - patch
@@ -128,6 +149,8 @@
 
 - name: "SCORED | 6.1.12 | PATCH | Ensure no ungrouped files or directories exist"
   command: /bin/true
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.12
     - patch
@@ -137,6 +160,8 @@
 - name: "NOTSCORED | 6.1.13 | PATCH | Audit SUID executables"
   command: /bin/true
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.13
     - patch
@@ -146,6 +171,8 @@
 - name: "NOTSCORED | 6.1.14 | PATCH | Audit SGID executables"
   command: /bin/true
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.1.14
     - patch
@@ -155,7 +182,9 @@
 - name: "SCORED | 6.2.1 | PATCH | Ensure password fields are not empty"
   command: passwd -l {{ item }}
   with_items: "{{ empty_password_accounts.stdout_lines }}"
-  when: empty_password_accounts.rc
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - empty_password_accounts is defined and empty_password_accounts.rc
   tags:
     - rule_6.2.1
     - patch
@@ -167,6 +196,8 @@
   args:
     warn: no
   ignore_errors: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.2
     - patch
@@ -175,6 +206,8 @@
 
 - name: "SCORED | 6.2.3 | PATCH | Ensure no legacy '+' entries exist in /etc/shadow"
   command: "sed -i '/^+/ d' /etc/shadow"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.3
     - patch
@@ -183,6 +216,8 @@
 
 - name: "SCORED | 6.2.4 | PATCH | Ensure no legacy '+' entries exist in /etc/group"
   command: sed -i '/^+/ d' /etc/group
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.4
     - patch
@@ -192,7 +227,9 @@
 - name: "SCORED | 6.2.5 | PATCH | Ensure root is the only UID 0 account"
   command: passwd -l {{ item }}
   with_items: "{{ uid_zero_accounts_except_root.stdout_lines }}"
-  when: uid_zero_accounts_except_root.rc
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - uid_zero_accounts_except_root is defined and uid_zero_accounts_except_root.rc
   tags:
     - rule_6.2.5
     - patch
@@ -207,6 +244,8 @@
     group: root
     mode: 0700
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.6
     - low
@@ -218,6 +257,8 @@
   args:
     executable: /bin/bash
   register: root_path_integrity
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.6
     - low
@@ -227,7 +268,9 @@
 - name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
   debug:
     var: root_path_integrity.stdout_lines
-  when: root_path_integrity.stdout != ""
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - root_path_integrity is defined and root_path_integrity.stdout != ""
   tags:
     - rule_6.2.6
     - low
@@ -237,7 +280,9 @@
 - name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
   debug:
     msg: "PASS | 6.2.6 | root PATH integrity"
-  when: root_path_integrity.stdout == ""
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - root_path_integrity is defined and root_path_integrity.stdout == ""
   tags:
     - rule_6.2.6
     - low
@@ -251,6 +296,8 @@
     group: root
     state: absent
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.6
     - low
@@ -265,6 +312,8 @@
     group: root
     mode: 0700
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.7
     - low
@@ -276,6 +325,8 @@
   args:
     executable: /bin/bash
   register: home_directories_exist
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.7
     - low
@@ -285,7 +336,9 @@
 - name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
   debug:
     var: home_directories_exist.stdout_lines
-  when: home_directories_exist.stdout != ""
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - home_directories_exist is defined and home_directories_exist.stdout != ""
   tags:
     - rule_6.2.7
     - low
@@ -295,7 +348,9 @@
 - name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
   debug:
     msg: "PASS | 6.2.7 | All users' home directories exist."
-  when: home_directories_exist.stdout == ""
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - home_directories_exist is defined and home_directories_exist.stdout == ""
   tags:
     - rule_6.2.7
     - low
@@ -309,6 +364,8 @@
     group: root
     state: absent
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.7
     - low
@@ -323,7 +380,9 @@
     group: root
     mode: 0700
   changed_when: no
-  when: amazonlinux2cis_modify_user_homes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_user_homes is defined and amazonlinux2cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -335,7 +394,9 @@
   args:
     executable: /bin/bash
   register: home_directories_permissions
-  when: amazonlinux2cis_modify_user_homes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_user_homes is defined and amazonlinux2cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -345,7 +406,9 @@
 - name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
   debug:
     var: home_directories_permissions.stdout_lines
-  when: amazonlinux2cis_modify_user_homes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_user_homes is defined and amazonlinux2cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -356,8 +419,9 @@
   debug:
     msg: "PASS | 6.2.8 | Users' home directories permissions are 750 or more restrictive."
   when:
-    - home_directories_permissions.stdout == ""
-    - amazonlinux2cis_modify_user_homes
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - home_directories_permissions is defined and home_directories_permissions.stdout == ""
+    - amazonlinux2cis_modify_user_homes is defined and amazonlinux2cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -371,7 +435,9 @@
     group: root
     state: absent
   changed_when: no
-  when: amazonlinux2cis_modify_user_homes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_user_homes is defined and amazonlinux2cis_modify_user_homes
   tags:
     - rule_6.2.8
     - level1
@@ -386,6 +452,8 @@
     group: root
     mode: 0700
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.9
     - level1
@@ -397,6 +465,8 @@
   args:
     executable: /bin/bash
   register: home_directories_own
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.9
     - level1
@@ -406,6 +476,8 @@
 - name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
   debug:
     var: home_directories_own.stdout_lines
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.9
     - level1
@@ -414,7 +486,9 @@
 - name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
   debug:
     msg: "PASS | 6.2.9 | Users' own their home directories."
-  when: home_directories_own.stdout == ""
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - home_directories_own is defined and home_directories_own.stdout == ""
   tags:
     - rule_6.2.9
     - level1
@@ -428,6 +502,8 @@
     group: root
     state: absent
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.9
     - level1
@@ -442,6 +518,8 @@
     group: root
     mode: 0700
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.10
     - patch
@@ -453,6 +531,8 @@
   args:
     executable: /bin/bash
   register: user_dot_files
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.10
     - patch
@@ -462,6 +542,8 @@
 - name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
   debug:
     var: user_dot_files.stdout_lines
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.10
     - level1
@@ -471,7 +553,9 @@
 - name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
   debug:
     msg: "PASS | 6.2.10 | Users' dot files are not group or world writable."
-  when: user_dot_files.stdout == ""
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - user_dot_files is defined and user_dot_files.stdout == ""
   tags:
     - rule_6.2.10
     - level1
@@ -485,6 +569,8 @@
     group: root
     state: absent
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.10
     - patch
@@ -496,6 +582,8 @@
       state: absent
       dest: "~{{ item }}/.forward"
   with_items: "{{ users.stdout_lines }}"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.11
     - patch
@@ -507,6 +595,8 @@
       state: absent
       dest: "~{{ item }}/.netrc"
   with_items: "{{ users.stdout_lines }}"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.12
     - patch
@@ -521,6 +611,8 @@
     group: root
     mode: 0700
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.13
     - patch
@@ -532,6 +624,8 @@
   args:
     executable: /bin/bash
   register: dot_netrc_files
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.13
     - patch
@@ -541,6 +635,8 @@
 - name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc files are not group or world accessible"
   debug:
     var: dot_netrc_files.stdout_lines
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.13
     - patch
@@ -550,7 +646,9 @@
 - name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc files are not group or world accessible"
   debug:
     msg: "PASS | 6.2.13 | Users' .netrc files are not group or world accessible."
-  when: dot_netrc_files.stdout == ""
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - dot_netrc_files is defined and dot_netrc_files.stdout == ""
   tags:
     - rule_6.2.13
     - patch
@@ -564,6 +662,8 @@
     group: root
     state: absent
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.13
     - patch
@@ -575,6 +675,8 @@
     state: absent
     dest: "~{{ item }}/.rhosts"
   with_items: "{{ users.stdout_lines }}"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.14
     - patch
@@ -589,6 +691,8 @@
     group: root
     mode: 0700
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.15
     - patch
@@ -600,6 +704,8 @@
   args:
     executable: /bin/bash
   register: check_groups_in_passwd
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.15
     - patch
@@ -609,6 +715,8 @@
 - name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
   debug:
     var: check_groups_in_passwd.stdout_lines
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.15
     - patch
@@ -632,6 +740,8 @@
     group: root
     state: absent
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.15
     - patch
@@ -646,6 +756,8 @@
     group: root
     mode: 0700
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.16
     - patch
@@ -657,6 +769,8 @@
   args:
     executable: /bin/bash
   register: duplicate_uids
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.16
     - patch
@@ -666,6 +780,8 @@
 - name: "SCORED | 6.2.16 | PATCH | Ensure no duplicate UIDs exist"
   debug:
     var: duplicate_uids.stdout_lines
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.16
     - patch
@@ -675,7 +791,9 @@
 - name: "SCORED | 6.2.16 | PATCH | Ensure no duplicate UIDs exist"
   debug:
     msg: "PASS | 6.2.16 | No duplicate UIDs exist."
-  when: duplicate_uids.stdout == ""
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - duplicate_uids is defined and duplicate_uids.stdout == ""
   tags:
     - rule_6.2.16
     - patch
@@ -689,6 +807,8 @@
     group: root
     state: absent
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.16
     - patch
@@ -703,6 +823,8 @@
     group: root
     mode: 0700
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.17
     - patch
@@ -714,6 +836,8 @@
   args:
     executable: /bin/bash
   register: duplicate_gids
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.17
     - patch
@@ -723,6 +847,8 @@
 - name: "SCORED | 6.2.17 | PATCH | Ensure no duplicate GIDs exist"
   debug:
     var: duplicate_gids.stdout_lines
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.17
     - patch
@@ -732,7 +858,9 @@
 - name: "SCORED | 6.2.17 | PATCH | Ensure no duplicate GIDs exist"
   debug:
     msg: "PASS | 6.2.17 | No duplicate GIDs exist."
-  when: duplicate_gids.stdout == ""
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - duplicate_gids is defined and duplicate_gids.stdout == ""
   tags:
     - rule_6.2.17
     - patch
@@ -746,6 +874,8 @@
     group: root
     state: absent
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.17
     - patch
@@ -760,6 +890,8 @@
     group: root
     mode: 0700
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.18
     - patch
@@ -771,6 +903,8 @@
   args:
     executable: /bin/bash
   register: duplicate_users
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.18
     - patch
@@ -780,6 +914,8 @@
 - name: "SCORED | 6.2.18 | PATCH | Ensure no duplicate user names exist"
   debug:
     var: duplicate_users.stdout_lines
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.18
     - patch
@@ -803,6 +939,8 @@
     group: root
     state: absent
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.18
     - patch
@@ -817,6 +955,8 @@
     group: root
     mode: 0700
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.19
     - patch
@@ -828,6 +968,8 @@
   args:
     executable: /bin/bash
   register: duplicate_groups
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.19
     - patch
@@ -837,6 +979,8 @@
 - name: "SCORED | 6.2.19 | PATCH | Ensure no duplicate group names exist"
   debug:
     var: duplicate_groups.stdout_lines
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.19
     - patch
@@ -846,7 +990,9 @@
 - name: "SCORED | 6.2.19 | PATCH | Ensure no duplicate group names exist"
   debug:
     msg: "PASS | 6.2.19 | No duplicate group names exist"
-  when: duplicate_groups.stdout == ""
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - duplicate_groups is defined and duplicate_groups.stdout == ""
   tags:
     - rule_6.2.19
     - patch
@@ -860,6 +1006,8 @@
     group: root
     state: absent
   changed_when: no
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.19
     - patch

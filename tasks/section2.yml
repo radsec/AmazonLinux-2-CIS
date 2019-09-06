@@ -6,8 +6,10 @@
 ## END COPYRIGHT NOTICE ##
 - name: "NOTSCORED | 2.1.1.1 | PATCH | Ensure time synchronization is in use - service install"
   yum:
-      name: "{{ amazonlinux2cis_time_synchronization }}"
-      state: present
+    name: "{{ amazonlinux2cis_time_synchronization }}"
+    state: present
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -16,10 +18,12 @@
 
 - name: "NOTSCORED | 2.2.1.1 | PATCH | Ensure time synchronization is in use - service start"
   systemd:
-      name: "{{ amazonlinux2cis_time_synchronization }}d"
-      state: started
-      enabled: yes
+    name: "{{ amazonlinux2cis_time_synchronization }}d"
+    state: started
+    enabled: yes
   ignore_errors: true
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - level1
     - patch
@@ -33,6 +37,7 @@
     enabled: no
   ignore_errors: true
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - amazonlinux2cis_time_synchronization is defined
     - amazonlinux2cis_time_synchronization == "chrony" and ntpd_service_status.stdout == "loaded"
   tags:
@@ -48,6 +53,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - amazonlinux2cis_time_synchronization is defined
     - amazonlinux2cis_time_synchronization == "ntp" and chronyd_service_status.stdout == "loaded"
   tags:
@@ -64,6 +70,7 @@
     group: root
     mode: 0644
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - amazonlinux2cis_time_synchronization is defined
     - amazonlinux2cis_time_synchronization == "ntp"
   tags:
@@ -78,6 +85,7 @@
     regexp: "^(#)?OPTIONS"
     line: "OPTIONS=\"-u ntp:ntp\""
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - amazonlinux2cis_time_synchronization is defined
     - amazonlinux2cis_time_synchronization == "ntp"
   tags:
@@ -94,6 +102,7 @@
     group: root
     mode: 0644
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - amazonlinux2cis_time_synchronization is defined
     - amazonlinux2cis_time_synchronization == "chrony"
   tags:
@@ -110,6 +119,7 @@
     state: present
     create: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - amazonlinux2cis_time_synchronization is defined
     - amazonlinux2cis_time_synchronization == "chrony"
   tags:
@@ -123,6 +133,7 @@
     name: "{{item}}"
     state: absent
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - not amazonlinux2cis_xwindows_required
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   with_items:
@@ -144,6 +155,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_avahi_server and avahi_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -163,6 +175,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_cups_server == false and cups_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -182,6 +195,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_dhcp_server and dhcpd_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -201,6 +215,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_ldap_server and slapd_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -220,6 +235,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_nfs_rpc_server and nfs_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -240,6 +256,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_nfs_rpc_server and rpcbind_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -260,6 +277,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_named_server and named_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -276,6 +294,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_vsftpd_server and vsftpd_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -292,6 +311,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_httpd_server and httpd_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -308,6 +328,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_dovecot_server and dovecot_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -324,6 +345,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_smb_server and smb_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -340,6 +362,7 @@
     enabled: no
   ignore_errors: yes
   when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_squid_server and squid_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -355,7 +378,8 @@
     state: stopped
     enabled: no
   ignore_errors: yes
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_snmp_server and snmpd_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -371,7 +395,8 @@
     regexp: "^(#)?inet_interfaces"
     line: "inet_interfaces = loopback-only"
   notify: systemctl restart postfix
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_is_mail_server and postfix_installed.rc == 0)
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -387,7 +412,8 @@
     state: stopped
     enabled: no
   ignore_errors: yes
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_nis_server and ypserv_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -403,7 +429,8 @@
     state: stopped
     enabled: no
   ignore_errors: true
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_rsh_server == false and rsh_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -419,7 +446,8 @@
     state: stopped
     enabled: no
   ignore_errors: true
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_rsh_server and rlogin_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -435,7 +463,8 @@
     state: stopped
     enabled: no
   ignore_errors: true
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (not amazonlinux2cis_rsh_server and rexec_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -462,7 +491,8 @@
     state: stopped
     enabled: no
   ignore_errors: true
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - (rexec_service is defined and rexec_service.stat.exists and not amazonlinux2cis_rsh_server)
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -487,7 +517,8 @@
 # - name: "SCORED | 2.1.17 | PATCH | Ensure rsh server is not enabled | rlogin"
 #   command: chkconfig rlogin off
 #   notify: restart rsh-server
-#   when: rlogin_service.stat.exists
+#   when:
+#    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 rlogin_service.stat.exists
 #   tags:
 #     - level1
 #     - scored
@@ -509,7 +540,8 @@
 # - name: "SCORED | 2.1.17 | PATCH | Ensure rsh server is not enabled | rsh"
 #   command: chkconfig rsh off
 #   notify: restart rsh-server
-#   when: rsh_service.stat.exists
+#   when:
+#    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 rsh_service.stat.exists
 #   tags:
 #     - level1
 #     - scored
@@ -523,7 +555,8 @@
     state: stopped
     enabled: no
   ignore_errors: true
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_telnet_server and telnet_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -539,7 +572,8 @@
     state: stopped
     enabled: no
   ignore_errors: yes
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_tftp_server and tftp_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -558,7 +592,8 @@
     state: stopped
     enabled: no
   ignore_errors: true
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_rsyncd_server and rsyncd_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -574,7 +609,8 @@
     state: stopped
     enabled: no
   ignore_errors: yes
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_ntalk_server and ntalk_service_status.stdout == "loaded")
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -588,7 +624,8 @@
   yum:
     name: ypbind
     state: absent
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_ypbind_required)
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -602,7 +639,8 @@
   yum:
     name: rsh
     state: absent
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_rsh_required)
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -616,7 +654,8 @@
   yum:
     name: talk
     state: absent
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_talk_required)
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -630,7 +669,8 @@
   yum:
     name: telnet
     state: absent
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_telnet_required)
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
   tags:
@@ -644,7 +684,8 @@
   yum:
     name: openldap-clients
     state: absent
-  when: 
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - amazonlinux2cis_ad_ldap_joined_machine is defined and not amazonlinux2cis_ad_ldap_joined_machine
     - (not amazonlinux2cis_openldap_clients_required)
     - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
