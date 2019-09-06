@@ -480,7 +480,7 @@
   changed_when: no
   failed_when: no
   when:
-    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 or amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
   tags:
       - level2
       - scored
