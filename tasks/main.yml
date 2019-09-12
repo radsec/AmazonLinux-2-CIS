@@ -6,36 +6,44 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 ## END COPYRIGHT NOTICE ##
 # tasks file for AmazonLinux2CIS
-- name: Check OS version and family
-  fail:
-      msg: "This role can only be run against Amazon Linux 2. {{ ansible_distribution }} {{ansible_distribution_version }} is not supported."
-  when:
-      - ansible_distribution == 'Amazon'
-      - ansible_distribution_version is version('2', '!=')
-  tags:
-      - always
 
-- name: Check OS version and family
+- name: "Check OS version and family"
+  fail:
+    msg: "This role can only be run against Amazon Linux 2. {{ ansible_distribution }} {{ ansible_distribution_version }} is not supported."
+  when:
+    - ansible_distribution|lower == 'amazon'
+    - ansible_distribution_version is version_compare('2', '!=')
+  tags:
+    - always
+
+- name: "Check OS version and family"
   debug:
-      msg: "PASS | {{ ansible_distribution }} {{ansible_distribution_version }} is supported."
+    msg: "PASS | This role can only be executed on Red Hat 7 operating systems"  
   when:
-      - ansible_distribution == 'Amazon'
-      - ansible_distribution_version is version('2', '>=')
+    - ansible_distribution|lower == 'amazon'
+    - ansible_distribution_version is version_compare('2', '==')
   tags:
-      - always
+    - always
 
-- name: Check ansible version
+- name: "Check ansible version"
   fail:
-      msg: You must use ansible 2.7 or greater
-  when: not ansible_version.full is version('2.7', '>=')
+    msg: "You must use ansible 2.7 or greater"
+  when: not ansible_version.full is version_compare('2.7', '>=')
   tags:
-      - always
+    - always
+
+- name: "Check ansible version"
+  debug:
+    msg: "PASS | The detected Ansible version is greater than 2.7"  
+  when: ansible_version.full is version_compare('2.7', '>=')
+  tags:
+    - always
 
 - import_tasks: prelim.yml
   become: yes
   tags:
-      - prelim_tasks
-      - always
+    - prelim_tasks
+    - always
 
 - import_tasks: section1.yml
   become: yes
@@ -64,5 +72,5 @@
 - import_tasks: post.yml
   become: yes
   tags:
-      - post_tasks
-      - always
+    - post_tasks
+    - always
