@@ -229,7 +229,7 @@
     state: present
     dest: /etc/ssh/sshd_config
     regexp: '^LogLevel'
-    line: 'LogLevel INFO'
+    line: 'LogLevel VERBOSE'
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -410,6 +410,21 @@
     - rule_5.2.16
     - low
 
+
+- name: "SCORED | 5.2.16 | PATCH | Ensure SSH Idle Timeout Interval is configured"
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: '^ClientAliveCountMax'
+    line: 'ClientAliveCountMax 0'
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.2.16
+    - low
+
 - name: "SCORED | 5.2.17 | PATCH | Ensure SSH LoginGraceTime is set to one minute or less"
   lineinfile:
     state: present
@@ -440,7 +455,7 @@
     state: present
     dest: /etc/ssh/sshd_config
     regexp: '^Banner'
-    line: 'Banner /etc/issue'
+    line: 'Banner /etc/issue.net'
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:

@@ -11,6 +11,7 @@
     state: present
     reload: yes
     ignoreerrors: yes
+    sysctl_set: yes
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - not amazonlinux2cis_is_router
@@ -30,6 +31,7 @@
     state: present
     reload: yes
     ignoreerrors: yes
+    sysctl_set: yes
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - not amazonlinux2cis_is_router

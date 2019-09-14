@@ -398,13 +398,12 @@
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1 
     - (not amazonlinux2cis_is_mail_server and postfix_installed.rc == 0)
-    - amazonlinux2cis_disable_service_checks is defined and amazonlinux2cis_disable_service_checks
+    - amazonlinux2cis_disable_service_checks is defined
   tags:
     - level1
     - patch
     - rule_2.1.15
     - low
-    - disable_service_checks
 
 - name: "SCORED | 2.1.16 | PATCH | Ensure NIS Server is not enabled"
   systemd:
