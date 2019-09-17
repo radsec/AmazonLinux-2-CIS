@@ -833,7 +833,7 @@
     state: present
     dest: /etc/security/limits.conf
     regexp: '^#?\\*.*core'
-    line: '*                hard    core            0'
+    line: '* hard core 0'
     insertbefore: '^# End of file'
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
