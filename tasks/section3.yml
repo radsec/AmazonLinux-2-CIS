@@ -13,7 +13,7 @@
     reload: yes
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
-    - not amazonlinux2cis_is_router
+    - amazonlinux2cis_is_router is defined and not amazonlinux2cis_is_router
   notify:
     - sysctl flush ipv4 route table
   tags:
@@ -32,7 +32,7 @@
     reload: yes
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
-    - not amazonlinux2cis_is_router
+    - amazonlinux2cis_is_router is defined and not amazonlinux2cis_is_router
   notify:
     - sysctl flush ipv6 route table
   tags:
