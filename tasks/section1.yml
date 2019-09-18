@@ -944,7 +944,7 @@
     policy: "{{ amazonlinux2cis_selinux_pol }}"
     state: enforcing
   when:
-    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_level2 is defined and amazonlinux2cis_level2
     - amazonlinux2cis_selinux_disable is defined and not amazonlinux2cis_selinux_disable
   tags:
     - level2
