@@ -224,12 +224,12 @@
     - rule_5.2.4
     - low
 
-- name: "SCORED | 5.2.5 | PATCH | Ensure SSH LogLevel is set to INFO"
+- name: "SCORED | 5.2.5 | PATCH | Ensure SSH LogLevel is set to VERBOSE"
   lineinfile:
     state: present
     dest: /etc/ssh/sshd_config
     regexp: '^LogLevel'
-    line: 'LogLevel INFO'
+    line: 'LogLevel VERBOSE'
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -336,6 +336,20 @@
     - rule_5.2.12
     - low
 
+- name: "SCORED | 5.2.12 | PATCH | Ensure SSH PermitUserEnvironment is disabled"
+  replace:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PermitUserEnvironment'
+    replace: 'PermitUserEnvironment no'
+  ignore_errors: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.2.12
+    - low
+
 - name: "Determine if FIPS is installed"
   stat:
     path: /root/fipsinstalled
@@ -398,10 +412,50 @@
 
 - name: "SCORED | 5.2.16 | PATCH | Ensure SSH Idle Timeout Interval is configured"
   lineinfile:
+    state: absent
+    dest: /etc/ssh/sshd_config
+    regexp: '^ClientAliveInterval (?!300)'
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.2.16
+    - low
+
+- name: "SCORED | 5.2.16 | PATCH | Ensure SSH Idle Timeout Interval is configured"
+  lineinfile:
     state: present
     dest: /etc/ssh/sshd_config
-    regexp: '^ClientAliveInterval'
+    regexp: '^ClientAliveInterval(.*)?$'
     line: 'ClientAliveInterval 300'
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.2.16
+    - low
+
+- name: "SCORED | 5.2.16 | PATCH | Ensure SSH Idle Timeout Interval is configured"
+  replace:
+    dest: /etc/ssh/sshd_config
+    regexp: '^ClientAliveInterval(.*)?$'
+    replace: 'ClientAliveInterval 300'
+  ignore_errors: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.2.16
+    - low
+
+- name: "SCORED | 5.2.16 | PATCH | Ensure SSH Idle Timeout Interval is configured"
+  lineinfile:
+    state: absent
+    dest: /etc/ssh/sshd_config
+    regexp: '^ClientAliveCountMax (?!0)'
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -415,8 +469,22 @@
   lineinfile:
     state: present
     dest: /etc/ssh/sshd_config
-    regexp: '^ClientAliveCountMax'
+    regexp: '^ClientAliveCountMax(.*)?$'
     line: 'ClientAliveCountMax 0'
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.2.16
+    - low
+
+- name: "SCORED | 5.2.16 | PATCH | Ensure SSH Idle Timeout Interval is configured"
+  replace:
+    dest: /etc/ssh/sshd_config
+    regexp: '^ClientAliveCountMax(.*)?$'
+    replace: 'ClientAliveCountMax 0'
+  ignore_errors: yes
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -431,6 +499,20 @@
     dest: /etc/ssh/sshd_config
     regexp: '^LoginGraceTime'
     line: 'LoginGraceTime 60'
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.2.17
+    - low
+
+- name: "SCORED | 5.2.17 | PATCH | Ensure SSH LoginGraceTime is set to one minute or less"
+  replace:
+    dest: /etc/ssh/sshd_config
+    regexp: '^LoginGraceTime'
+    replace: 'LoginGraceTime 60'
+  ignore_errors: yes
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -859,9 +941,8 @@
     - low
 
 - name: "SCORED | 5.4.2 | PATCH | Ensure system accounts are non-login"
-  copy:
-    src: scripts/five_four_two.sh
-    dest: /opt/five_four_two.sh
+  file:
+    path: /opt/five_four_two.sh
     owner: root
     group: root
     state: absent
@@ -974,4 +1055,19 @@
     - level2
     - patch
     - rule_5.4.5
+    - low
+
+- name: "SCORED | 5.6 | PATCH | Ensure access to the su command is restricted"
+  lineinfile:
+    state: present
+    dest: /etc/group
+    regexp: '^wheel:x:10:(.*)$'
+    line: 'wheel:x:10:\1,root'
+    backrefs: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.6
     - low

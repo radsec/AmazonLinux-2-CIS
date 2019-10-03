@@ -780,6 +780,28 @@
     - rule_1.3.2
     - low
 
+- name: "SCORED | 1.3.2 | PATCH | Ensure filesystem integrity is regularly checked"
+  cron:
+    name: Run AIDE integrity check weekly
+    cron_file: "/var/spool/cron/root"
+    user: "{{ amazonlinux2cis_aide_cron['cron_user'] }}"
+    minute: "{{ amazonlinux2cis_aide_cron['aide_minute'] | default('0') }}"
+    hour: "{{ amazonlinux2cis_aide_cron['aide_hour'] | default('5') }}"
+    day: "{{ amazonlinux2cis_aide_cron['aide_day'] | default('*') }}"
+    month: "{{ amazonlinux2cis_aide_cron['aide_month'] | default('*') }}"
+    weekday: "{{ amazonlinux2cis_aide_cron['aide_weekday'] | default('*') }}"
+    job: "{{ amazonlinux2cis_aide_cron['aide_job'] }}"
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - scored
+    - aide
+    - file_integrity
+    - patch
+    - rule_1.3.2
+    - low
+
 - name: "SCORED | 1.4.1 | PATCH | Ensure permissions on bootloader config are configured"
   stat:
     path: /boot/grub2/grub.cfg

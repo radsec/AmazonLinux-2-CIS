@@ -119,14 +119,16 @@ amazonlinux2cis_xinetd_required: false
 
 # Section 2.2.1.x | Time synchronization #
 # Time Synchronization - Use chrony or ntp
-amazonlinux2cis_time_synchronization: ntp
+amazonlinux2cis_time_synchronization: chrony
 
 # Section 2.2.1.2 OR Section 2.2.1.3 | Ensure chrony or ntp is configured
+# Use 169.254.169.123 within AWS to use local instance NTP server
 amazonlinux2cis_time_synchronization_servers:
-    - 0.pool.ntp.org
-    - 1.pool.ntp.org
-    - 2.pool.ntp.org
-    - 3.pool.ntp.org
+    - 169.254.169.123
+#    - 0.pool.ntp.org
+#    - 1.pool.ntp.org
+#    - 2.pool.ntp.org
+#    - 3.pool.ntp.org
 
 # Section 2.2.2 | Ensure X Window System is not installed
 # Set to 'true' if X Windows is needed in your environment

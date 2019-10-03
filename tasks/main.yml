@@ -9,7 +9,7 @@
 
 - name: "Check OS version and family"
   fail:
-    msg: "This role can only be run against Amazon Linux 2. {{ ansible_distribution }} {{ ansible_distribution_version }} is not supported."
+    msg: "FAIL | This role can only be executed on Amazon Linux 2 operating systems. {{ ansible_distribution }} {{ ansible_distribution_version }} is not supported."
   when:
     - ansible_distribution|lower == 'amazon'
     - ansible_distribution_version is version_compare('2', '!=')
@@ -18,7 +18,7 @@
 
 - name: "Check OS version and family"
   debug:
-    msg: "PASS | This role can only be executed on Red Hat 7 operating systems"  
+    msg: "PASS | This role can only be executed on Amazon Linux 2 operating systems."  
   when:
     - ansible_distribution|lower == 'amazon'
     - ansible_distribution_version is version_compare('2', '==')
