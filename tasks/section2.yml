@@ -111,45 +111,13 @@
     - rule_2.1.1.3
     - low
 
-- name: "SCORED | 2.1.1.3 | PATCH | Ensure chrony is configured | modify /etc/sysconfig/chronyd"
-  copy:
-    src: scripts/2.2.1.3.sh
-    dest: /opt/2.2.1.3.sh
+- name: "SCORED | 2.1.1.3 | PATCH | Ensure chrony is configured"
+  template:
+    src: etc/sysconfig/chronyd.j2
+    dest: /etc/sysconfig/chronyd
     owner: root
     group: root
-    mode: 0700
-  changed_when: no
-  when:
-    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
-    - amazonlinux2cis_time_synchronization is defined
-    - amazonlinux2cis_time_synchronization == "chrony"
-  tags:
-    - level1
-    - patch
-    - rule_2.1.1.3
-    - low
-
-- name: "SCORED | 2.1.1.3 | PATCH | Ensure chrony is configured | modify /etc/sysconfig/chronyd"
-  shell: /opt/2.2.1.3.sh
-  args:
-    executable: /bin/bash
-  when:
-    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
-    - amazonlinux2cis_time_synchronization is defined
-    - amazonlinux2cis_time_synchronization == "chrony"
-  tags:
-    - level1
-    - patch
-    - rule_2.1.1.3
-    - low
-
-- name: "SCORED | 2.1.1.3 | PATCH | Ensure chrony is configured | modify /etc/sysconfig/chronyd"
-  file:
-    path: /opt/2.2.1.3.sh
-    owner: root
-    group: root
-    state: absent
-  changed_when: no
+    mode: '0644'
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - amazonlinux2cis_time_synchronization is defined
@@ -163,7 +131,7 @@
 - name: "SCORED | 2.1.1.3 | PATCH | Ensure chrony is configured | modify /etc/sysconfig/chronyd"
   lineinfile:
     dest: /etc/sysconfig/chronyd
-    regexp: "OPTIONS"
+    regexp: "OPTIONS(.*)?$"
     line: "OPTIONS=\"-u chrony\""
     state: present
     create: yes

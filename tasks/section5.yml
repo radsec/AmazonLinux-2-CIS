@@ -326,7 +326,7 @@
   lineinfile:
     state: present
     dest: /etc/ssh/sshd_config
-    regexp: '^PermitUserEnvironment'
+    regexp: '^PermitUserEnvironment(.*)?$'
     line: 'PermitUserEnvironment no'
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
@@ -339,7 +339,7 @@
 - name: "SCORED | 5.2.12 | PATCH | Ensure SSH PermitUserEnvironment is disabled"
   replace:
     dest: /etc/ssh/sshd_config
-    regexp: '^PermitUserEnvironment'
+    regexp: '^PermitUserEnvironment(.*)?$'
     replace: 'PermitUserEnvironment no'
   ignore_errors: yes
   when:
@@ -497,7 +497,7 @@
   lineinfile:
     state: present
     dest: /etc/ssh/sshd_config
-    regexp: '^LoginGraceTime'
+    regexp: '^LoginGraceTime(.*)?$'
     line: 'LoginGraceTime 60'
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
@@ -510,7 +510,7 @@
 - name: "SCORED | 5.2.17 | PATCH | Ensure SSH LoginGraceTime is set to one minute or less"
   replace:
     dest: /etc/ssh/sshd_config
-    regexp: '^LoginGraceTime'
+    regexp: '^LoginGraceTime(.*)?$'
     replace: 'LoginGraceTime 60'
   ignore_errors: yes
   when:
