@@ -1181,6 +1181,12 @@
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - system_auth_password_check_pam_unix.rc is defined and system_auth_password_check_pam_unix.rc == 0
+  tags:
+    - level1
+    - patch
+    - rule_5.3.3
+    - low
+
 
 - name: 'SCORED | 5.3.3 | Ensure password reuse is limited'
   pamd:
@@ -1197,6 +1203,12 @@
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
     - system_auth_password_check_pam_pwhistory.rc is defined and system_auth_password_check_pam_pwhistory.rc == 0
+  tags:
+    - level1
+    - patch
+    - rule_5.3.3
+    - low
+
 
 # END # password sufficient pam_unix.so remember=5 #
 
@@ -1253,6 +1265,12 @@
     - password-auth
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.3.4
+    - low
+
 
 # END # password sufficient pam_unix.so sha512 #
 
