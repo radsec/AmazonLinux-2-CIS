@@ -565,21 +565,46 @@
     - patch
     - rule_5.3.1
     - low
+# auth required pam_faillock.so preauth audit silent deny=5 unlock_time=900
+# auth [default=die] pam_faillock.so authfail audit deny=5 unlock_time=900
 
-- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+# START # auth required pam_faillock.so preauth audit silent deny=5 unlock_time=900 #
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured"
   pamd:
-    name: system-auth
+    name: '{{item}}'
+    type: auth
+    control: sufficient
+    module_path: pam_unix.so
+    new_type: auth
+    new_control: required
+    new_module_path: pam_faillock.so
+    module_arguments: preauth audit silent deny=5 unlock_time=900
+    state: before
+  ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured"
+  pamd:
+    name: '{{item}}'
     type: auth
     control: required
     module_path: pam_faillock.so
-    module_arguments: 'preauth
-        audit
-        silent
-        deny=5
-        unlock_time=900'
+    module_arguments: preauth audit silent deny=5 unlock_time=900
     state: args_present
-    #state: updated
   ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -588,15 +613,64 @@
     - rule_5.3.2
     - low
 
-- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+# END # auth required pam_faillock.so preauth audit silent deny=5 unlock_time=900 #
+
+# START # auth [success=1 default=bad] pam_unix.so #
+
+- name: 'SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured - pam_unix.so'
   pamd:
-    name: system-auth
+    name: '{{ item }}'
+    type: auth
+    control: sufficient
+    module_path: 'pam_unix.so'
+    new_control: '[success=1 default=bad]'
+  ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: 'SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured - pam_unix.so'
+  pamd:
+    name: '{{ item }}'
+    type: auth
+    control: sufficient
+    module_path: 'pam_unix.so'
+    new_type: auth
+    new_control: '[success=1 default=bad]'
+    new_module_path: pam_unix.so
+    module_arguments: 'nullok try_first_pass'
+    state: before
+  ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: 'SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured - pam_unix.so'
+  pamd:
+    name: '{{item}}'
     type: auth
     control: '[success=1 default=bad]'
     module_path: pam_unix.so
-    state: args_present
-    #state: updated
+    module_arguments: 'nullok try_first_pass'
+    state: updated
   ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -605,79 +679,18 @@
     - rule_5.3.2
     - low
 
-- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+- name: 'SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured - pam_unix.so'
   pamd:
-    name: system-auth
-    type: auth
-    control: '[default=die]'
-    module_path: pam_faillock.so
-    module_arguments: 'authfail
-        audit
-        deny=5
-        unlock_time=900'
-    state: args_present
-    #state: updated
-  ignore_errors: yes
-  when:
-    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
-  tags:
-    - level1
-    - patch
-    - rule_5.3.2
-    - low
-
-- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
-  pamd:
-    name: system-auth
-    type: auth
-    control: sufficient
-    module_path: pam_faillock.so
-    module_arguments: 'authsucc
-        audit
-        deny=5
-        unlock_time=900'
-    state: args_present
-    #state: updated
-  ignore_errors: yes
-  when:
-    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
-  tags:
-    - level1
-    - patch
-    - rule_5.3.2
-    - low
-
-- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth"
-  pamd:
-    name: password-auth
-    type: auth
-    control: required
-    module_path: pam_faillock.so
-    module_arguments: 'preauth
-        audit
-        silent
-        deny=5
-        unlock_time=900'
-    state: args_present
-    #state: updated
-  ignore_errors: yes
-  when:
-    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
-  tags:
-    - level1
-    - patch
-    - rule_5.3.2
-    - low
-
-- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth"
-  pamd:
-    name: password-auth
+    name: '{{item}}'
     type: auth
     control: '[success=1 default=bad]'
     module_path: pam_unix.so
+    module_arguments: 'nullok try_first_pass'
     state: args_present
-    #state: updated
   ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -686,19 +699,87 @@
     - rule_5.3.2
     - low
 
-- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth" 
+# - name: 'SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured - Removal - pam_unix.so'
+#   pamd:
+#     name: '{{ item }}'
+#     type: auth
+#     control: sufficient
+#     module_path: 'pam_unix.so'
+#     state: absent
+#   ignore_errors: yes
+#   loop:
+#     - system-auth
+#     - password-auth
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.2
+#     - low
+
+# END # auth [success=1 default=bad] pam_unix.so #
+
+# START # auth [default=die] pam_faillock.so authfail audit deny=5 unlock_time=900 #
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured"
   pamd:
-    name: password-auth
+    name: '{{item}}'
+    type: auth
+    control: '[success=1 default=bad]'
+    module_path: pam_unix.so
+    new_type: auth
+    new_control: '[default=die]'
+    new_module_path: pam_faillock.so
+    module_arguments: authfail audit deny=5 unlock_time=900
+    state: after
+  ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured"
+  pamd:
+    name: '{{ item }}'
+    type: auth
+    control: sufficient
+    module_path: pam_unix.so
+    new_type: auth
+    new_control: '[default=die]'
+    new_module_path: pam_faillock.so
+    module_arguments: authfail audit deny=5 unlock_time=900
+    state: after
+  ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured"
+  pamd:
+    name: '{{ item }}'
     type: auth
     control: '[default=die]'
     module_path: pam_faillock.so
-    module_arguments: 'authfail
-        audit
-        deny=5
-        unlock_time=900'
+    module_arguments: authfail audit deny=5 unlock_time=900
     state: args_present
-    #state: updated
   ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -707,19 +788,25 @@
     - rule_5.3.2
     - low
 
-- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth"
+# END # auth [default=die] pam_faillock.so authfail audit deny=5 unlock_time=900 #
+
+# START # auth sufficient pam_faillock.so authsucc audit deny=5 unlock_time=900 #
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured"
   pamd:
-    name: password-auth
+    name: '{{item}}'
     type: auth
-    control: sufficient
+    control: '[default=die]'
     module_path: pam_faillock.so
-    module_arguments: 'authsucc
-        audit
-        deny=5
-        unlock_time=900'
-    state: args_present
-    #state: updated
+    new_type: auth
+    new_control: sufficient
+    new_module_path: pam_faillock.so
+    module_arguments: authsucc audit deny=5 unlock_time=900
+    state: after
   ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -727,6 +814,191 @@
     - patch
     - rule_5.3.2
     - low
+
+- name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured"
+  pamd:
+    name: '{{item}}'
+    type: auth
+    control: sufficient
+    module_path: pam_faillock.so
+    module_arguments: authsucc audit deny=5 unlock_time=900
+    state: args_present
+  ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.3.2
+    - low
+
+# END # auth sufficient pam_faillock.so authsucc audit deny=5 unlock_time=900 #
+
+# OLD # START #
+# - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+#   pamd:
+#     name: system-auth
+#     type: auth
+#     control: required
+#     module_path: pam_faillock.so
+#     module_arguments: 'preauth
+#         audit
+#         silent
+#         deny=5
+#         unlock_time=900'
+#     state: args_present
+#     #state: updated
+#   ignore_errors: yes
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.2
+#     - low
+
+# - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+#   pamd:
+#     name: system-auth
+#     type: auth
+#     control: '[success=1 default=bad]'
+#     module_path: pam_unix.so
+#     state: args_present
+#     #state: updated
+#   ignore_errors: yes
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.2
+#     - low
+
+# - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+#   pamd:
+#     name: system-auth
+#     type: auth
+#     control: '[default=die]'
+#     module_path: pam_faillock.so
+#     module_arguments: 'authfail
+#         audit
+#         deny=5
+#         unlock_time=900'
+#     state: args_present
+#     #state: updated
+#   ignore_errors: yes
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.2
+#     - low
+
+# - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | system-auth"
+#   pamd:
+#     name: system-auth
+#     type: auth
+#     control: sufficient
+#     module_path: pam_faillock.so
+#     module_arguments: 'authsucc
+#         audit
+#         deny=5
+#         unlock_time=900'
+#     state: args_present
+#     #state: updated
+#   ignore_errors: yes
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.2
+#     - low
+
+# - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth"
+#   pamd:
+#     name: password-auth
+#     type: auth
+#     control: required
+#     module_path: pam_faillock.so
+#     module_arguments: 'preauth
+#         audit
+#         silent
+#         deny=5
+#         unlock_time=900'
+#     state: args_present
+#     #state: updated
+#   ignore_errors: yes
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.2
+#     - low
+
+# - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth"
+#   pamd:
+#     name: password-auth
+#     type: auth
+#     control: '[success=1 default=bad]'
+#     module_path: pam_unix.so
+#     state: args_present
+#     #state: updated
+#   ignore_errors: yes
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.2
+#     - low
+
+# - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth" 
+#   pamd:
+#     name: password-auth
+#     type: auth
+#     control: '[default=die]'
+#     module_path: pam_faillock.so
+#     module_arguments: 'authfail
+#         audit
+#         deny=5
+#         unlock_time=900'
+#     state: args_present
+#     #state: updated
+#   ignore_errors: yes
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.2
+#     - low
+
+# - name: "SCORED | 5.3.2 | Ensure lockout for failed password attempts is configured | password-auth"
+#   pamd:
+#     name: password-auth
+#     type: auth
+#     control: sufficient
+#     module_path: pam_faillock.so
+#     module_arguments: 'authsucc
+#         audit
+#         deny=5
+#         unlock_time=900'
+#     state: args_present
+#     #state: updated
+#   ignore_errors: yes
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.2
+#     - low
 
 # - name: "SCORED | 5.3.2 | PATCH | Ensure lockout for failed password attempts is configured | Create SymLn for /etc/pam.d/system-auth-local to enable persistent configuration file"
 #   copy:
@@ -768,50 +1040,162 @@
 #       - patch
 #       - rule_5.3.2
 
-- name: "SCORED | 5.3.3 | Ensure password reuse is limited | password-auth"
+# END # OLD #
+# START # password sufficient pam_unix.so remember=5 #
+# Determine if pam_unix.so or pam_pwhistory.so should be utilized
+- name: 'SCORED | 5.3.3 | Ensure password reuse is limited'
+  shell: 'grep -q "^password\s*sufficient\s*pam_unix\.so" /etc/pam.d/system-auth'
+  register: system_auth_password_check_pam_unix
+  failed_when: 'system_auth_password_check_pam_unix.rc > 1'
+  changed_when: false
+  ignore_errors: yes
+  become: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.3.3
+    - low
+
+- name: 'SCORED | 5.3.3 | Ensure password reuse is limited'
+  shell: 'grep -q "^password\s+required\s+pam_pwhistory\.so" /etc/pam.d/system-auth'
+  register: system_auth_password_check_pam_pwhistory
+  failed_when: 'system_auth_password_check_pam_pwhistory.rc > 1'
+  changed_when: false
+  ignore_errors: yes
+  become: yes
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+  tags:
+    - level1
+    - patch
+    - rule_5.3.3
+    - low
+
+# START # DEBUG STATEMENTS #
+# - debug:
+#     var: system_auth_password_check_pam_unix
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.3
+#     - low
+
+
+# - debug:
+#     var: system_auth_password_check_pam_pwhistory
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.3
+#     - low
+# END # DEBUG STATEMENTS #
+
+- name: 'SCORED | 5.3.3 | Ensure password reuse is limited'
   pamd:
-    name: password-auth
+    name: '{{ item }}'
     type: password
     control: sufficient
-    module_path: pam_pwhistory.so
+    module_path: 'pam_unix.so'
     module_arguments: 'remember=5'
     state: args_present
-    #state: updated
   ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
-  tags:
-    - level1
-    - patch
-    - rule_5.3.3
-    - low
+    - system_auth_password_check_pam_unix.rc is defined and system_auth_password_check_pam_unix.rc == 0
 
-- name: "SCORED | 5.3.3 | Ensure password reuse is limited | system-auth"
+- name: 'SCORED | 5.3.3 | Ensure password reuse is limited'
   pamd:
-    name: system-auth
+    name: '{{ item }}'
+    type: password
+    control: required
+    module_path: 'pam_pwhistory.so'
+    module_arguments: 'remember=5'
+    state: args_present
+  ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
+  when:
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - system_auth_password_check_pam_pwhistory.rc is defined and system_auth_password_check_pam_pwhistory.rc == 0
+
+# END # password sufficient pam_unix.so remember=5 #
+
+# OLD # START #
+# - name: "SCORED | 5.3.3 | Ensure password reuse is limited | password-auth"
+#   pamd:
+#     name: password-auth
+#     type: password
+#     control: sufficient
+#     module_path: pam_pwhistory.so
+#     module_arguments: 'remember=5'
+#     state: updated
+#   ignore_errors: yes
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.3
+#     - low
+
+# - name: "SCORED | 5.3.3 | Ensure password reuse is limited | system-auth"
+#   pamd:
+#     name: system-auth
+#     type: password
+#     control: sufficient
+#     module_path: pam_pwhistory.so
+#     module_arguments: 'remember=5'
+#     state: updated
+#   ignore_errors: yes
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.3
+#     - low
+
+# OLD # END #
+
+# START # password sufficient pam_unix.so sha512 #
+
+- name: 'SCORED | 5.3.4 | PATCH | Ensure password hashing algorithm is SHA-512'
+  pamd:
+    name: '{{ item }}'
     type: password
     control: sufficient
-    module_path: pam_pwhistory.so
-    module_arguments: 'remember=5'
-    state: updated
+    module_path: 'pam_unix.so'
+    module_arguments: 'sha512'
+    state: args_present
   ignore_errors: yes
+  loop:
+    - system-auth
+    - password-auth
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
-  tags:
-    - level1
-    - patch
-    - rule_5.3.3
-    - low
 
-- name: "SCORED | 5.3.4 | PATCH | Ensure password hashing algorithm is SHA-512"
-  command: authconfig --passalgo=sha512 --update
-  when:
-    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
-  tags:
-    - level1
-    - patch
-    - rule_5.3.4
-    - low
+# END # password sufficient pam_unix.so sha512 #
+
+# OLD # START #
+# - name: "SCORED | 5.3.4 | PATCH | Ensure password hashing algorithm is SHA-512"
+#   command: authconfig --passalgo=sha512 --update
+#   when:
+#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#   tags:
+#     - level1
+#     - patch
+#     - rule_5.3.4
+# OLD # END #
 
 # - name: "SCORED | 5.3.2 | PATCH | Ensure lockout for failed password attempts is configured | /etc/pam.d/password-auth write changes"
 #   blockinfile:
@@ -844,6 +1228,8 @@
 #       - patch
 #       - rule_5.3.2
 #       - low
+
+# OLD # END #
 
 - name: "SCORED | 5.4.1.1 | PATCH | Ensure password expiration is 365 days or less"
   lineinfile:
