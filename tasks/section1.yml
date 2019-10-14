@@ -111,6 +111,9 @@
   command: rmmod squashfs
   register: result
   failed_when: "result.rc|float < 1"
+  changed_when:
+    - result.rc|float == 1
+    - '"ERROR" in result.stderr'
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
@@ -140,6 +143,9 @@
   command: rmmod udf
   register: result
   failed_when: "result.rc|float < 1"
+  changed_when:
+    - result.rc|float == 1
+    - '"ERROR" in result.stderr'
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
