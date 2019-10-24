@@ -590,6 +590,7 @@
   no_log: True
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_dot_forward_files is defined and amazonlinux2cis_modify_dot_forward_files
   tags:
     - rule_6.2.11
     - patch
@@ -604,6 +605,7 @@
   no_log: True
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_dot_netrc_files is defined and amazonlinux2cis_modify_dot_netrc_files
   tags:
     - rule_6.2.12
     - patch
@@ -620,6 +622,7 @@
   changed_when: no
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_dot_netrc_files_group is defined and amazonlinux2cis_modify_dot_netrc_files_group
   tags:
     - rule_6.2.13
     - patch
@@ -634,6 +637,7 @@
   no_log: yes
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_dot_netrc_files_group is defined and amazonlinux2cis_modify_dot_netrc_files_group
   tags:
     - rule_6.2.13
     - patch
@@ -643,8 +647,9 @@
 # - name: "SCORED | 6.2.13 | PATCH | Ensure users' .netrc files are not group or world accessible"
 #   debug:
 #     var: dot_netrc_files.stdout_lines
-#   when:
-#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#  when:
+#    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#    - amazonlinux2cis_modify_dot_netrc_files_group is defined and amazonlinux2cis_modify_dot_netrc_files_group
 #   tags:
 #     - rule_6.2.13
 #     - patch
@@ -656,6 +661,7 @@
     msg: "PASS | 6.2.13 | Users' .netrc files are not group or world accessible."
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_dot_netrc_files_group is defined and amazonlinux2cis_modify_dot_netrc_files_group
     - dot_netrc_files is defined and dot_netrc_files.stdout == ""
   tags:
     - rule_6.2.13
@@ -672,6 +678,7 @@
   changed_when: no
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_dot_netrc_files_group is defined and amazonlinux2cis_modify_dot_netrc_files_group
   tags:
     - rule_6.2.13
     - patch
@@ -686,6 +693,7 @@
   no_log: yes
   when:
     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+    - amazonlinux2cis_modify_dot_rhosts_files is defined and amazonlinux2cis_modify_dot_rhosts_files
   tags:
     - rule_6.2.14
     - patch
@@ -725,8 +733,8 @@
 # - name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
 #   debug:
 #     var: check_groups_in_passwd.stdout_lines
-#   when:
-#     - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
+#  when:
+#    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
 #   tags:
 #     - rule_6.2.15
 #     - patch
@@ -736,7 +744,9 @@
 - name: "SCORED | 6.2.15 | PATCH | Ensure all groups in /etc/passwd exist in /etc/group"
   debug:
     msg: "PASS | 6.2.15 | All groups exist in /etc/group."
-  when: check_groups_in_passwd.stdout == ""
+  when: 
+    - check_groups_in_passwd is defined and check_groups_in_passwd.stdout == ""
+    - amazonlinux2cis_level1 is defined and amazonlinux2cis_level1
   tags:
     - rule_6.2.15
     - patch
