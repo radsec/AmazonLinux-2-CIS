@@ -9,7 +9,7 @@
     ignore_errors: true
     ignore_unreachable: true
     amazonlinux2cis_level1: true
-    amazonlinux2cis_level2: false
+    amazonlinux2cis_level2: true
   tasks:
   - name: "Check if the host is reachable"
     setup:
@@ -41,7 +41,7 @@
     ignore_errors: false
     ignore_unreachable: true
     amazonlinux2cis_level1: true
-    amazonlinux2cis_level2: false
+    amazonlinux2cis_level2: true
   roles:
     - role: CIS_awslinux2_Benchmark
   post_tasks:
